@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회의실 예약 스케줄러 - Activity Selection</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+        .controls h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #2c3e50;
+        }
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-primary:hover { background: #2980b9; }
+        .btn-success { background: #27ae60; color: white; }
+        .btn-success:hover { background: #219a52; }
+        .btn-warning { background: #e67e22; color: white; }
+        .btn-warning:hover { background: #d35400; }
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-danger:hover { background: #c0392b; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn-secondary:hover { background: #7f8c8d; }
+
+        .meeting-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .meeting-input label { font-size: 13px; color: #555; min-width: 35px; }
+        .meeting-input input, .meeting-input select {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .meeting-input input[type="text"] { width: 130px; }
+        .meeting-input select { width: 90px; }
+
+        .results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .result-card {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .result-card h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        .result-card .count {
+            font-size: 36px;
+            font-weight: 700;
+        }
+        .result-card .detail {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+        .greedy-card .count { color: #27ae60; }
+        .bf-card .count { color: #e67e22; }
+        .match { color: #27ae60; font-weight: 600; }
+        .mismatch { color: #e74c3c; font-weight: 600; }
+
+        .timeline-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+        .timeline-container h2 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .timeline {
+            position: relative;
+            min-height: 100px;
+        }
+        .time-axis {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+        }
+        .time-label {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            min-width: 60px;
+        }
+        .meeting-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            height: 32px;
+        }
+        .meeting-label {
+            width: 100px;
+            font-size: 12px;
+            text-align: right;
+            padding-right: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .meeting-track {
+            flex: 1;
+            position: relative;
+            height: 100%;
+        }
+        .meeting-bar {
+            position: absolute;
+            height: 26px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: white;
+            font-weight: 500;
+            top: 3px;
+            transition: all 0.3s;
+        }
+        .meeting-bar.selected { background: #27ae60; }
+        .meeting-bar.not-selected { background: #e74c3c; opacity: 0.5; }
+        .meeting-bar.neutral { background: #bdc3c7; }
+
+        .meeting-list {
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .meeting-list table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .meeting-list th, .meeting-list td {
+            padding: 5px 8px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        .meeting-list th { background: #f8f9fa; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <h1>회의실 예약 스케줄러</h1>
+    <p class="subtitle">Activity Selection Problem -- Greedy vs Brute Force</p>
+
+    <div class="controls">
+        <h2>회의 관리</h2>
+        <div class="btn-row">
+            <button class="btn-primary" onclick="loadSample(8)">샘플 8개</button>
+            <button class="btn-primary" onclick="loadSample(12)">샘플 12개</button>
+            <button class="btn-primary" onclick="loadSample(15)">샘플 15개</button>
+            <button class="btn-danger" onclick="clearMeetings()">초기화</button>
+        </div>
+        <div class="meeting-input" id="addForm">
+            <label>이름</label>
+            <input type="text" id="inputName" placeholder="회의명" value="새 회의">
+            <label>시작</label>
+            <select id="inputStart"></select>
+            <label>종료</label>
+            <select id="inputEnd"></select>
+            <button class="btn-success" onclick="addMeeting()">추가</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn-success" onclick="runGreedy()">그리디 실행</button>
+            <button class="btn-warning" onclick="runBruteforce()">브루트포스 실행</button>
+            <button class="btn-secondary" onclick="runBoth()">둘 다 실행</button>
+        </div>
+    </div>
+
+    <div class="results" id="results" style="display:none;">
+        <div class="result-card greedy-card">
+            <h3>Greedy (탐욕)</h3>
+            <div class="count" id="greedyCount">-</div>
+            <div class="detail" id="greedyDetail"></div>
+        </div>
+        <div class="result-card bf-card">
+            <h3>Brute Force (완전탐색)</h3>
+            <div class="count" id="bfCount">-</div>
+            <div class="detail" id="bfDetail"></div>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <h2>타임라인</h2>
+        <div id="timeline"></div>
+    </div>
+
+    <div class="timeline-container" style="margin-top:15px;">
+        <h2>회의 목록</h2>
+        <div class="meeting-list" id="meetingList"></div>
+    </div>
+
+    <script>
+    let meetings = [];
+    let greedySelected = [];
+    let bfSelected = [];
+
+    const START_HOUR = 9;
+    const END_HOUR = 18;
+    const HOURS = END_HOUR - START_HOUR;
+
+    // 시간 select 옵션 채우기
+    function initTimeSelects() {
+        const startSel = document.getElementById('inputStart');
+        const endSel = document.getElementById('inputEnd');
+        for (let h = START_HOUR; h <= END_HOUR; h++) {
+            for (let m = 0; m < 60; m += 30) {
+                if (h === END_HOUR && m > 0) break;
+                const val = h + m / 60;
+                const label = `${h}:${m === 0 ? '00' : '30'}`;
+                startSel.innerHTML += `<option value="${val}">${label}</option>`;
+                endSel.innerHTML += `<option value="${val}">${label}</option>`;
+            }
+        }
+        endSel.value = "10";
+    }
+
+    function loadSample(count) {
+        fetch(`/api/sample?count=${count}`)
+            .then(r => r.json())
+            .then(data => {
+                meetings = data.meetings;
+                greedySelected = [];
+                bfSelected = [];
+                document.getElementById('results').style.display = 'none';
+                renderTimeline();
+                renderList();
+            });
+    }
+
+    function clearMeetings() {
+        meetings = [];
+        greedySelected = [];
+        bfSelected = [];
+        document.getElementById('results').style.display = 'none';
+        renderTimeline();
+        renderList();
+    }
+
+    function addMeeting() {
+        const name = document.getElementById('inputName').value || '회의';
+        const start = parseFloat(document.getElementById('inputStart').value);
+        const end = parseFloat(document.getElementById('inputEnd').value);
+        if (end <= start) { alert('종료 시간은 시작 시간보다 커야 합니다.'); return; }
+        meetings.push({
+            id: meetings.length,
+            name: name,
+            start: start,
+            end: end,
+        });
+        greedySelected = [];
+        bfSelected = [];
+        renderTimeline();
+        renderList();
+    }
+
+    function runGreedy() {
+        fetch('/api/schedule', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({meetings}),
+        })
+        .then(r => r.json())
+        .then(data => {
+            greedySelected = data.selected_ids;
+            document.getElementById('results').style.display = 'grid';
+            document.getElementById('greedyCount').textContent =
+                `${data.count} / ${data.total}`;
+            document.getElementById('greedyDetail').textContent =
+                `${data.total}개 중 ${data.count}개 선택 (O(n log n))`;
+            renderTimeline();
+            renderList();
+            checkMatch();
+        });
+    }
+
+    function runBruteforce() {
+        fetch('/api/schedule/bruteforce', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({meetings}),
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.error) { alert(data.error); return; }
+            bfSelected = data.selected_ids;
+            document.getElementById('results').style.display = 'grid';
+            document.getElementById('bfCount').textContent =
+                `${data.count} / ${data.total}`;
+            document.getElementById('bfDetail').textContent =
+                `${data.total}개 중 ${data.count}개 선택 (O(2^n))`;
+            renderTimeline();
+            renderList();
+            checkMatch();
+        });
+    }
+
+    function runBoth() {
+        runGreedy();
+        setTimeout(runBruteforce, 200);
+    }
+
+    function checkMatch() {
+        if (greedySelected.length > 0 && bfSelected.length > 0) {
+            const gc = greedySelected.length;
+            const bc = bfSelected.length;
+            const comp = document.getElementById('greedyDetail');
+            if (gc === bc) {
+                comp.innerHTML += ' <span class="match">= Brute Force 결과와 동일!</span>';
+            } else {
+                comp.innerHTML += ` <span class="mismatch">Brute Force(${bc})와 다름</span>`;
+            }
+        }
+    }
+
+    function renderTimeline() {
+        const container = document.getElementById('timeline');
+        if (meetings.length === 0) {
+            container.innerHTML = '<p style="color:#aaa;text-align:center;padding:30px;">회의를 추가하거나 샘플을 로드하세요.</p>';
+            return;
+        }
+        let html = '<div class="time-axis">';
+        html += '<div style="width:100px;"></div>';
+        for (let h = START_HOUR; h <= END_HOUR; h++) {
+            html += `<div class="time-label">${h}:00</div>`;
+        }
+        html += '</div>';
+
+        const sorted = [...meetings].sort((a, b) => a.start - b.start || a.end - b.end);
+        for (const m of sorted) {
+            const leftPct = ((m.start - START_HOUR) / HOURS * 100);
+            const widthPct = ((m.end - m.start) / HOURS * 100);
+            let cls = 'neutral';
+            if (greedySelected.includes(m.id)) cls = 'selected';
+            else if (greedySelected.length > 0) cls = 'not-selected';
+
+            html += `<div class="meeting-row">`;
+            html += `<div class="meeting-label" title="${m.name}">${m.name}</div>`;
+            html += `<div class="meeting-track">`;
+            html += `<div class="meeting-bar ${cls}" style="left:${leftPct}%;width:${widthPct}%;">${m.start}~${m.end}</div>`;
+            html += `</div></div>`;
+        }
+        container.innerHTML = html;
+    }
+
+    function renderList() {
+        const container = document.getElementById('meetingList');
+        if (meetings.length === 0) {
+            container.innerHTML = '';
+            return;
+        }
+        let html = '<table><tr><th>#</th><th>이름</th><th>시작</th><th>종료</th><th>Greedy</th><th>BF</th></tr>';
+        const sorted = [...meetings].sort((a, b) => a.end - b.end);
+        for (const m of sorted) {
+            const gMark = greedySelected.includes(m.id) ? '&#10003;' : '';
+            const bMark = bfSelected.includes(m.id) ? '&#10003;' : '';
+            html += `<tr>
+                <td>${m.id}</td>
+                <td>${m.name}</td>
+                <td>${m.start}:00</td>
+                <td>${m.end}:00</td>
+                <td style="color:#27ae60;font-weight:700;">${gMark}</td>
+                <td style="color:#e67e22;font-weight:700;">${bMark}</td>
+            </tr>`;
+        }
+        html += '</table>';
+        container.innerHTML = html;
+    }
+
+    initTimeSelects();
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 Diff 뷰어 - LCS 기반</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 { text-align: center; margin-bottom: 5px; color: #2c3e50; }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .input-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .input-area > div {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .input-area h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+        textarea:focus { outline: none; border-color: #3498db; }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-primary:hover { background: #2980b9; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn-secondary:hover { background: #7f8c8d; }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .stat-item .label { font-size: 12px; color: #888; }
+        .stat-item .value { font-size: 22px; font-weight: 700; }
+        .stat-item .value.green { color: #27ae60; }
+        .stat-item .value.red { color: #e74c3c; }
+        .stat-item .value.blue { color: #3498db; }
+
+        .diff-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .diff-header {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+        }
+        .diff-body {
+            font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .diff-line {
+            display: flex;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .diff-line:last-child { border-bottom: none; }
+        .line-num {
+            width: 45px;
+            text-align: right;
+            padding: 2px 8px;
+            color: #aaa;
+            background: #fafafa;
+            font-size: 12px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+        .line-marker {
+            width: 20px;
+            text-align: center;
+            padding: 2px 0;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .line-text {
+            flex: 1;
+            padding: 2px 10px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .diff-line.keep .line-text { background: white; }
+        .diff-line.keep .line-marker { color: #aaa; }
+
+        .diff-line.add .line-text { background: #e6ffed; }
+        .diff-line.add .line-num { background: #e6ffed; color: #27ae60; }
+        .diff-line.add .line-marker { color: #27ae60; }
+
+        .diff-line.remove .line-text { background: #ffeef0; }
+        .diff-line.remove .line-num { background: #ffeef0; color: #e74c3c; }
+        .diff-line.remove .line-marker { color: #e74c3c; }
+
+        .placeholder {
+            text-align: center;
+            padding: 40px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>텍스트 Diff 뷰어</h1>
+    <p class="subtitle">Longest Common Subsequence (LCS) 기반 텍스트 비교</p>
+
+    <div class="input-area">
+        <div>
+            <h3>원본 (Original)</h3>
+            <textarea id="textA" placeholder="원본 텍스트를 입력하세요..."></textarea>
+        </div>
+        <div>
+            <h3>수정본 (Modified)</h3>
+            <textarea id="textB" placeholder="수정된 텍스트를 입력하세요..."></textarea>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn-primary" onclick="compare()">비교 (Compare)</button>
+        <button class="btn-secondary" onclick="loadSample()">샘플 로드</button>
+        <button class="btn-secondary" onclick="clearAll()">초기화</button>
+    </div>
+
+    <div class="stats" id="stats" style="display:none;">
+        <div class="stat-item">
+            <div class="label">LCS 길이</div>
+            <div class="value blue" id="statLCS">-</div>
+        </div>
+        <div class="stat-item">
+            <div class="label">유사도</div>
+            <div class="value blue" id="statSimilarity">-</div>
+        </div>
+        <div class="stat-item">
+            <div class="label">추가된 줄</div>
+            <div class="value green" id="statAdded">-</div>
+        </div>
+        <div class="stat-item">
+            <div class="label">삭제된 줄</div>
+            <div class="value red" id="statRemoved">-</div>
+        </div>
+        <div class="stat-item">
+            <div class="label">유지된 줄</div>
+            <div class="value" id="statKept">-</div>
+        </div>
+    </div>
+
+    <div class="diff-container" id="diffContainer">
+        <div class="diff-header">Diff 결과</div>
+        <div class="diff-body" id="diffBody">
+            <div class="placeholder">위에 텍스트를 입력하고 "비교" 버튼을 클릭하세요.</div>
+        </div>
+    </div>
+
+    <script>
+    function compare() {
+        const textA = document.getElementById('textA').value;
+        const textB = document.getElementById('textB').value;
+
+        fetch('/api/diff', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({text_a: textA, text_b: textB}),
+        })
+        .then(r => r.json())
+        .then(data => {
+            renderStats(data.stats);
+            renderDiff(data.diff);
+        });
+    }
+
+    function renderStats(stats) {
+        document.getElementById('stats').style.display = 'flex';
+        document.getElementById('statLCS').textContent = stats.lcs_length;
+        document.getElementById('statSimilarity').textContent = stats.similarity + '%';
+        document.getElementById('statAdded').textContent = '+' + stats.added;
+        document.getElementById('statRemoved').textContent = '-' + stats.removed;
+        document.getElementById('statKept').textContent = stats.kept;
+    }
+
+    function renderDiff(diff) {
+        const body = document.getElementById('diffBody');
+        if (diff.length === 0) {
+            body.innerHTML = '<div class="placeholder">변경 사항이 없습니다.</div>';
+            return;
+        }
+
+        let html = '';
+        let lineA = 0;
+        let lineB = 0;
+
+        for (const item of diff) {
+            let numA = '', numB = '', marker = '', text = escapeHtml(item.text);
+
+            if (item.type === 'keep') {
+                lineA++;
+                lineB++;
+                numA = lineA;
+                numB = lineB;
+                marker = ' ';
+            } else if (item.type === 'add') {
+                lineB++;
+                numB = lineB;
+                marker = '+';
+            } else {
+                lineA++;
+                numA = lineA;
+                marker = '-';
+            }
+
+            html += `<div class="diff-line ${item.type}">
+                <div class="line-num">${numA}</div>
+                <div class="line-num">${numB}</div>
+                <div class="line-marker">${marker}</div>
+                <div class="line-text">${text || ' '}</div>
+            </div>`;
+        }
+
+        body.innerHTML = html;
+    }
+
+    function escapeHtml(text) {
+        const el = document.createElement('span');
+        el.textContent = text;
+        return el.innerHTML;
+    }
+
+    function loadSample() {
+        fetch('/api/sample')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('textA').value = data.text_a;
+                document.getElementById('textB').value = data.text_b;
+            });
+    }
+
+    function clearAll() {
+        document.getElementById('textA').value = '';
+        document.getElementById('textB').value = '';
+        document.getElementById('stats').style.display = 'none';
+        document.getElementById('diffBody').innerHTML =
+            '<div class="placeholder">위에 텍스트를 입력하고 "비교" 버튼을 클릭하세요.</div>';
+    }
+    </script>
+</body>
+</html>

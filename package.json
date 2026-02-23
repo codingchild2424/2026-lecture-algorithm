@@ -1,0 +1,14 @@
+{
+  "name": "algorithm-practice",
+  "private": true,
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^51.0.0",
+    "@slidev/theme-default": "latest",
+    "playwright-chromium": "^1.49.0"
+  }
+}

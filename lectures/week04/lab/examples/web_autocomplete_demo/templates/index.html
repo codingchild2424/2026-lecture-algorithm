@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 04 — 자동완성 API 비교</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 8px; color: #333; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+
+        .card { background: white; border-radius: 8px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card h2 { margin-bottom: 16px; color: #444; }
+
+        .search-container { position: relative; margin-bottom: 16px; }
+        .search-input { width: 100%; padding: 14px 18px; border: 2px solid #ddd; border-radius: 8px; font-size: 18px; transition: border-color 0.2s; }
+        .search-input:focus { outline: none; border-color: #3498db; }
+
+        .mode-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+        .mode-btn { flex: 1; padding: 10px; border: 2px solid #ddd; border-radius: 6px; background: white; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; }
+        .mode-btn.active { border-color: #3498db; background: #3498db; color: white; }
+        .mode-btn:hover:not(.active) { border-color: #bbb; }
+
+        .timing { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+        .timing-box { padding: 16px; border-radius: 6px; border: 2px solid #eee; text-align: center; }
+        .timing-box h3 { font-size: 13px; color: #666; margin-bottom: 4px; }
+        .timing-box .time { font-size: 28px; font-weight: bold; }
+        .timing-box .detail { font-size: 12px; color: #999; margin-top: 4px; }
+        .linear-box { border-color: #e74c3c; }
+        .linear-box .time { color: #e74c3c; }
+        .binary-box { border-color: #2ecc71; }
+        .binary-box .time { color: #2ecc71; }
+
+        .speedup { text-align: center; font-size: 18px; font-weight: bold; color: #3498db; margin: 8px 0; }
+
+        .dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; border-top: none; border-radius: 0 0 8px 8px; max-height: 300px; overflow-y: auto; z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: none; }
+        .dropdown.show { display: block; }
+        .dropdown-item { padding: 10px 18px; cursor: pointer; font-size: 15px; border-bottom: 1px solid #f0f0f0; }
+        .dropdown-item:hover { background: #f0f0ff; }
+        .dropdown-item .highlight { font-weight: bold; color: #3498db; }
+
+        .history { margin-top: 8px; }
+        .history table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .history th, .history td { padding: 6px 10px; text-align: left; border-bottom: 1px solid #eee; }
+        .history th { background: #f8f8f8; font-weight: 600; }
+
+        .info { background: #e8f4fd; border: 1px solid #b8daff; border-radius: 6px; padding: 12px 16px; font-size: 14px; color: #004085; margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Autocomplete Demo</h1>
+        <p class="subtitle">Linear Search vs Binary Search (bisect) on 100,000 words</p>
+
+        <div class="card">
+            <h2>Search Mode</h2>
+            <div class="mode-toggle">
+                <div class="mode-btn active" id="modeBoth" onclick="setMode('both')">Both (Compare)</div>
+                <div class="mode-btn" id="modeLinear" onclick="setMode('linear')">Linear Only</div>
+                <div class="mode-btn" id="modeBinary" onclick="setMode('binary')">Binary Only</div>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput"
+                       placeholder="Type a prefix (e.g., 'pro', 'abc', 'th')..."
+                       autocomplete="off">
+                <div class="dropdown" id="dropdown"></div>
+            </div>
+
+            <div class="timing">
+                <div class="timing-box linear-box">
+                    <h3>Linear Search (O(n))</h3>
+                    <div class="time" id="linearTime">-</div>
+                    <div class="detail" id="linearDetail">type to search</div>
+                </div>
+                <div class="timing-box binary-box">
+                    <h3>Binary Search (O(log n + k))</h3>
+                    <div class="time" id="binaryTime">-</div>
+                    <div class="detail" id="binaryDetail">type to search</div>
+                </div>
+            </div>
+            <div class="speedup" id="speedup"></div>
+        </div>
+
+        <div class="card">
+            <h2>Keystroke History</h2>
+            <div class="history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prefix</th>
+                            <th>Matches</th>
+                            <th>Linear (ms)</th>
+                            <th>Binary (ms)</th>
+                            <th>Speedup</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="info">
+            Dictionary: 100,000 randomly generated words (3-8 lowercase letters).<br>
+            Linear search scans all words with <code>str.startswith()</code>.<br>
+            Binary search uses <code>bisect</code> on the sorted word list to find the prefix range in O(log n).
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'both';
+        let debounceTimer = null;
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('mode' + mode.charAt(0).toUpperCase() + mode.slice(1)).classList.add('active');
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        const dropdown = document.getElementById('dropdown');
+
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(doSearch, 80);
+        });
+
+        searchInput.addEventListener('blur', () => {
+            setTimeout(() => dropdown.classList.remove('show'), 200);
+        });
+        searchInput.addEventListener('focus', () => {
+            if (dropdown.innerHTML) dropdown.classList.add('show');
+        });
+
+        async function doSearch() {
+            const prefix = searchInput.value.toLowerCase().trim();
+            if (!prefix) {
+                dropdown.classList.remove('show');
+                document.getElementById('linearTime').textContent = '-';
+                document.getElementById('binaryTime').textContent = '-';
+                document.getElementById('speedup').textContent = '';
+                return;
+            }
+
+            let linearData = null;
+            let binaryData = null;
+
+            if (currentMode === 'both' || currentMode === 'linear') {
+                const res = await fetch(`/api/autocomplete/linear?prefix=${encodeURIComponent(prefix)}`);
+                linearData = await res.json();
+                document.getElementById('linearTime').textContent = `${linearData.elapsed_ms.toFixed(3)} ms`;
+                document.getElementById('linearDetail').textContent = `${linearData.count} matches`;
+            } else {
+                document.getElementById('linearTime').textContent = '-';
+                document.getElementById('linearDetail').textContent = 'disabled';
+            }
+
+            if (currentMode === 'both' || currentMode === 'binary') {
+                const res = await fetch(`/api/autocomplete/binary?prefix=${encodeURIComponent(prefix)}`);
+                binaryData = await res.json();
+                document.getElementById('binaryTime').textContent = `${binaryData.elapsed_ms.toFixed(3)} ms`;
+                document.getElementById('binaryDetail').textContent = `${binaryData.count} matches`;
+            } else {
+                document.getElementById('binaryTime').textContent = '-';
+                document.getElementById('binaryDetail').textContent = 'disabled';
+            }
+
+            // Display dropdown with matches
+            const displayData = binaryData || linearData;
+            if (displayData && displayData.matches.length > 0) {
+                dropdown.innerHTML = displayData.matches.map(word => {
+                    const highlighted = `<span class="highlight">${word.substring(0, prefix.length)}</span>${word.substring(prefix.length)}`;
+                    return `<div class="dropdown-item">${highlighted}</div>`;
+                }).join('');
+                if (displayData.count > 20) {
+                    dropdown.innerHTML += `<div class="dropdown-item" style="color:#999;font-style:italic;">... and ${displayData.count - 20} more</div>`;
+                }
+                dropdown.classList.add('show');
+            } else {
+                dropdown.innerHTML = '<div class="dropdown-item" style="color:#999;">No matches</div>';
+                dropdown.classList.add('show');
+            }
+
+            // Speedup calculation
+            if (linearData && binaryData && binaryData.elapsed_ms > 0) {
+                const ratio = linearData.elapsed_ms / binaryData.elapsed_ms;
+                document.getElementById('speedup').textContent = `Binary is ${ratio.toFixed(1)}x faster`;
+
+                // Add to history
+                addHistory(prefix, displayData.count, linearData.elapsed_ms, binaryData.elapsed_ms, ratio);
+            } else {
+                document.getElementById('speedup').textContent = '';
+            }
+        }
+
+        function addHistory(prefix, count, linearMs, binaryMs, ratio) {
+            const tbody = document.getElementById('historyBody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><code>${prefix}</code></td>
+                <td>${count.toLocaleString()}</td>
+                <td>${linearMs.toFixed(3)}</td>
+                <td>${binaryMs.toFixed(3)}</td>
+                <td>${ratio.toFixed(1)}x</td>
+            `;
+            tbody.insertBefore(row, tbody.firstChild);
+            // Keep only last 20 entries
+            while (tbody.children.length > 20) {
+                tbody.removeChild(tbody.lastChild);
+            }
+        }
+    </script>
+</body>
+</html>
