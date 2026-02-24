@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 10 — Algorithms
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -461,4 +461,4 @@ These are among the most frequently used data structures in coding interviews an
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

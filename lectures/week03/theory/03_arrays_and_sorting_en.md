@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 3 — Arrays, Stacks, Queues, and Basic Sorting Algorithms
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -150,8 +150,8 @@ For each iteration:
 
 ```
 [15, 11, 29, 20, 65, 3, 73, 48, 31, 8]   Find max (73)
-[15, 11, 29, 20, 65, 3,  8, 48, 31|73]   Swap 73 with last, exclude 73
-[15, 11, 29, 20,  8, 3, 11, 48, 31|65,73] Find max (65), swap, exclude
+[15, 11, 29, 20, 65, 3,  8, 48, 31|73]   Swap 73↔8, exclude 73
+[15, 11, 29, 20, 31, 3,  8, 48|65, 73]   Find max (65), swap 65↔31, exclude
   ...
 [ 3,  8, 11, 15, 20, 29, 31, 48, 65, 73]  Sorted!
 ```
@@ -188,11 +188,15 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 | Step | Array State | Action |
 |------|------------|--------|
 | 0 | `[15, 11, 29, 20, 65, 3, 73, 48, 31, 8]` | Initial array |
-| 1 | `[15, 11, 29, 20, 65, 3, \|8\|, 48, 31, \|73\|]` | Max=73, swap with A[10] |
-| 2 | `[\|8\|, 11, 29, 20, \|65\|, 3, 15, 48, 31, 73]` | Max=65, swap with A[9] |
-| 3 | `[8, 11, 29, 20, \|31\|, 3, 15, \|48\|, 65, 73]` | Max=48, swap with A[8] |
-| ... | ... | Continue finding max, swapping |
-| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | Sorted |
+| 1 | `[15, 11, 29, 20, 65, 3, \|8\|, 48, 31 \| 73]` | Max=73, swap 73↔8 |
+| 2 | `[15, 11, 29, 20, \|31\|, 3, 8, 48 \| 65, 73]` | Max=65, swap 65↔31 |
+| 3 | `[15, 11, 29, 20, 31, 3, 8 \| 48, 65, 73]` | Max=48, no swap needed |
+| 4 | `[15, 11, 29, 20, \|8\|, 3 \| 31, 48, 65, 73]` | Max=31, swap 31↔8 |
+| 5 | `[15, 11, \|3\|, 20, 8 \| 29, 31, 48, 65, 73]` | Max=29, swap 29↔3 |
+| 6 | `[15, 11, 3, \|8\| \| 20, 29, 31, 48, 65, 73]` | Max=20, swap 20↔8 |
+| 7 | `[\|8\|, 11, 3 \| 15, 20, 29, 31, 48, 65, 73]` | Max=15, swap 15↔8 |
+| 8 | `[8, \|3\| \| 11, 15, 20, 29, 31, 48, 65, 73]` | Max=11, swap 11↔3 |
+| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | Sorted! |
 
 > Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
 
@@ -861,4 +865,4 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when } k = O(n)\text{)}$$
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

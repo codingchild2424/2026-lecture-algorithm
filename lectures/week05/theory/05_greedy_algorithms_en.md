@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 5 — Algorithms
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -595,12 +595,10 @@ Each vertex is finalized **exactly once**, and D[v] is the true shortest distanc
 
 # Next Week
 
-- **Set Cover Problem** and approximation algorithms
-- **Matroid Theory**: When and why greedy algorithms work (CLRS Ch. 16.4)
-- Advanced greedy applications
+- **Dynamic Programming** — optimal substructure, overlapping subproblems, memoization vs tabulation
 
 ---
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

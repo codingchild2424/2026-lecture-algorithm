@@ -127,31 +127,29 @@ Dijkstra(G, r):
 
 # Dijkstra — Step-by-Step Example
 
-Graph with 8 vertices, source = vertex 1:
+Graph with 5 vertices, source = vertex 1:
 
 ```
-     8    9    8
-  1 ---> 2    3 ---> 4
-  |      |    ^      |
-  |10    |1   |3     |12
-  |      v    |      v
-  5      6 ---|      7
-  |           |
-  |7     8    |11
-  v      v    |
-  8 ---> ... (edges with various weights)
+     1 --8--> 2 --2--> 3
+     |         ^        |
+    10         1        3
+     |         |        |
+     v         |        v
+     4 --------+   5 <--+
+     |              ^
+     +------7-------+
 ```
 
-| Step | Extracted | S | d[1] | d[2] | d[3] | d[4] | d[5] | d[6] | d[7] | d[8] |
-|------|-----------|---|------|------|------|------|------|------|------|------|
-| Init | -- | {} | **0** | inf | inf | inf | inf | inf | inf | inf |
-| (a) | 1 | {1} | 0 | 8 | 11 | 9 | inf | inf | inf | inf |
-| (b) | 2 | {1,2} | 0 | 8 | 11 | 9 | 18 | inf | inf | inf |
-| (c) | 4 | {1,2,4} | 0 | 8 | 11 | 9 | 10 | inf | inf | inf |
-| (d) | 5 | {1,2,4,5} | 0 | 8 | 11 | 9 | 10 | 19 | inf | inf |
-| (e) | 3 | {1,2,4,5,3} | 0 | 8 | 11 | 9 | 10 | 12 | inf | inf |
-| (f) | 6 | {1,2,4,5,3,6} | 0 | 8 | 11 | 9 | 10 | 12 | 19 | 19 |
-| ... | ... | ... | 0 | 8 | 11 | 9 | 10 | 12 | 16 | 16 |
+Edges: 1->2 (8), 1->4 (10), 2->3 (2), 3->5 (3), 4->2 (1), 4->5 (7)
+
+| Step | Extracted | S | d[1] | d[2] | d[3] | d[4] | d[5] |
+|------|-----------|---|------|------|------|------|------|
+| Init | -- | {} | **0** | inf | inf | inf | inf |
+| (a) | 1 | {1} | 0 | 8 | inf | 10 | inf |
+| (b) | 2 | {1,2} | 0 | 8 | 10 | 10 | inf |
+| (c) | 3 | {1,2,3} | 0 | 8 | 10 | 10 | 13 |
+| (d) | 4 | {1,2,3,4} | 0 | 8 | 10 | 10 | 13 |
+| (e) | 5 | {1,2,3,4,5} | 0 | 8 | 10 | 10 | 13 |
 
 The predecessor array `prev[]` lets us reconstruct the actual shortest path.
 
@@ -160,18 +158,20 @@ The predecessor array `prev[]` lets us reconstruct the actual shortest path.
 # Why Dijkstra Fails with Negative Weights
 
 ```
-    A ---(-5)---> C
-    |             ^
-   (2)           (1)
-    |             |
-    v             |
-    B ------------|
+    A ---(1)---> B --(-2)--> C
+    |                        ^
+    +----------(0)-----------+
 ```
 
-- Dijkstra picks B first (d[B]=2), finalizes it, then processes C
-- But path A -> C has cost -5, which is cheaper than A -> B -> C = 3
-- Once B is finalized, Dijkstra never reconsiders it
-- **Negative weights violate the greedy assumption**
+Edges: A->B (1), A->C (0), B->C (-2). Source = A.
+
+- Init: d[A]=0, d[B]=inf, d[C]=inf
+- Extract A (d=0): relax A->B: d[B]=1. relax A->C: d[C]=0
+- Extract C (d=0, **finalized!**): no outgoing edges from C
+- Extract B (d=1): relax B->C: 1+(-2) = -1 < 0, but C is already finalized!
+- Dijkstra outputs d[C]=0, but the true shortest path is A->B->C = 1+(-2) = **-1**
+
+The greedy assumption -- "extracting the minimum means the distance is final" -- relies on the fact that adding more edges can only **increase** cost. **Negative weights violate this assumption** because a longer path (more edges) can end up cheaper.
 
 This is why we need **Bellman-Ford** for graphs with negative weights.
 
@@ -679,7 +679,7 @@ Process order: 1 (f=10), 4 (f=9), 2 (f=8), 3 (f=7), 5 (f=6), ...
 | **DAG shortest path** | Topological sort + single pass, Theta(\|V\|+\|E\|) |
 | **SCCs (Kosaraju)** | Two DFS passes (G then G^R), Theta(\|V\|+\|E\|) |
 
-**Next week**: Dynamic Programming I
+**Next week**: **NP-Completeness & Approximation Algorithms**
 
 ---
 

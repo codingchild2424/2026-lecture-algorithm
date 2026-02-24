@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 6 — Algorithms
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -442,7 +442,7 @@ FloydWarshall(W, n):
 Graph:                    Initial D^(0):
   1 ──3──► 2              │   1    2    3    4
   │        │              │─────────────────────
-  8        2              1│  0    3    inf  7
+  7        2              1│  0    3    inf  7
   │        │              2│  inf  0    2    inf
   ▼        ▼              3│  5    inf  0    1
   4 ◄──1── 3              4│  2    inf  inf  0
@@ -451,12 +451,61 @@ Graph:                    Initial D^(0):
                           │   1    2    3    4
                           │─────────────────────
                           1│  0    3    5    6
-                          2│  7    0    2    3
+                          2│  5    0    2    3
                           3│  3    6    0    1
                           4│  2    5    7    0
 ```
 
 Each cell $D[i,j]$ now holds the shortest distance from $i$ to $j$.
+
+---
+
+# Edit Distance (Levenshtein Distance)
+
+**Problem:** Given two strings $X[1 \ldots m]$ and $Y[1 \ldots n]$, find the minimum number of single-character operations to transform $X$ into $Y$.
+
+**Operations** (each costs 1):
+- **Insert** a character
+- **Delete** a character
+- **Replace** a character
+
+**DP Recurrence:**
+
+$$
+E[i,j] = \begin{cases}
+j & \text{if } i = 0 \\
+i & \text{if } j = 0 \\
+E[i-1,j-1] & \text{if } X[i] = Y[j] \\
+1 + \min(E[i-1,j],\ E[i,j-1],\ E[i-1,j-1]) & \text{otherwise}
+\end{cases}
+$$
+
+- $E[i-1,j] + 1$: delete $X[i]$
+- $E[i,j-1] + 1$: insert $Y[j]$
+- $E[i-1,j-1] + 1$: replace $X[i]$ with $Y[j]$
+
+---
+
+# Edit Distance — Example
+
+Transform "**kitten**" → "**sitting**" (m=6, n=7):
+
+| E | ε | s | i | t | t | i | n | g |
+|---|---|---|---|---|---|---|---|---|
+| **ε** | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+| **k** | 1 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+| **i** | 2 | 2 | 1 | 2 | 3 | 4 | 5 | 6 |
+| **t** | 3 | 3 | 2 | 1 | 2 | 3 | 4 | 5 |
+| **t** | 4 | 4 | 3 | 2 | 1 | 2 | 3 | 4 |
+| **e** | 5 | 5 | 4 | 3 | 2 | 2 | 3 | 4 |
+| **n** | 6 | 6 | 5 | 4 | 3 | 3 | 2 | 3 |
+
+**Answer:** $E[6,7] = 3$ — three operations:
+1. **k** → **s** (replace)
+2. **e** → **i** (replace)
+3. insert **g** at end
+
+**Time:** $O(mn)$ | **Space:** $O(mn)$, reducible to $O(\min(m,n))$
 
 ---
 
@@ -483,6 +532,7 @@ Each cell $D[i,j]$ now holds the shortest distance from $i$ to $j$.
 | 0-1 Knapsack | $K[i,w]$ | $\max(K[i-1,w], K[i-1,w-w_i]+v_i)$ | $O(nC)$ |
 | Coin Change | $C[j]$ | $\min_{d_i \leq j}(C[j-d_i]+1)$ | $O(nk)$ |
 | Floyd-Warshall | $d_{ij}^{(k)}$ | $\min(d_{ij}^{(k-1)}, d_{ik}^{(k-1)}+d_{kj}^{(k-1)})$ | $O(n^3)$ |
+| Edit Distance | $E[i,j]$ | match: $E[i-1,j-1]$; else: $1+\min(E[i-1,j], E[i,j-1], E[i-1,j-1])$ | $O(mn)$ |
 
 ---
 
@@ -504,4 +554,4 @@ Each cell $D[i,j]$ now holds the shortest distance from $i$ to $j$.
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

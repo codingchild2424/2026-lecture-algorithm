@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 4 — Divide and Conquer Algorithms
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -64,7 +64,7 @@ An algorithm that **divides** the input of a given problem and **conquers** (sol
 
 # The Divide Phase
 
-**Example:** Input size $n$, split into 3 subproblems, each of size $n/2$
+**Example:** Input size $n$, split into 2 subproblems, each of size $n/2$
 
 After each split, subproblem size halves:
 - After 1 split: each size $= n/2$
@@ -130,14 +130,16 @@ For $T(n) = a \cdot T(n/b) + O(f(n))$:
 
 For $T(n) = a \cdot T(n/b) + O(f(n))$, compare $f(n)$ with $n^{\log_b a}$:
 
-**Case 1:** $f(n) < n^{\log_b a}$ (leaf cost dominates)
+**Case 1:** $f(n) = O(n^{\log_b a - \varepsilon})$ for some $\varepsilon > 0$ (leaf cost dominates)
 $$T(n) = \Theta(n^{\log_b a})$$
 
-**Case 2:** $f(n) \approx n^{\log_b a}$ (costs balanced across levels)
+**Case 2:** $f(n) = \Theta(n^{\log_b a})$ (costs balanced across levels)
 $$T(n) = \Theta(n^{\log_b a} \log n)$$
 
-**Case 3:** $f(n) > n^{\log_b a}$ (combine cost dominates)
+**Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$ for some $\varepsilon > 0$ (combine cost dominates)
 $$T(n) = \Theta(f(n))$$
+
+> **Note (Case 3):** Also requires the *regularity condition*: $a \cdot f(n/b) \le c \cdot f(n)$ for some $c < 1$ and sufficiently large $n$.
 
 ---
 
@@ -814,4 +816,4 @@ layout: section
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

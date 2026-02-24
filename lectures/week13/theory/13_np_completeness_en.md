@@ -529,12 +529,12 @@ Therefore **LONGEST-PATH is NP-Complete**. $\blacksquare$
 
 # The Reduction Chain — History
 
-The first NP-Complete proof was for **GSAT** (generalized SAT) by Cook (1971), proved directly from the definition.
+The first NP-Complete proof was for **SAT** (Boolean Satisfiability) by Cook (1971), proved directly from the definition.
 
 All subsequent proofs use **reduction from a known NP-Complete problem**:
 
 ```
-  GSAT (Cook, 1971)
+  CIRCUIT-SAT (Cook-Levin, 1971)
     │
     ▼
    SAT
@@ -1334,4 +1334,4 @@ All five problems have approximation ratio **2.0** — giving solutions at most 
 
 39780: Algorithms
 
-Unggi Lee (uglee@chosun.ac.kr)
+Unggi Lee (codingchild@korea.ac.kr)

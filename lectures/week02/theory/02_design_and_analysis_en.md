@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 2 — Algorithm Design and Complexity Analysis
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -793,10 +793,10 @@ The total work is: $f(n) + a \cdot f(n/b) + a^2 \cdot f(n/b^2) + \cdots + n^{\lo
 
 - **Assignment 1** is posted — check LMS for details
 - No quiz this week; quizzes begin **Week 03**
-- Next week: **Divide and Conquer** algorithms in depth
+- Next week: **Arrays, Sorting Algorithms** — elementary and advanced sorts
 
 ---
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 14 — Algorithms
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -763,4 +763,4 @@ Weeks 09--13 Key Concepts
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

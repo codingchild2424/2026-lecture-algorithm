@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 11 — Graph Algorithms I
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -804,4 +804,4 @@ Both are **greedy** algorithms that guarantee the **optimal** MST.
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

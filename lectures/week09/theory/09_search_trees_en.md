@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 9 — Search Trees
 
-Chosun University, Department of Computer Engineering
+Korea University Sejong Campus, Department of Computer Science
 
 ---
 layout: section
@@ -727,4 +727,4 @@ Merge: pull 25 down, combine with sibling.
 
 # Q & A
 
-uglee@chosun.ac.kr
+codingchild@korea.ac.kr

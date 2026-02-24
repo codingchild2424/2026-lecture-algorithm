@@ -124,7 +124,7 @@ O(1) < O(log n) < O(n) < O(n log n) < O(n^2) < O(n^3) < O(2^n) < O(n!)
 | O(n) | Linear | Linear search, counting sort |
 | O(n log n) | Linearithmic | Merge sort, Heap sort |
 | O(n^2) | Quadratic | Selection sort, Bubble sort |
-| O(n^3) | Cubic | Matrix chain DP, Floyd-Warshall |
+| O(n^3) | Cubic | Floyd-Warshall |
 | O(2^n) | Exponential | Naive recursive Fibonacci |
 
 ---
@@ -404,12 +404,11 @@ Dynamic Programming
 |---------|-----------|------------|------|-------|
 | Fibonacci | F(i) | F(i) = F(i-1) + F(i-2) | O(n) | O(n) |
 | Matrix Path | C(i,j) = min cost to (i,j) | C(i,j) = m(i,j) + min(C(i-1,j), C(i,j-1)) | O(mn) | O(mn) |
-| Pebble (stone) | peb(i,p) for pattern p | peb(i,p) = w(i,p) + max over compatible q of peb(i-1,q) | O(4n) | O(4n) |
-| Matrix Chain Mult. | C(i,j) = min cost to multiply M_i..M_j | C(i,j) = min_k{C(i,k) + C(k+1,j) + p_{i-1}*p_k*p_j} | O(n^3) | O(n^2) |
 | LCS | L(i,j) = LCS of X_1..i and Y_1..j | match: L(i-1,j-1)+1; else: max(L(i-1,j), L(i,j-1)) | O(mn) | O(mn) |
 | Edit Distance | E(i,j) = edit dist of S_1..i, T_1..j | match: E(i-1,j-1); else: 1+min(E(i-1,j), E(i,j-1), E(i-1,j-1)) | O(mn) | O(mn) |
 | 0/1 Knapsack | K(i,w) = max value with items 1..i, capacity w | max(K(i-1,w), v_i + K(i-1, w-w_i)) | O(nC) | O(nC) |
 | Coin Change (DP) | C(j) = min coins for amount j | C(j) = 1 + min over d_i of C(j - d_i) | O(nk) | O(n) |
+| Floyd-Warshall | D(i,j,k) = shortest path i to j via {1..k} | D(i,j,k) = min(D(i,j,k-1), D(i,k,k-1)+D(k,j,k-1)) | O(n^3) | O(n^2) |
 
 ---
 
@@ -585,7 +584,6 @@ layout: section
 - LCS: L(i,j) = L(i-1,j-1)+1 if match, else max(L(i-1,j), L(i,j-1))
 - Edit Distance: E(i,j) = E(i-1,j-1) if match, else 1+min(three neighbors)
 - 0/1 Knapsack: K(i,w) = max(K(i-1,w), v_i + K(i-1,w-w_i))
-- Matrix Chain: C(i,j) = min_k{C(i,k) + C(k+1,j) + p_{i-1}*p_k*p_j}
 
 ---
 
