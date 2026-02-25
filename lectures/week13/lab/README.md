@@ -1,34 +1,43 @@
-# Week 13 Lab — NP-Complete & Approximation + Project Wrap-Up
+# Week 13 Lab — Project Finalization + Presentations
 
-## Objectives
-- Experience the computational complexity of NP-Complete problems firsthand.
-- Verify the practicality of approximation algorithms.
-- Finalize the project and prepare for the presentation.
-
----
-
-## Algorithm Exercises (15 min)
-
-### Ex 1: TSP Brute Force (10 min)
-Run `examples/tsp.py` and observe how the execution time explodes for N=8~15.
-
-### Ex 2: TSP Approximation (5 min)
-In the same file, check the results of the MST-based approximation algorithm.
+## Overview
+- **Duration**: 50 minutes
+- **Format**: Final code polish (15 min) + team presentations (35 min)
+- **Goal**: Finalize projects and present to the class
 
 ---
 
-## Project Wrap-Up (35 min)
+## Part 1: Final Code Polish (15 min)
 
-### Proj 1: Finalize Code (15 min)
-- Integrate all algorithm features
-- Fix bugs and handle edge cases
+Use the first 15 minutes to:
+- Fix any remaining bugs
+- Ensure all algorithm features are working
+- Verify minimum 4 algorithms are applied
+- Prepare your demo scenario
 
-### Proj 2: Complete Presentation Materials (15 min)
-- Summarize applied algorithms (at least 4)
-- Include before/after performance comparison data
-- Prepare demo scenario
+---
 
-### Proj 3: Rehearsal (5 min)
-Brief presentation rehearsal within the team
+## Part 2: Team Presentations (35 min)
 
-**Milestone**: Code + presentation materials finalized
+### Format
+- **7 minutes** per team: 5 min presentation + 2 min Q&A
+- All team members must participate in the presentation
+
+### Presentation Content
+1. **Project Introduction** — web app topic and feature description
+2. **Algorithms Applied** — at least 4, with brief explanation of each
+3. **Performance Comparison** — before/after measurement results
+4. **Live Demo** — walk through the running web app
+5. **Lessons Learned** — challenges faced and key takeaways
+
+### Deliverables
+- GitHub repository link (code + README)
+- Presentation materials (PDF or slides)
+
+### Grading Criteria
+| Category | Weight |
+|----------|--------|
+| Algorithm application | 40% |
+| Performance comparison | 20% |
+| Completeness | 20% |
+| Presentation | 20% |

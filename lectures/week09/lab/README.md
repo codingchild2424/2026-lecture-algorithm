@@ -1,53 +1,81 @@
-# Week 09 Lab — Search Trees + Project Kickoff
+# Week 09 Lab — Claude Code Tutorial + Project Kickoff
 
-## Objectives
-- Implement basic BST operations and observe tree degeneracy.
-- Begin the team project.
-
----
-
-## Algorithm Exercises (15 min)
-
-### Ex 1: BST Implementation (10 min)
-Refer to `examples/bst.py` and implement BST insert, search, and delete operations.
-
-### Ex 2: Observing BST Degeneracy (5 min)
-Insert sorted data [1, 2, 3, ..., 100] into a BST and observe the resulting shape.
-> The tree height becomes O(n), effectively degenerating into a linked list.
+## Overview
+- **Duration**: 50 minutes
+- **Format**: Guided tutorial + team activity
+- **Goal**: Learn to use Claude Code for building web applications, form project teams, and set up a project skeleton
 
 ---
 
-## Project Introduction & Kickoff (35 min)
+## Part 1: Claude Code Tutorial (25 min)
 
-### Proj 0: Team Project Overview (10 min)
+### Task 1: Install Claude Code (5 min)
+Install Claude Code and verify it runs:
+```bash
+npm install -g @anthropic-ai/claude-code
+claude
+```
 
-**Project Overview**: Develop a web application that incorporates algorithms.
+If you encounter issues:
+- Node.js not installed: `brew install node` (macOS) or download from https://nodejs.org
+- npm permission errors: use `sudo npm install -g ...` or use nvm
 
-**Suggested Topics** (choose one, or propose your own):
+### Task 2: Build a Flask App with Claude Code (20 min)
+Use Claude Code to generate a simple web application step by step:
+
+1. **Create a project directory and start Claude Code:**
+   ```bash
+   mkdir my-web-app && cd my-web-app
+   claude
+   ```
+
+2. **Ask Claude Code to create a Flask starter app:**
+   > "Create a simple Flask web app with a landing page, a page that sorts a list of numbers using different algorithms, and a page that searches for a number using binary search."
+
+3. **Run and test the app:**
+   ```bash
+   pip install flask
+   python app.py
+   ```
+
+4. **Iterate with Claude Code** — ask it to add features, fix bugs, or explain the code.
+
+**Key Skills to Practice**:
+- Giving clear, specific prompts
+- Reviewing and understanding generated code (do not blindly accept)
+- Asking "why?" to learn from the agent
+
+---
+
+## Part 2: Project Kickoff (25 min)
+
+### Task 3: Team Formation + Topic Selection (10 min)
+- Form teams of **3-4 members**
+- Select a topic (or propose your own):
 
 | Topic | Description | Example Algorithms |
 |-------|-------------|-------------------|
-| Mini Shopping Mall | Product listings, search, recommendations, shopping cart | Sorting, Hash, Graph (recommendations), DP |
+| Mini Shopping Mall | Product listings, search, recommendations, cart | Sorting, Hash, Graph (recommendations), DP |
 | Social Network | Profiles, friends, feed, recommendations | BST, Hash, BFS (friend suggestions), Dijkstra |
-| Campus Map/Navigation | Building search, route finding | Hash, Graph, Dijkstra, Greedy |
+| Campus Map/Navigator | Building search, route finding | Hash, Graph, Dijkstra, Greedy |
+
+### Task 4: Project Skeleton Setup (15 min)
+Use Claude Code to create your team's project skeleton:
+- Basic Flask app with routes for your topic
+- Sample data (products, users, buildings, etc.)
+- At least one working page
 
 **Grading Criteria**:
-- Algorithm Application (40%): Apply at least 4 different algorithms
-- Performance Comparison (20%): Before/after measurement results
-- Completeness (20%): Web app functionality, code quality
+- Algorithm application (40%): Minimum 4 algorithms
+- Performance comparison (20%): Before/after measurements
+- Completeness (20%): Working web app, code quality
 - Presentation (20%): Slides, explanation, Q&A
 
-**Schedule**:
-- Week 09: Team formation + topic selection + web app skeleton
-- Week 10: Add hash table features
-- Week 11: Add graph traversal features + midpoint check-in
-- Week 12: Add shortest path features + start preparing slides
-- Week 13: Final polish + presentation preparation
-- **Week 14: Team presentations** (7 min presentation + 3 min Q&A)
-
-### Proj 1: Team Formation + Topic Selection (10 min)
-- Form teams of 3 to 4 members.
-- Select a topic and confirm with the instructor.
-
-### Proj 2: Web App Skeleton (15 min)
-Build a basic Flask + HTML structure. Refer to `examples/flask_starter/`.
+**Project Schedule**:
+| Week | Activity | Milestone |
+|------|----------|-----------|
+| 09 | CC tutorial + kickoff | Team formed, skeleton running |
+| 10 | Hash table features | Hash-based feature integrated |
+| 11 | Graph traversal features | Graph feature + midpoint check-in |
+| 12 | Shortest path features | Path finding + presentation draft |
+| 13 | Finalization + presentations | Code + slides complete |
