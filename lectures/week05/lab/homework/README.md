@@ -1,14 +1,23 @@
-# Homework 4 — MST + Dijkstra
+# Week 05 Homework — Greedy: Baekjoon Practice
 
-## 목표
-Kruskal의 MST와 Dijkstra 최단 경로를 구현한다.
+## 과제 설명
+아래 백준 문제를 풀고, 각 문제에 대한 **풀이 보고서**를 작성하세요.
 
-## 문제
+### 보고서 포함 내용
+- 문제 풀이 코드 (Python)
+- 풀이 접근 방법 및 알고리즘 설명
+- 시간 복잡도 분석
 
-### Part 1: Kruskal MST (50점)
-`skeleton/solution.py`의 `kruskal_mst(n, edges)` 함수를 구현하세요.
-- Union-Find를 사용하세요.
+---
 
-### Part 2: Dijkstra (50점)
-`dijkstra(graph, start)` 함수를 구현하세요.
-- heapq를 사용하세요.
+## 문제 1: 동전 0 (BOJ 11047) — Silver IV
+- **링크**: https://www.acmicpc.net/problem/11047
+
+## 문제 2: ATM (BOJ 11399) — Silver IV
+- **링크**: https://www.acmicpc.net/problem/11399
+
+## 문제 3: 회의실 배정 (BOJ 1931) — Silver I
+- **링크**: https://www.acmicpc.net/problem/1931
+
+## 문제 4: 잃어버린 괄호 (BOJ 1541) — Silver II
+- **링크**: https://www.acmicpc.net/problem/1541

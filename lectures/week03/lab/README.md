@@ -1,39 +1,62 @@
-# Week 03 Lab — Sorting: Baekjoon Practice
+# Week 03 Lab — Sorting Algorithm Implementation & Benchmark
 
-## Overview
-- **Duration**: 50 minutes
-- **Format**: Solve 4 Baekjoon problems (individually or in pairs)
-- **Goal**: Apply various sorting techniques and understand when to use each one
-
----
-
-## Problem 1: Sort Inside (BOJ 1427) — Silver V
-- **Link**: https://www.acmicpc.net/problem/1427
-- **Concept**: Descending sort — sort the digits of a number in non-increasing order
-- **Hint**: Convert the number to a list of digits, sort in descending order, and join them back
-- **Time limit**: ~10 min
-
-## Problem 2: Sort Numbers 2 (BOJ 2751) — Silver V
-- **Link**: https://www.acmicpc.net/problem/2751
-- **Concept**: Efficient sorting — sort up to 1,000,000 numbers in ascending order
-- **Hint**: O(n²) sorts will TLE; use Python's built-in `sorted()` which runs in O(n log n)
-- **Time limit**: ~10 min
-
-## Problem 3: Sort Numbers 3 (BOJ 10989) — Bronze I
-- **Link**: https://www.acmicpc.net/problem/10989
-- **Concept**: Counting sort — sort up to 10,000,000 numbers where each value is at most 10,000
-- **Hint**: Values are bounded by 10,000 — use a counting array instead of comparison-based sort; also use `sys.stdin` for fast I/O
-- **Time limit**: ~15 min
-
-## Problem 4: Coordinate Sort (BOJ 11650) — Silver V
-- **Link**: https://www.acmicpc.net/problem/11650
-- **Concept**: Multi-key sorting — sort 2D coordinates by x first, then by y
-- **Hint**: Python's `sort()` naturally handles tuples in lexicographic order — just sort a list of (x, y) pairs
-- **Time limit**: ~15 min
+## Objectives
+- Implement fundamental sorting algorithms and compare their performance.
+- Experience how the choice of sorting algorithm affects user experience in a web application.
 
 ---
 
-## Tips
-- In Python, use `sys.stdin.readline` for fast input when N is large
-- Know when comparison sort O(n log n) is sufficient vs. when counting sort O(n + k) is needed
-- Python's Timsort is highly optimized — prefer built-in sort unless the problem requires a specific algorithm
+## Type A — Algorithm Implementation
+
+### A-1: Basic Sorting Implementation (10 min)
+
+Fill in the TODOs in `examples/basic_sorts.py` to implement Selection Sort, Bubble Sort, and Insertion Sort.
+
+Each function takes a list and returns a new sorted list.
+
+Test:
+```bash
+python examples/basic_sorts.py
+```
+
+### A-2: Advanced Sorting Implementation (15 min)
+
+Fill in the TODOs in `examples/advanced_sorts.py` to implement Merge Sort and Quick Sort.
+
+### A-3: Benchmark (10 min)
+
+Run `examples/sort_benchmark.py` to compare the performance of all sorting algorithms.
+
+```bash
+python examples/sort_benchmark.py
+```
+
+Measure the execution time of each algorithm at N=100, 1,000, 10,000, and 100,000, and examine the resulting graphs.
+
+**Question**: At what point does the difference between O(n²) and O(n log n) algorithms become noticeable?
+
+---
+
+## Type B — Web Code Analysis
+
+### B-1: Mini Shopping Mall Sort Comparison (15 min)
+
+Run the Flask app in `examples/web_sort_demo/`:
+
+```bash
+cd examples/web_sort_demo
+pip install flask
+python app.py
+```
+
+Open `http://localhost:5000` in your browser and:
+1. Click the "Sort with Bubble Sort" button and check the loading time
+2. Click the "Sort with Quick Sort" button and check the loading time
+3. Change the number of products from 1,000 to 10,000 to 50,000 and feel the difference
+
+**Question**: What would happen if a real online shopping mall used an O(n²) sorting algorithm?
+
+---
+
+## Homework 2
+See `homework/README.md` for assignment details.

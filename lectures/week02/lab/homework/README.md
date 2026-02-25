@@ -1,24 +1,23 @@
-# Homework 1 — 복잡도 분석
+# Week 02 Homework — Complexity: Baekjoon Practice
 
-## 목표
-주어진 함수들의 시간복잡도를 분석하고, 실험으로 검증한다.
+## 과제 설명
+아래 백준 문제를 풀고, 각 문제에 대한 **풀이 보고서**를 작성하세요.
 
-## 문제
+### 보고서 포함 내용
+- 문제 풀이 코드 (Python)
+- 풀이 접근 방법 및 알고리즘 설명
+- 시간 복잡도 분석
 
-### Part 1: 복잡도 분석 (50점)
-`skeleton/solution.py`의 5개 함수에 대해:
-1. 각 함수의 시간복잡도를 Big-O 표기법으로 답하세요.
-2. `analyze()` 함수에 각 함수의 복잡도를 문자열로 반환하도록 구현하세요.
+---
 
-### Part 2: 실험적 검증 (50점)
-`benchmark()` 함수를 구현하여:
-1. 각 함수를 N=100, 1000, 10000에서 실행 시간을 측정
-2. 결과를 딕셔너리로 반환
+## 문제 1: 알고리즘 수행 시간 1 (BOJ 24262) — Bronze V
+- **링크**: https://www.acmicpc.net/problem/24262
 
-## 제출
-```bash
-python -m pytest tests/test_basic.py -v
-```
+## 문제 2: 알고리즘 수행 시간 2 (BOJ 24263) — Bronze IV
+- **링크**: https://www.acmicpc.net/problem/24263
 
-## 마감
-다음 주 수업 전까지
+## 문제 3: 알고리즘 수행 시간 3 (BOJ 24264) — Bronze III
+- **링크**: https://www.acmicpc.net/problem/24264
+
+## 문제 4: 알고리즘 수행 시간 4 (BOJ 24265) — Bronze III
+- **링크**: https://www.acmicpc.net/problem/24265
