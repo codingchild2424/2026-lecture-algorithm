@@ -1,34 +1,34 @@
-# Week 13 Lab — NP-Complete & 근사 + 프로젝트 마무리
+# Week 13 Lab — NP-Complete & Approximation + Project Wrap-Up
 
-## 목표
-- NP-Complete 문제의 계산 복잡도를 체감한다.
-- 근사 알고리즘의 실용성을 확인한다.
-- 프로젝트를 최종 마무리하고 발표를 준비한다.
-
----
-
-## 알고리즘 실습 (15분)
-
-### Ex 1: TSP 브루트포스 (10분)
-`examples/tsp.py`를 실행하여 N=8~15에서 실행 시간이 폭증하는 것을 관찰합니다.
-
-### Ex 2: TSP 근사 (5분)
-같은 파일에서 MST 기반 근사 알고리즘의 결과를 확인합니다.
+## Objectives
+- Experience the computational complexity of NP-Complete problems firsthand.
+- Verify the practicality of approximation algorithms.
+- Finalize the project and prepare for the presentation.
 
 ---
 
-## 프로젝트 마무리 (35분)
+## Algorithm Exercises (15 min)
 
-### Proj 1: 최종 코드 완성 (15분)
-- 모든 알고리즘 기능 통합
-- 버그 수정, 엣지 케이스 처리
+### Ex 1: TSP Brute Force (10 min)
+Run `examples/tsp.py` and observe how the execution time explodes for N=8~15.
 
-### Proj 2: 발표자료 완성 (15분)
-- 적용한 알고리즘 정리 (최소 4개)
-- before/after 성능 비교 데이터 포함
-- 데모 시나리오 준비
+### Ex 2: TSP Approximation (5 min)
+In the same file, check the results of the MST-based approximation algorithm.
 
-### Proj 3: 리허설 (5분)
-팀 내 간단한 발표 리허설
+---
 
-**마일스톤**: 코드 + 발표자료 최종 완성
+## Project Wrap-Up (35 min)
+
+### Proj 1: Finalize Code (15 min)
+- Integrate all algorithm features
+- Fix bugs and handle edge cases
+
+### Proj 2: Complete Presentation Materials (15 min)
+- Summarize applied algorithms (at least 4)
+- Include before/after performance comparison data
+- Prepare demo scenario
+
+### Proj 3: Rehearsal (5 min)
+Brief presentation rehearsal within the team
+
+**Milestone**: Code + presentation materials finalized

@@ -1,30 +1,30 @@
-# Week 10 Lab — 해시 테이블 + 프로젝트
+# Week 10 Lab — Hash Tables + Project
 
-## 목표
-- 해시 테이블의 두 가지 충돌 해결 방법을 구현한다.
-- 프로젝트에 해시 기반 기능을 추가한다.
-
----
-
-## 알고리즘 실습 (25분)
-
-### Ex 1: Chaining 해시 테이블 (15분)
-`examples/hash_chaining.py`를 참고하여 Chaining 방식 해시 테이블을 구현합니다.
-
-### Ex 2: Open Addressing (10분)
-`examples/hash_probing.py`를 참고하여 Linear Probing 방식을 구현합니다.
+## Objectives
+- Implement two collision resolution strategies for hash tables.
+- Add hash-based features to the project.
 
 ---
 
-## 프로젝트 작업 (25분)
+## Algorithm Exercises (25 min)
 
-### Proj 1: 해시 기반 기능 추가 (15분)
-프로젝트에 해시 테이블을 활용한 기능을 추가합니다:
-- 쇼핑몰: 상품 ID → 상품 정보 빠른 조회, 장바구니 캐싱
-- 소셜 네트워크: 유저 ID 매핑, 세션 관리
-- 캠퍼스 지도: 건물 이름 → 좌표 매핑
+### Ex 1: Chaining Hash Table (15 min)
+Refer to `examples/hash_chaining.py` and implement a hash table using the chaining method.
 
-### Proj 2: 성능 비교 (10분)
-리스트 순차 탐색 vs 해시 조회 성능을 측정하여 프로젝트에 기록합니다.
+### Ex 2: Open Addressing (10 min)
+Refer to `examples/hash_probing.py` and implement the linear probing method.
 
-**마일스톤**: 해시 테이블 활용 기능 추가 완료
+---
+
+## Project Work (25 min)
+
+### Proj 1: Add Hash-Based Features (15 min)
+Add features to your project that utilize hash tables:
+- Shopping Mall: Fast product lookup by product ID, shopping cart caching
+- Social Network: User ID mapping, session management
+- Campus Map: Building name to coordinate mapping
+
+### Proj 2: Performance Comparison (10 min)
+Measure and record the performance of sequential list search vs. hash table lookup in your project.
+
+**Milestone**: Hash table feature integration complete

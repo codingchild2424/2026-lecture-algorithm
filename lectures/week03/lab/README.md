@@ -1,47 +1,47 @@
-# Week 03 Lab — 정렬 알고리즘 구현 & 벤치마크
+# Week 03 Lab — Sorting Algorithm Implementation & Benchmark
 
-## 목표
-- 기본 정렬 알고리즘을 직접 구현하고, 성능을 비교한다.
-- 웹 애플리케이션에서 정렬 알고리즘 선택이 사용자 경험에 미치는 영향을 체험한다.
+## Objectives
+- Implement fundamental sorting algorithms and compare their performance.
+- Experience how the choice of sorting algorithm affects user experience in a web application.
 
 ---
 
-## Type A — 알고리즘 구현
+## Type A — Algorithm Implementation
 
-### A-1: 기본 정렬 구현 (10분)
+### A-1: Basic Sorting Implementation (10 min)
 
-`examples/basic_sorts.py`의 TODO를 채워 Selection Sort, Bubble Sort, Insertion Sort를 구현하세요.
+Fill in the TODOs in `examples/basic_sorts.py` to implement Selection Sort, Bubble Sort, and Insertion Sort.
 
-각 함수는 리스트를 받아 정렬된 새 리스트를 반환합니다.
+Each function takes a list and returns a new sorted list.
 
-테스트:
+Test:
 ```bash
 python examples/basic_sorts.py
 ```
 
-### A-2: 고급 정렬 구현 (15분)
+### A-2: Advanced Sorting Implementation (15 min)
 
-`examples/advanced_sorts.py`의 TODO를 채워 Merge Sort, Quick Sort를 구현하세요.
+Fill in the TODOs in `examples/advanced_sorts.py` to implement Merge Sort and Quick Sort.
 
-### A-3: 벤치마크 (10분)
+### A-3: Benchmark (10 min)
 
-`examples/sort_benchmark.py`를 실행하여 모든 정렬 알고리즘의 성능을 비교합니다.
+Run `examples/sort_benchmark.py` to compare the performance of all sorting algorithms.
 
 ```bash
 python examples/sort_benchmark.py
 ```
 
-N=100, 1000, 10000, 100000에서 각 알고리즘의 실행 시간을 측정하고 그래프를 확인하세요.
+Measure the execution time of each algorithm at N=100, 1,000, 10,000, and 100,000, and examine the resulting graphs.
 
-**질문**: O(n²) 알고리즘과 O(n log n) 알고리즘의 차이가 언제부터 눈에 띄나요?
+**Question**: At what point does the difference between O(n²) and O(n log n) algorithms become noticeable?
 
 ---
 
-## Type B — 웹 코드 분석
+## Type B — Web Code Analysis
 
-### B-1: 미니 쇼핑몰 정렬 비교 (15분)
+### B-1: Mini Shopping Mall Sort Comparison (15 min)
 
-`examples/web_sort_demo/`의 Flask 앱을 실행합니다:
+Run the Flask app in `examples/web_sort_demo/`:
 
 ```bash
 cd examples/web_sort_demo
@@ -49,14 +49,14 @@ pip install flask
 python app.py
 ```
 
-브라우저에서 `http://localhost:5000`을 열어:
-1. "Bubble Sort로 정렬" 버튼을 클릭하고 로딩 시간을 확인
-2. "Quick Sort로 정렬" 버튼을 클릭하고 로딩 시간을 확인
-3. 상품 수를 1000 → 10000 → 50000으로 변경하며 차이를 체감
+Open `http://localhost:5000` in your browser and:
+1. Click the "Sort with Bubble Sort" button and check the loading time
+2. Click the "Sort with Quick Sort" button and check the loading time
+3. Change the number of products from 1,000 to 10,000 to 50,000 and feel the difference
 
-**질문**: 실제 쇼핑몰에서 O(n²) 정렬을 쓰면 어떤 일이 벌어질까요?
+**Question**: What would happen if a real online shopping mall used an O(n²) sorting algorithm?
 
 ---
 
 ## Homework 2
-과제 상세는 `homework/README.md`를 참고하세요.
+See `homework/README.md` for assignment details.

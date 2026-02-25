@@ -1,53 +1,53 @@
-# Week 09 Lab — 탐색 트리 + 프로젝트 시작
+# Week 09 Lab — Search Trees + Project Kickoff
 
-## 목표
-- BST의 기본 연산을 구현하고, 퇴화 현상을 관찰한다.
-- 팀 프로젝트를 시작한다.
-
----
-
-## 알고리즘 실습 (15분)
-
-### Ex 1: BST 구현 (10분)
-`examples/bst.py`를 참고하여 BST의 insert, search, delete를 구현합니다.
-
-### Ex 2: BST 퇴화 관찰 (5분)
-정렬된 데이터 [1, 2, 3, ..., 100]을 BST에 삽입하면 어떤 형태가 되는지 확인합니다.
-→ 트리 높이가 O(n)이 되어 사실상 연결 리스트와 같아집니다.
+## Objectives
+- Implement basic BST operations and observe tree degeneracy.
+- Begin the team project.
 
 ---
 
-## 프로젝트 안내 & 시작 (35분)
+## Algorithm Exercises (15 min)
 
-### Proj 0: 팀 프로젝트 안내 (10분)
+### Ex 1: BST Implementation (10 min)
+Refer to `examples/bst.py` and implement BST insert, search, and delete operations.
 
-**프로젝트 개요**: 알고리즘이 적용된 웹 애플리케이션 개발
+### Ex 2: Observing BST Degeneracy (5 min)
+Insert sorted data [1, 2, 3, ..., 100] into a BST and observe the resulting shape.
+> The tree height becomes O(n), effectively degenerating into a linked list.
 
-**추천 주제** (택 1, 또는 자유 주제):
+---
 
-| 주제 | 설명 | 적용 알고리즘 예시 |
-|------|------|-------------------|
-| 미니 쇼핑몰 | 상품 목록, 검색, 추천, 장바구니 | 정렬, 해시, 그래프(추천), DP |
-| 소셜 네트워크 | 프로필, 친구, 피드, 추천 | BST, 해시, BFS(친구추천), Dijkstra |
-| 캠퍼스 지도/내비 | 건물 검색, 경로 탐색 | 해시, 그래프, Dijkstra, 그리디 |
+## Project Introduction & Kickoff (35 min)
 
-**평가 기준**:
-- 알고리즘 적용 (40%): 최소 4개 이상의 알고리즘 적용
-- 성능 비교 (20%): before/after 측정 결과
-- 완성도 (20%): 웹앱 동작 여부, 코드 품질
-- 발표 (20%): 발표자료, 설명, Q&A
+### Proj 0: Team Project Overview (10 min)
 
-**일정**:
-- Week 09: 팀 구성 + 주제 선정 + 웹앱 뼈대
-- Week 10: 해시 테이블 기능 추가
-- Week 11: 그래프 탐색 기능 + 중간 점검
-- Week 12: 최단 경로 기능 + 발표자료 시작
-- Week 13: 최종 마무리 + 발표 준비
-- **Week 14: 팀별 발표** (7분 발표 + 3분 Q&A)
+**Project Overview**: Develop a web application that incorporates algorithms.
 
-### Proj 1: 팀 구성 + 주제 선정 (10분)
-- 3~4인 1팀으로 구성
-- 주제를 선정하고 강사에게 확인
+**Suggested Topics** (choose one, or propose your own):
 
-### Proj 2: 웹앱 뼈대 구축 (15분)
-Flask + HTML 기본 구조를 만듭니다. `examples/flask_starter/`를 참고하세요.
+| Topic | Description | Example Algorithms |
+|-------|-------------|-------------------|
+| Mini Shopping Mall | Product listings, search, recommendations, shopping cart | Sorting, Hash, Graph (recommendations), DP |
+| Social Network | Profiles, friends, feed, recommendations | BST, Hash, BFS (friend suggestions), Dijkstra |
+| Campus Map/Navigation | Building search, route finding | Hash, Graph, Dijkstra, Greedy |
+
+**Grading Criteria**:
+- Algorithm Application (40%): Apply at least 4 different algorithms
+- Performance Comparison (20%): Before/after measurement results
+- Completeness (20%): Web app functionality, code quality
+- Presentation (20%): Slides, explanation, Q&A
+
+**Schedule**:
+- Week 09: Team formation + topic selection + web app skeleton
+- Week 10: Add hash table features
+- Week 11: Add graph traversal features + midpoint check-in
+- Week 12: Add shortest path features + start preparing slides
+- Week 13: Final polish + presentation preparation
+- **Week 14: Team presentations** (7 min presentation + 3 min Q&A)
+
+### Proj 1: Team Formation + Topic Selection (10 min)
+- Form teams of 3 to 4 members.
+- Select a topic and confirm with the instructor.
+
+### Proj 2: Web App Skeleton (15 min)
+Build a basic Flask + HTML structure. Refer to `examples/flask_starter/`.

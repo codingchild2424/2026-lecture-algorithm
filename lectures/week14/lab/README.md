@@ -1,26 +1,26 @@
-# Week 14 — 프로젝트 발표
+# Week 14 Lab — Project Presentations
 
-## 발표 진행
+## Presentation Proceedings
 
-### 형식
-- 팀당 10분: 발표 7분 + Q&A 3분
-- 모든 팀원이 발표에 참여
+### Format
+- 10 minutes per team: 7 min presentation + 3 min Q&A
+- All team members must participate in the presentation
 
-### 발표 내용
-1. 프로젝트 소개 (웹앱 주제, 기능 설명)
-2. 적용한 알고리즘 설명 (최소 4개)
-3. 성능 비교 (before/after 측정 결과)
-4. 라이브 데모
-5. 어려웠던 점 & 배운 점
+### Presentation Content
+1. Project introduction (web app topic, feature description)
+2. Explanation of applied algorithms (at least 4)
+3. Performance comparison (before/after measurement results)
+4. Live demo
+5. Challenges faced & lessons learned
 
-### 제출물
-- GitHub 저장소 링크 (코드 + README)
-- 발표자료 (PDF 또는 슬라이드)
+### Deliverables
+- GitHub repository link (code + README)
+- Presentation materials (PDF or slides)
 
-### 평가 기준
-| 항목 | 비중 |
+### Grading Criteria
+| Category | Weight |
 |------|------|
-| 알고리즘 적용 | 40% |
-| 성능 비교 | 20% |
-| 완성도 | 20% |
-| 발표 | 20% |
+| Algorithm application | 40% |
+| Performance comparison | 20% |
+| Completeness | 20% |
+| Presentation | 20% |

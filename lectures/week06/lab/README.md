@@ -1,45 +1,45 @@
-# Week 06 Lab — 동적 계획법
+# Week 06 Lab — Dynamic Programming
 
-## 목표
-- DP의 핵심 패턴(memoization, tabulation)을 이해하고 구현한다.
-- 웹 애플리케이션에서 DP가 활용되는 실제 사례를 분석한다.
+## Objectives
+- Understand and implement the core DP patterns (memoization, tabulation).
+- Analyze real-world examples of how DP is used in web applications.
 
 ---
 
-## Type A — 알고리즘 구현
+## Type A — Algorithm Implementation
 
-### A-1: 피보나치 비교 (10분)
+### A-1: Fibonacci Comparison (10 min)
 
-`examples/fibonacci.py`를 실행하여 세 가지 방식의 성능을 비교합니다:
-- Naive 재귀: O(2^n)
+Run `examples/fibonacci.py` to compare the performance of three approaches:
+- Naive recursion: O(2^n)
 - Memoization: O(n)
 - Tabulation: O(n)
 
-### A-2: LCS + DP 테이블 시각화 (15분)
+### A-2: LCS + DP Table Visualization (15 min)
 
-`examples/lcs.py`에서 Longest Common Subsequence를 구현하고, DP 테이블을 출력합니다.
+Implement Longest Common Subsequence in `examples/lcs.py` and print the DP table.
 
-### A-3: 0-1 Knapsack + 역추적 (10분)
+### A-3: 0-1 Knapsack + Backtracking (10 min)
 
-`examples/knapsack.py`에서 0-1 배낭 문제를 풀고, 어떤 물건을 선택했는지 역추적합니다.
+Solve the 0-1 knapsack problem in `examples/knapsack.py` and backtrack to determine which items were selected.
 
 ---
 
-## Type B — 웹 코드 분석
+## Type B — Web Code Analysis
 
-### B-1: 텍스트 Diff 뷰어 (15분)
+### B-1: Text Diff Viewer (15 min)
 
-`examples/web_diff/`의 Flask 앱을 실행합니다:
+Run the Flask app in `examples/web_diff/`:
 
 ```bash
 cd examples/web_diff
 python app.py
 ```
 
-두 텍스트를 입력하면 LCS 기반으로 변경된 부분을 하이라이트합니다.
-- GitHub의 diff 기능이 이와 같은 원리로 동작합니다.
+Enter two texts and the app will highlight the differences based on LCS.
+- GitHub's diff feature works on the same principle.
 
 ---
 
-## Homework 5 (마지막 과제)
-과제 상세는 `homework/README.md`를 참고하세요.
+## Homework 5 (Final Assignment)
+See `homework/README.md` for assignment details.

@@ -1,34 +1,34 @@
-# Week 12 Lab — 최단 경로 + 프로젝트
+# Week 12 Lab — Shortest Paths + Project
 
-## 목표
-- Dijkstra와 Bellman-Ford 알고리즘을 구현한다.
-- 프로젝트에 경로 탐색/최적화 기능을 추가한다.
-
----
-
-## 알고리즘 실습 (20분)
-
-### Ex 1: Dijkstra (10분)
-`examples/dijkstra.py` — heapq를 활용한 Dijkstra 구현.
-
-### Ex 2: Bellman-Ford (10분)
-`examples/bellman_ford.py` — 음수 가중치 그래프에서 최단 경로.
+## Objectives
+- Implement Dijkstra's and Bellman-Ford algorithms.
+- Add path-finding/optimization features to the project.
 
 ---
 
-## 프로젝트 작업 (30분)
+## Algorithm Exercises (20 min)
 
-### Proj 1: 최적화 기능 추가 (15분)
-- 쇼핑몰: 추천 상품 간 유사도 기반 최적 경로
-- 소셜 네트워크: 관계 친밀도 기반 최단 경로
-- 캠퍼스 지도: 건물 간 최단 경로 탐색
+### Ex 1: Dijkstra (10 min)
+`examples/dijkstra.py` — Dijkstra implementation using heapq.
 
-### Proj 2: 발표자료 시작 (15분)
-발표자료 구조를 잡습니다:
-1. 프로젝트 소개
-2. 적용한 알고리즘 목록
-3. 각 알고리즘의 before/after 성능 비교
-4. 데모
-5. 결론
+### Ex 2: Bellman-Ford (10 min)
+`examples/bellman_ford.py` — Shortest paths in graphs with negative edge weights.
 
-**마일스톤**: 최단 경로 기능 + 발표자료 초안
+---
+
+## Project Work (30 min)
+
+### Proj 1: Add Optimization Features (15 min)
+- Shopping mall: Optimal path based on similarity between recommended products
+- Social network: Shortest path based on relationship closeness
+- Campus map: Shortest path search between buildings
+
+### Proj 2: Start Presentation Materials (15 min)
+Outline the structure of your presentation:
+1. Project introduction
+2. List of algorithms applied
+3. Before/after performance comparison for each algorithm
+4. Demo
+5. Conclusion
+
+**Milestone**: Shortest path feature + presentation draft

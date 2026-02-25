@@ -1,89 +1,89 @@
-# Week 07 Lab -- 중간고사 대비
+# Week 07 Lab — Midterm Exam Preparation
 
-## 학습 목표
+## Learning Objectives
 
-- 기출 유형 문제를 직접 풀어보며 중간고사를 대비한다
-- 문제를 보고 적절한 알고리즘 패러다임을 판별하는 능력을 기른다
-- Week 02~06의 핵심 알고리즘을 총정리한다
+- Prepare for the midterm by solving past exam-style problems hands-on
+- Develop the ability to identify the appropriate algorithm paradigm for a given problem
+- Review the key algorithms from Weeks 02 through 06
 
-## 실습 구성 (50분)
+## Lab Structure (50 min)
 
-| 순서 | 실습 | 시간 | 파일 |
-|------|------|------|------|
-| Ex 1 | 에이전트와 함께 기출 유형 문제 풀기 | 20분 | (에이전트 활용) |
-| Ex 2 | 알고리즘 패러다임 판별 연습 | 15분 | `examples/paradigm_practice.py` |
-| Ex 3 | 전반부 알고리즘 총정리 & 코드 리뷰 | 15분 | `examples/review_problems.py` |
+| Order | Exercise | Time | File |
+|-------|----------|------|------|
+| Ex 1 | Solving past exam-style problems with an AI agent | 20 min | (using an agent) |
+| Ex 2 | Algorithm paradigm identification practice | 15 min | `examples/paradigm_practice.py` |
+| Ex 3 | First-half algorithm review & code review | 15 min | `examples/review_problems.py` |
 
 ---
 
-## Ex 1: 에이전트와 함께 기출 유형 문제 풀기 (20분)
+## Ex 1: Solving Past Exam-Style Problems with an AI Agent (20 min)
 
-### 목표
-AI 에이전트(Claude 등)와 함께 중간고사에 나올 수 있는 유형의 문제를 풀어본다.
+### Objective
+Work with an AI agent (e.g., Claude) to solve problems of the type that may appear on the midterm.
 
-### 진행 방법
-1. 에이전트에게 다음과 같이 요청한다:
-   - "중간고사 유형 알고리즘 문제를 내 주세요"
-   - 범위: 복잡도 분석, 정렬, 분할정복, 그리디, DP
-2. 문제를 받으면 먼저 직접 풀어본다 (5분)
-3. 풀이를 에이전트에게 확인받는다
-4. 틀렸을 경우 힌트를 받아 다시 시도한다
-5. 2~3문제를 반복한다
+### How to Proceed
+1. Ask the agent something like:
+   - "Give me a midterm-style algorithm problem"
+   - Scope: complexity analysis, sorting, divide and conquer, greedy, DP
+2. When you receive a problem, try solving it on your own first (5 min)
+3. Have the agent check your solution
+4. If incorrect, get a hint and try again
+5. Repeat for 2-3 problems
 
-### 추천 프롬프트 예시
+### Recommended Prompt Example
 ```
-"Week 02~06 범위에서 중간고사에 나올 수 있는 알고리즘 문제를 하나 내 주세요.
-복잡도 분석, 정렬, 분할정복, 그리디, DP 중에서 골고루 출제해 주세요.
-문제를 낸 후 제가 풀이를 작성하면 채점해 주세요."
+"Give me an algorithm problem from the Week 02-06 scope that could appear on the midterm.
+Please cover a mix of: complexity analysis, sorting, divide and conquer, greedy, and DP.
+After giving the problem, please grade my solution when I submit it."
 ```
 
 ---
 
-## Ex 2: 알고리즘 패러다임 판별 연습 (15분)
+## Ex 2: Algorithm Paradigm Identification Practice (15 min)
 
-### 목표
-문제를 읽고 어떤 알고리즘 패러다임(분할정복 / 그리디 / DP / 브루트포스)을
-적용해야 하는지 판별하는 능력을 기른다.
+### Objective
+Develop the ability to read a problem and determine which algorithm paradigm
+(divide and conquer / greedy / DP / brute force) should be applied.
 
-### 진행 방법
-1. `examples/paradigm_practice.py`를 열고 10개 문제를 읽는다
-2. 각 문제에 대해 어떤 패러다임을 사용할지 생각해 본다
-3. 이유를 간단히 메모한다
-4. 파일 하단의 정답 및 해설과 비교한다
+### How to Proceed
+1. Open `examples/paradigm_practice.py` and read the 10 problems
+2. For each problem, think about which paradigm to use
+3. Briefly note your reasoning
+4. Compare with the answers and explanations at the bottom of the file
 
-### 핵심 판별 기준
-| 패러다임 | 핵심 특징 |
-|----------|----------|
-| 브루트포스 | 모든 경우를 탐색, 제약이 작을 때 |
-| 분할정복 | 문제를 독립적인 부분으로 나누어 해결 |
-| 그리디 | 매 단계 최선의 선택, 탐욕 선택 속성 |
-| DP | 최적 부분 구조 + 중복 부분 문제 |
+### Key Identification Criteria
+| Paradigm | Key Characteristics |
+|----------|---------------------|
+| Brute Force | Explores all possibilities; suitable when constraints are small |
+| Divide and Conquer | Splits the problem into independent subproblems to solve |
+| Greedy | Makes the best choice at each step; greedy choice property |
+| DP | Optimal substructure + overlapping subproblems |
 
 ---
 
-## Ex 3: 전반부 알고리즘 총정리 & 코드 리뷰 (15분)
+## Ex 3: First-Half Algorithm Review & Code Review (15 min)
 
-### 목표
-Week 02~06의 핵심 알고리즘을 5개 미니 문제로 복습한다.
+### Objective
+Review the key algorithms from Weeks 02-06 through 5 mini problems.
 
-### 진행 방법
-1. `examples/review_problems.py`를 열고 5개 문제를 확인한다
-2. 각 문제의 skeleton 함수를 직접 구현해 본다
-3. 완성 후 솔루션과 비교한다
-4. 시간이 부족하면 솔루션을 읽고 이해하는 것만으로도 복습 효과가 있다
+### How to Proceed
+1. Open `examples/review_problems.py` and check the 5 problems
+2. Implement each skeleton function yourself
+3. Compare your solution with the provided solution after completing it
+4. If short on time, simply reading and understanding the solutions is still an effective review
 
-### 문제 구성
-| # | 주제 | 관련 주차 |
-|---|------|----------|
-| 1 | 복잡도 분석 | Week 02 |
-| 2 | 정렬 응용 | Week 03 |
-| 3 | 분할정복 | Week 04 |
-| 4 | 그리디 | Week 05 |
+### Problem Breakdown
+| # | Topic | Related Week |
+|---|-------|--------------|
+| 1 | Complexity Analysis | Week 02 |
+| 2 | Sorting Applications | Week 03 |
+| 3 | Divide and Conquer | Week 04 |
+| 4 | Greedy | Week 05 |
 | 5 | DP | Week 06 |
 
 ---
 
-## 실행 방법
+## How to Run
 
 ```bash
 python examples/paradigm_practice.py

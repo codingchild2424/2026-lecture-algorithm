@@ -1,29 +1,29 @@
-# Week 11 Lab — 그래프 탐색 + 프로젝트
+# Week 11 Lab — Graph Traversal + Project
 
-## 목표
-- BFS와 DFS를 구현하고, 그래프 탐색의 활용을 이해한다.
-- 프로젝트에 그래프 기반 기능을 추가한다.
-
----
-
-## 알고리즘 실습 (25분)
-
-### Ex 1: BFS (15분)
-`examples/bfs.py`를 참고하여 BFS를 구현하고, 최단 거리를 계산합니다.
-
-### Ex 2: DFS + 위상 정렬 (10분)
-`examples/dfs_topo.py`를 참고하여 DFS 기반 위상 정렬을 구현합니다.
+## Objectives
+- Implement BFS and DFS, and understand their applications in graph traversal.
+- Add graph-based features to the project.
 
 ---
 
-## 프로젝트 작업 (25분)
+## Algorithm Exercises (25 min)
 
-### Proj 1: 그래프 기능 추가 (15분)
-- 쇼핑몰: "이 상품을 산 사람이 같이 산 상품" 추천 (그래프 탐색)
-- 소셜 네트워크: 친구 추천 (BFS로 2촌 탐색)
-- 캠퍼스 지도: 건물 간 연결 그래프 구축
+### Ex 1: BFS (15 min)
+Refer to `examples/bfs.py` and implement BFS to compute shortest distances.
 
-### Proj 2: 중간 점검 (10분)
-팀별로 현재 진행 상황을 공유하고 피드백을 받습니다.
+### Ex 2: DFS + Topological Sort (10 min)
+Refer to `examples/dfs_topo.py` and implement DFS-based topological sorting.
 
-**마일스톤**: 그래프 탐색 기능 통합 + 중간 점검
+---
+
+## Project Work (25 min)
+
+### Proj 1: Add Graph Features (15 min)
+- Shopping Mall: "Customers who bought this also bought" recommendations (graph traversal)
+- Social Network: Friend suggestions (BFS to find 2nd-degree connections)
+- Campus Map: Build a connectivity graph between buildings
+
+### Proj 2: Midpoint Check-In (10 min)
+Each team shares their current progress and receives feedback.
+
+**Milestone**: Graph traversal feature integration + midpoint check-in
