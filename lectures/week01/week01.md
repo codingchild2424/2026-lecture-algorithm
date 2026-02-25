@@ -11,7 +11,7 @@
 ### 1st Hour (OT) — 50 min
 - [00:00–00:05] Instructor introduction
 - [00:05–00:15] Syllabus / Grading policy
-  - Assignment 10% (Quiz 5% + Take-home 5%), Midterm 30%, Final 60%
+  - Assignment 10% (Quiz 5% + Take-home 5%), Midterm 30%, Final Project 30%, Final Written 30%
   - Attendance 0%, but absent >= 1/3 of total hours -> F
 - [00:15–00:25] Assignment/Quiz details, Exam format (handwritten, 1 hour)
 - [00:25–00:35] Class format (1st hour: Theory Part 1 + Quiz, 2nd hour: Theory Part 2, 3rd hour: Lab)

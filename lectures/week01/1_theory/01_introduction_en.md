@@ -55,7 +55,8 @@ layout: section
 |-----------|--------|
 | Assignment | **10%** |
 | Midterm Exam (written) | **30%** |
-| Final Exam (written) | **60%** |
+| Final Exam — Project | **30%** |
+| Final Exam — Written | **30%** |
 | Attendance | 0% |
 
 > However, absent for **one-third (1/3)** or more of the total class hours -> no grade will be awarded.
@@ -77,10 +78,9 @@ layout: section
 
 # Midterm & Final Exam
 
-- **Handwritten** (digital devices not allowed)
-- **1 hour** each
-- Midterm: **30%**
-- Final: **60%**
+- Midterm: **30%** — Handwritten (digital devices not allowed), 1 hour
+- Final — Written: **30%** — Handwritten, 1 hour
+- Final — Project: **30%** — Team project (Weeks 09–13), see project guidelines
 
 ---
 
