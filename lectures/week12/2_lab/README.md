@@ -16,14 +16,26 @@
 
 ---
 
-## Project Work (30 min)
+## Project Demo: Shortest Path Explorer (10 min)
 
-### Proj 1: Add Optimization Features (15 min)
+Run the reference project to see shortest path algorithms in action:
+```bash
+cd project
+pip install fastapi uvicorn
+uvicorn app:app --reload
+```
+Explore: Dijkstra step-by-step visualization, Bellman-Ford with negative cycle detection, algorithm comparison, and campus map route finding.
+
+---
+
+## Project Work (20 min)
+
+### Proj 1: Add Optimization Features (10 min)
 - Shopping mall: Optimal path based on similarity between recommended products
 - Social network: Shortest path based on relationship closeness
 - Campus map: Shortest path search between buildings
 
-### Proj 2: Start Presentation Materials (15 min)
+### Proj 2: Start Presentation Materials (10 min)
 Outline the structure of your presentation:
 1. Project introduction
 2. List of algorithms applied

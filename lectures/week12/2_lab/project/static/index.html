@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shortest Path Explorer</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ============================================================= -->
+<!-- Header                                                        -->
+<!-- ============================================================= -->
+<header>
+    <h1>Shortest Path Explorer</h1>
+    <p>Week 12 -- Dijkstra's &amp; Bellman-Ford algorithm visualization, comparison, and campus map demo</p>
+</header>
+
+<!-- ============================================================= -->
+<!-- Tab Navigation                                                -->
+<!-- ============================================================= -->
+<nav class="tabs">
+    <button class="tab-btn active" data-tab="tab-dijkstra">Dijkstra</button>
+    <button class="tab-btn" data-tab="tab-bellman">Bellman-Ford</button>
+    <button class="tab-btn" data-tab="tab-compare">Comparison</button>
+    <button class="tab-btn" data-tab="tab-campus">Campus Map</button>
+</nav>
+
+<!-- ============================================================= -->
+<!-- Main Content                                                  -->
+<!-- ============================================================= -->
+<main>
+
+    <!-- =========================================================
+         TAB: Dijkstra's Algorithm
+         ========================================================= -->
+    <section id="tab-dijkstra" class="tab-panel active">
+
+        <div class="card">
+            <h2>Dijkstra's Algorithm</h2>
+            <p>Define a weighted graph (non-negative weights), then run Dijkstra from a
+               source node. Watch step by step as the algorithm extracts the minimum-distance
+               node and relaxes its neighbors. The shortest path tree is highlighted as it builds.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="dij-directed">Graph Type</label>
+                    <select id="dij-directed">
+                        <option value="false">Undirected</option>
+                        <option value="true">Directed</option>
+                    </select>
+                </div>
+                <div style="flex:2">
+                    <label for="dij-nodes">Nodes (comma separated)</label>
+                    <input type="text" id="dij-nodes" placeholder="e.g. A,B,C,D,E,F" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div style="flex:3">
+                    <label for="dij-edges">Weighted Edges (u-v:weight, one per line or comma separated)</label>
+                    <textarea id="dij-edges" rows="3" placeholder="e.g. A-B:4, A-C:2, B-C:1, B-D:5, C-D:8, C-E:10, D-E:2, D-F:6, E-F:3"></textarea>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap">
+                <button id="dij-build" class="btn-primary">Build Graph</button>
+                <button id="dij-preset" class="btn-sm" style="background:#e2e8f0">Load Preset</button>
+            </div>
+
+            <hr style="margin:1rem 0; border:none; border-top:1px solid var(--border)">
+
+            <div class="form-row">
+                <div style="flex:1">
+                    <label for="dij-source">Source Node</label>
+                    <input type="text" id="dij-source" placeholder="e.g. A" />
+                </div>
+                <div style="flex:0">
+                    <button id="dij-run" class="btn-accent" style="margin-top:1.3rem">Run Dijkstra</button>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem">
+                <button id="dij-step-back" class="btn-sm" disabled>&laquo; Prev</button>
+                <button id="dij-step-fwd" class="btn-sm" disabled>Next &raquo;</button>
+                <button id="dij-play" class="btn-sm" style="background:var(--accent);color:#fff" disabled>Play</button>
+                <span id="dij-step-info" class="info" style="margin-left:0.5rem"></span>
+            </div>
+        </div>
+
+        <!-- Graph canvas -->
+        <div class="card">
+            <h2>Graph</h2>
+            <div id="dij-canvas-wrap" class="graph-canvas-wrap">
+                <svg id="dij-svg" width="620" height="560" viewBox="0 0 620 560"></svg>
+            </div>
+        </div>
+
+        <!-- Distance table -->
+        <div class="card">
+            <h2>Distance Table</h2>
+            <div id="dij-dist-table" class="result-area"></div>
+        </div>
+
+        <!-- Step log -->
+        <div class="card">
+            <h2>Step-by-Step Log</h2>
+            <div id="dij-log" class="result-area" style="max-height:300px"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Bellman-Ford Algorithm
+         ========================================================= -->
+    <section id="tab-bellman" class="tab-panel">
+
+        <div class="card">
+            <h2>Bellman-Ford Algorithm</h2>
+            <p>Uses the same graph from the Dijkstra tab (build or load one there first).
+               Bellman-Ford works with negative edge weights and detects negative cycles.
+               Watch iteration-by-iteration as every edge is checked for possible relaxation.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="bf-source">Source Node</label>
+                    <input type="text" id="bf-source" placeholder="e.g. A" />
+                </div>
+                <div style="flex:0">
+                    <button id="bf-run" class="btn-accent" style="margin-top:1.3rem">Run Bellman-Ford</button>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem">
+                <button id="bf-preset-neg" class="btn-sm" style="background:#fef3c7">Load Negative Weights</button>
+                <button id="bf-preset-negcycle" class="btn-sm" style="background:#fee2e2">Load Negative Cycle</button>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.75rem">
+                <button id="bf-step-back" class="btn-sm" disabled>&laquo; Prev Iteration</button>
+                <button id="bf-step-fwd" class="btn-sm" disabled>Next Iteration &raquo;</button>
+                <button id="bf-play" class="btn-sm" style="background:var(--accent);color:#fff" disabled>Play</button>
+                <span id="bf-step-info" class="info" style="margin-left:0.5rem"></span>
+            </div>
+        </div>
+
+        <!-- Graph canvas -->
+        <div class="card">
+            <h2>Graph</h2>
+            <div class="graph-canvas-wrap">
+                <svg id="bf-svg" width="620" height="560" viewBox="0 0 620 560"></svg>
+            </div>
+        </div>
+
+        <!-- Negative cycle warning -->
+        <div id="bf-negcycle-alert" class="card" style="display:none; border-left:4px solid var(--danger)">
+            <h2 style="color:var(--danger)">Negative Cycle Detected!</h2>
+            <div id="bf-negcycle-info" class="result-area"></div>
+        </div>
+
+        <!-- Distance table -->
+        <div class="card">
+            <h2>Distance Table</h2>
+            <div id="bf-dist-table" class="result-area"></div>
+        </div>
+
+        <!-- Iteration log -->
+        <div class="card">
+            <h2>Iteration-by-Iteration Log</h2>
+            <div id="bf-log" class="result-area" style="max-height:400px"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Algorithm Comparison
+         ========================================================= -->
+    <section id="tab-compare" class="tab-panel">
+
+        <div class="card">
+            <h2>Algorithm Comparison: Dijkstra vs Bellman-Ford</h2>
+            <p>Run both algorithms on the same graph from the same source node.
+               Compare the number of relaxations and execution time side by side.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="cmp-source">Source Node</label>
+                    <input type="text" id="cmp-source" placeholder="e.g. A" />
+                </div>
+                <div style="flex:0">
+                    <button id="cmp-run" class="btn-primary" style="margin-top:1.3rem">Run Comparison</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats comparison -->
+        <div class="card">
+            <h2>Performance Comparison</h2>
+            <div id="cmp-stats" class="stats-row"></div>
+            <div id="cmp-table-wrap" style="overflow-x:auto; margin-top:1rem"></div>
+        </div>
+
+        <!-- Distance tables side by side -->
+        <div class="two-col">
+            <div class="card">
+                <h2>Dijkstra Distances</h2>
+                <div id="cmp-dij-dist" class="result-area"></div>
+            </div>
+            <div class="card">
+                <h2>Bellman-Ford Distances</h2>
+                <div id="cmp-bf-dist" class="result-area"></div>
+            </div>
+        </div>
+
+        <!-- Graph with Dijkstra tree -->
+        <div class="two-col">
+            <div class="card">
+                <h2>Dijkstra Shortest Path Tree</h2>
+                <div class="graph-canvas-wrap">
+                    <svg id="cmp-dij-svg" width="620" height="560" viewBox="0 0 620 560"></svg>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Bellman-Ford Shortest Path Tree</h2>
+                <div class="graph-canvas-wrap">
+                    <svg id="cmp-bf-svg" width="620" height="560" viewBox="0 0 620 560"></svg>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Campus Map Demo
+         ========================================================= -->
+    <section id="tab-campus" class="tab-panel">
+
+        <div class="card">
+            <h2>Campus Map -- Shortest Walking Routes</h2>
+            <p>A preset campus graph with buildings as nodes and walking distances (minutes)
+               as edge weights. Select two buildings to find the shortest walking route using
+               Dijkstra's algorithm. The path is highlighted on the campus map.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="campus-source">From Building</label>
+                    <select id="campus-source"></select>
+                </div>
+                <div style="flex:1">
+                    <label for="campus-target">To Building</label>
+                    <select id="campus-target"></select>
+                </div>
+                <div style="flex:0">
+                    <button id="campus-run" class="btn-primary" style="margin-top:1.3rem">Find Route</button>
+                </div>
+            </div>
+
+            <button id="campus-init" class="btn-accent" style="margin-top:0.5rem">Load Campus Map</button>
+        </div>
+
+        <!-- Campus map -->
+        <div class="card">
+            <h2>Campus Map</h2>
+            <div class="graph-canvas-wrap">
+                <svg id="campus-svg" width="600" height="560" viewBox="0 0 600 560"></svg>
+            </div>
+        </div>
+
+        <!-- Route info -->
+        <div class="card">
+            <h2>Route Information</h2>
+            <div id="campus-result" class="result-area"></div>
+        </div>
+
+        <!-- All distances from source -->
+        <div class="card">
+            <h2>All Distances from Source</h2>
+            <div id="campus-dist-table" class="result-area"></div>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ============================================================= -->
+<!-- Footer                                                        -->
+<!-- ============================================================= -->
+<footer>
+    Shortest Path Explorer &mdash; Week 12 Project
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

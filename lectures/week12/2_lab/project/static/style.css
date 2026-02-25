@@ -1,0 +1,558 @@
+/* ======================================================================
+   Shortest Path Explorer -- Stylesheet
+   ====================================================================== */
+
+/* --- Reset & base ---------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --primary: #4f46e5;
+    --primary-light: #818cf8;
+    --primary-dark: #3730a3;
+    --accent: #10b981;
+    --accent-dark: #059669;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    --mono: "SF Mono", "Fira Code", "Cascadia Code", "Consolas", monospace;
+}
+
+body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* --- Header ---------------------------------------------------------- */
+header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: #fff;
+    padding: 2rem 1.5rem 1.2rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+header p {
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* --- Tab navigation -------------------------------------------------- */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.85rem 1.5rem;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s, box-shadow 0.2s;
+    position: relative;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    box-shadow: inset 0 -3px 0 var(--primary);
+}
+
+/* --- Main content area ----------------------------------------------- */
+main {
+    max-width: 1100px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Card ------------------------------------------------------------ */
+.card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-dark);
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem;
+    color: var(--text);
+}
+
+/* --- Form elements --------------------------------------------------- */
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-muted);
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    background: #fff;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+textarea {
+    resize: vertical;
+    font-family: var(--mono);
+}
+
+.form-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.form-row > div {
+    flex: 1;
+    min-width: 140px;
+}
+
+/* --- Buttons --------------------------------------------------------- */
+button,
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.btn-accent {
+    background: var(--accent);
+    color: #fff;
+}
+
+.btn-accent:hover:not(:disabled) {
+    background: var(--accent-dark);
+}
+
+.btn-sm {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.82rem;
+}
+
+/* --- Result / output areas ------------------------------------------- */
+.result-area {
+    background: #f8fafc;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 60px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.result-area:empty::before {
+    content: "Results will appear here...";
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: inherit;
+}
+
+/* --- Stats row ------------------------------------------------------- */
+.stats-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.stat-box {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    flex: 1;
+    min-width: 130px;
+}
+
+.stat-box .stat-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.stat-box .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* --- Graph SVG canvas ------------------------------------------------ */
+.graph-canvas-wrap {
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    background: #fafbfc;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.graph-canvas-wrap svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* SVG graph styles */
+.graph-edge {
+    stroke: #94a3b8;
+    stroke-width: 2;
+    fill: none;
+}
+
+.graph-edge.highlighted {
+    stroke: var(--accent);
+    stroke-width: 3.5;
+}
+
+.graph-edge.tree-edge {
+    stroke: var(--primary-light);
+    stroke-width: 2.5;
+}
+
+.graph-edge.relaxed-edge {
+    stroke: var(--warning);
+    stroke-width: 3;
+    stroke-dasharray: 6 3;
+}
+
+.graph-edge.negcycle-edge {
+    stroke: var(--danger);
+    stroke-width: 3.5;
+    stroke-dasharray: 8 4;
+}
+
+.graph-edge-arrow {
+    fill: #94a3b8;
+}
+
+.graph-edge-arrow.highlighted {
+    fill: var(--accent);
+}
+
+.graph-edge-arrow.tree-edge {
+    fill: var(--primary-light);
+}
+
+.graph-edge-arrow.relaxed-edge {
+    fill: var(--warning);
+}
+
+.graph-edge-arrow.negcycle-edge {
+    fill: var(--danger);
+}
+
+.graph-node {
+    cursor: default;
+    transition: fill 0.3s, stroke 0.3s;
+}
+
+.graph-node circle {
+    fill: #fff;
+    stroke: var(--primary);
+    stroke-width: 2.5;
+}
+
+.graph-node text {
+    fill: var(--primary-dark);
+    font-size: 11px;
+    font-weight: 700;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+    font-family: "Inter", -apple-system, sans-serif;
+}
+
+.graph-node.visited circle {
+    fill: var(--primary);
+    stroke: var(--primary-dark);
+}
+
+.graph-node.visited text {
+    fill: #fff;
+}
+
+.graph-node.current circle {
+    fill: var(--accent);
+    stroke: var(--accent-dark);
+}
+
+.graph-node.current text {
+    fill: #fff;
+    font-size: 12px;
+}
+
+.graph-node.path-node circle {
+    fill: var(--accent);
+    stroke: var(--accent-dark);
+}
+
+.graph-node.path-node text {
+    fill: #fff;
+}
+
+.graph-node.source-node circle {
+    fill: #dbeafe;
+    stroke: var(--primary);
+    stroke-width: 3;
+}
+
+.graph-node.target-node circle {
+    fill: #fef3c7;
+    stroke: var(--warning);
+    stroke-width: 3;
+}
+
+.graph-node.negcycle-node circle {
+    fill: #fee2e2;
+    stroke: var(--danger);
+    stroke-width: 3;
+}
+
+/* Weight label on edges */
+.edge-weight {
+    font-size: 11px;
+    font-weight: 700;
+    fill: #475569;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+    font-family: var(--mono);
+}
+
+.edge-weight-bg {
+    fill: #fff;
+    stroke: none;
+    opacity: 0.85;
+}
+
+/* Distance badge on nodes */
+.node-dist-badge {
+    font-size: 9px;
+    font-weight: 700;
+    fill: #fff;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+}
+
+.node-dist-bg {
+    fill: var(--primary-dark);
+}
+
+/* --- Comparison table ------------------------------------------------ */
+.cmp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 0.5rem;
+}
+
+.cmp-table th,
+.cmp-table td {
+    padding: 0.6rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.cmp-table th {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.cmp-table tr:last-child td {
+    border-bottom: none;
+}
+
+.cmp-table .winner {
+    color: var(--accent-dark);
+    font-weight: 700;
+}
+
+/* --- Tags ------------------------------------------------------------ */
+.tag {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 0.3rem;
+}
+
+.tag-green  { background: #d1fae5; color: #065f46; }
+.tag-blue   { background: #dbeafe; color: #1e40af; }
+.tag-amber  { background: #fef3c7; color: #92400e; }
+.tag-red    { background: #fee2e2; color: #991b1b; }
+.tag-purple { background: #ede9fe; color: #5b21b6; }
+
+/* --- Info / helper text ---------------------------------------------- */
+.info {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+}
+
+/* --- Spinner --------------------------------------------------------- */
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2.5px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 0.3rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Two-column layout ----------------------------------------------- */
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.two-col > .card {
+    margin-bottom: 0;
+}
+
+/* --- Footer ---------------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+/* --- Responsive ------------------------------------------------------ */
+@media (max-width: 900px) {
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 { font-size: 1.35rem; }
+    .tab-btn { padding: 0.7rem 0.9rem; font-size: 0.8rem; }
+    .form-row { flex-direction: column; }
+}

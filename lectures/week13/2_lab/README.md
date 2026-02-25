@@ -7,9 +7,21 @@
 
 ---
 
-## Part 1: Final Code Polish (15 min)
+## Reference Demo: Algorithm Finale (5 min)
 
-Use the first 15 minutes to:
+Run the reference project for a comprehensive semester review:
+```bash
+cd project
+pip install fastapi uvicorn
+uvicorn app:app --reload
+```
+Features: TSP visualization (brute force vs heuristic), knapsack DP, algorithm complexity dashboard, and an interactive quiz.
+
+---
+
+## Part 1: Final Code Polish (10 min)
+
+Use the first 10 minutes to:
 - Fix any remaining bugs
 - Ensure all algorithm features are working
 - Verify minimum 4 algorithms are applied

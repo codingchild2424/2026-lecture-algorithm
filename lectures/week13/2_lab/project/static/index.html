@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Algorithm Finale</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ============================================================= -->
+<!-- Header                                                        -->
+<!-- ============================================================= -->
+<header>
+    <h1>Algorithm Finale</h1>
+    <p>Week 13 -- NP-Completeness &amp; Final Review: TSP, Knapsack, Complexity Dashboard, and Quiz</p>
+</header>
+
+<!-- ============================================================= -->
+<!-- Tab Navigation                                                -->
+<!-- ============================================================= -->
+<nav class="tabs">
+    <button class="tab-btn active" data-tab="tab-tsp">TSP</button>
+    <button class="tab-btn" data-tab="tab-knapsack">Knapsack</button>
+    <button class="tab-btn" data-tab="tab-dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="tab-quiz">Quiz</button>
+</nav>
+
+<!-- ============================================================= -->
+<!-- Main Content                                                  -->
+<!-- ============================================================= -->
+<main>
+
+    <!-- =========================================================
+         TAB: TSP Visualization
+         ========================================================= -->
+    <section id="tab-tsp" class="tab-panel active">
+
+        <div class="card">
+            <h2>Travelling Salesman Problem</h2>
+            <p>Place cities on the canvas by clicking, or load a preset.
+               The brute-force algorithm finds the exact optimal tour for small N (up to 10),
+               while the nearest-neighbor heuristic provides a fast approximate solution.
+               Compare the tour lengths and computation times.</p>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem">
+                <button id="tsp-preset-pentagon" class="btn-sm" style="background:#e2e8f0">Pentagon (5)</button>
+                <button id="tsp-preset-random7" class="btn-sm" style="background:#e2e8f0">Random (7)</button>
+                <button id="tsp-preset-cluster8" class="btn-sm" style="background:#e2e8f0">Clusters (8)</button>
+                <button id="tsp-clear" class="btn-sm" style="background:#fee2e2">Clear All</button>
+            </div>
+
+            <p class="info" style="margin-top:0.5rem">Click on the canvas below to place cities. Then click "Solve TSP".</p>
+
+            <div style="display:flex; gap:0.5rem; margin-top:0.75rem; align-items:center">
+                <button id="tsp-solve" class="btn-primary">Solve TSP</button>
+                <span id="tsp-city-count" class="info">Cities: 0</span>
+            </div>
+        </div>
+
+        <!-- TSP Canvas -->
+        <div class="card">
+            <h2>City Map</h2>
+            <div class="graph-canvas-wrap">
+                <svg id="tsp-svg" width="600" height="500" viewBox="0 0 600 500"></svg>
+            </div>
+            <div class="legend" style="margin-top:0.5rem">
+                <span class="legend-item"><span class="legend-dot" style="background:var(--primary)"></span> City</span>
+                <span class="legend-item"><span class="legend-line" style="background:var(--accent)"></span> Optimal Tour</span>
+                <span class="legend-item"><span class="legend-line" style="background:var(--warning)"></span> Heuristic Tour</span>
+            </div>
+        </div>
+
+        <!-- TSP Comparison -->
+        <div class="card">
+            <h2>Results Comparison</h2>
+            <div id="tsp-stats" class="stats-row"></div>
+            <div id="tsp-result" class="result-area"></div>
+        </div>
+
+        <!-- Side-by-side tours -->
+        <div class="two-col">
+            <div class="card">
+                <h2>Optimal Tour (Brute Force)</h2>
+                <div class="graph-canvas-wrap">
+                    <svg id="tsp-svg-optimal" width="600" height="500" viewBox="0 0 600 500"></svg>
+                </div>
+                <div id="tsp-optimal-info" class="result-area" style="max-height:150px"></div>
+            </div>
+            <div class="card">
+                <h2>Heuristic Tour (Nearest Neighbor)</h2>
+                <div class="graph-canvas-wrap">
+                    <svg id="tsp-svg-heuristic" width="600" height="500" viewBox="0 0 600 500"></svg>
+                </div>
+                <div id="tsp-heuristic-info" class="result-area" style="max-height:150px"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: 0-1 Knapsack Problem
+         ========================================================= -->
+    <section id="tab-knapsack" class="tab-panel">
+
+        <div class="card">
+            <h2>0-1 Knapsack Problem</h2>
+            <p>Define items with weights and values, set a capacity, and solve using
+               dynamic programming and brute force. View the DP table to understand how
+               subproblems build up the solution. Compare execution times as N grows.</p>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem">
+                <button id="ks-preset-small" class="btn-sm" style="background:#e2e8f0">Small (5 items)</button>
+                <button id="ks-preset-medium" class="btn-sm" style="background:#e2e8f0">Medium (8 items)</button>
+                <button id="ks-preset-large" class="btn-sm" style="background:#e2e8f0">Large (12 items)</button>
+            </div>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="ks-capacity">Capacity</label>
+                    <input type="number" id="ks-capacity" min="1" value="7" />
+                </div>
+                <div style="flex:0">
+                    <button id="ks-add-item" class="btn-sm" style="margin-top:1.3rem; background:#dbeafe">+ Add Item</button>
+                </div>
+            </div>
+
+            <!-- Items table -->
+            <div style="overflow-x:auto; margin-top:0.75rem">
+                <table id="ks-items-table" class="cmp-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Weight</th>
+                            <th>Value</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="ks-items-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <button id="ks-solve" class="btn-primary" style="margin-top:1rem">Solve Knapsack</button>
+        </div>
+
+        <!-- Knapsack Comparison Stats -->
+        <div class="card">
+            <h2>Results</h2>
+            <div id="ks-stats" class="stats-row"></div>
+            <div id="ks-selected" class="result-area"></div>
+        </div>
+
+        <!-- DP Table -->
+        <div class="card">
+            <h2>DP Table</h2>
+            <p class="info">Rows = items (0 = no items, i = considering items 1..i). Columns = capacity 0..W.
+               Highlighted cells trace the selected items.</p>
+            <div id="ks-dp-table-wrap" style="overflow-x:auto; margin-top:0.75rem"></div>
+        </div>
+
+        <!-- Execution time comparison -->
+        <div class="card">
+            <h2>Performance Comparison</h2>
+            <div id="ks-perf-table-wrap" style="overflow-x:auto"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Algorithm Complexity Dashboard
+         ========================================================= -->
+    <section id="tab-dashboard" class="tab-panel">
+
+        <div class="card">
+            <h2>Algorithm Complexity Dashboard</h2>
+            <p>A comprehensive summary of all algorithms covered this semester,
+               organized by category with their time and space complexities.</p>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:1rem">
+                <button class="dash-filter-btn btn-sm active" data-filter="all" style="background:#e2e8f0">All</button>
+                <button class="dash-filter-btn btn-sm" data-filter="Sorting" style="background:#dbeafe">Sorting</button>
+                <button class="dash-filter-btn btn-sm" data-filter="Searching" style="background:#d1fae5">Searching</button>
+                <button class="dash-filter-btn btn-sm" data-filter="Graph Algorithms" style="background:#fef3c7">Graph</button>
+                <button class="dash-filter-btn btn-sm" data-filter="Dynamic Programming" style="background:#ede9fe">DP</button>
+                <button class="dash-filter-btn btn-sm" data-filter="NP-Complete Problems" style="background:#fee2e2">NP-Complete</button>
+            </div>
+        </div>
+
+        <div id="dash-content"></div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Interactive Quiz
+         ========================================================= -->
+    <section id="tab-quiz" class="tab-panel">
+
+        <div class="card">
+            <h2>Algorithm Knowledge Quiz</h2>
+            <p>Test your understanding of algorithm paradigms, complexities, and when to use
+               which algorithm. Answer all questions and submit to see your score.</p>
+        </div>
+
+        <div id="quiz-questions"></div>
+
+        <div class="card" style="text-align:center">
+            <button id="quiz-submit" class="btn-primary" style="font-size:1rem; padding:0.7rem 2rem">Submit Answers</button>
+            <button id="quiz-reset" class="btn-sm" style="margin-left:0.5rem; background:#e2e8f0; display:none">Try Again</button>
+        </div>
+
+        <!-- Quiz Results -->
+        <div id="quiz-result-card" class="card" style="display:none">
+            <h2>Your Results</h2>
+            <div id="quiz-score" class="stats-row"></div>
+            <div id="quiz-results"></div>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ============================================================= -->
+<!-- Footer                                                        -->
+<!-- ============================================================= -->
+<footer>
+    Algorithm Finale &mdash; Week 13 Project
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -20,28 +20,33 @@ If you encounter issues:
 - Node.js not installed: `brew install node` (macOS) or download from https://nodejs.org
 - npm permission errors: use `sudo npm install -g ...` or use nvm
 
-### Task 2: Build a Flask App with Claude Code (20 min)
-Use Claude Code to generate a simple web application step by step:
+### Task 2: Run the Algorithm Review Web App (20 min)
+Explore the reference project that demonstrates algorithms from Weeks 01-07:
 
-1. **Create a project directory and start Claude Code:**
+1. **Install dependencies and run the app:**
+   ```bash
+   cd project
+   pip install fastapi uvicorn
+   uvicorn app:app --reload
+   ```
+
+2. **Open `http://127.0.0.1:8000`** and explore:
+   - **Sorting**: Compare bubble, merge, and quick sort with step traces
+   - **Binary Search**: Visualize search steps on a sorted array
+   - **Greedy**: Coin change problem with greedy strategy
+   - **DP**: Fibonacci (naive vs DP) and 0-1 Knapsack
+
+3. **Study the code** — read `project/app.py` and `project/static/app.js` to understand how the algorithms are implemented and connected to the web UI.
+
+4. **Use Claude Code to build your own version:**
    ```bash
    mkdir my-web-app && cd my-web-app
    claude
    ```
-
-2. **Ask Claude Code to create a Flask starter app:**
-   > "Create a simple Flask web app with a landing page, a page that sorts a list of numbers using different algorithms, and a page that searches for a number using binary search."
-
-3. **Run and test the app:**
-   ```bash
-   pip install flask
-   python app.py
-   ```
-
-4. **Iterate with Claude Code** — ask it to add features, fix bugs, or explain the code.
+   > "Create a FastAPI web app that demonstrates sorting algorithms with step-by-step visualization."
 
 **Key Skills to Practice**:
-- Giving clear, specific prompts
+- Understanding how algorithms connect to web APIs
 - Reviewing and understanding generated code (do not blindly accept)
 - Asking "why?" to learn from the agent
 
@@ -61,7 +66,7 @@ Use Claude Code to generate a simple web application step by step:
 
 ### Task 4: Project Skeleton Setup (15 min)
 Use Claude Code to create your team's project skeleton:
-- Basic Flask app with routes for your topic
+- FastAPI app with routes for your topic
 - Sample data (products, users, buildings, etc.)
 - At least one working page
 

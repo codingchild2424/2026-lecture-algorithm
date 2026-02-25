@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graph Traversal Explorer</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ============================================================= -->
+<!-- Header                                                        -->
+<!-- ============================================================= -->
+<header>
+    <h1>Graph Traversal Explorer</h1>
+    <p>Week 11 -- BFS &amp; DFS visualization, shortest path, topological sort, cycle detection, and social network demo</p>
+</header>
+
+<!-- ============================================================= -->
+<!-- Tab Navigation                                                -->
+<!-- ============================================================= -->
+<nav class="tabs">
+    <button class="tab-btn active" data-tab="tab-traversal">Traversal</button>
+    <button class="tab-btn" data-tab="tab-shortest">Shortest Path</button>
+    <button class="tab-btn" data-tab="tab-dag">Topo Sort / Cycles</button>
+    <button class="tab-btn" data-tab="tab-social">Social Network</button>
+</nav>
+
+<!-- ============================================================= -->
+<!-- Main Content                                                  -->
+<!-- ============================================================= -->
+<main>
+
+    <!-- =========================================================
+         TAB: Graph Traversal (BFS / DFS)
+         ========================================================= -->
+    <section id="tab-traversal" class="tab-panel active">
+
+        <div class="card">
+            <h2>Graph Traversal Visualization</h2>
+            <p>Define an undirected or directed graph, then run BFS or DFS
+               to watch the traversal order highlighted step by step.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="trav-directed">Graph Type</label>
+                    <select id="trav-directed">
+                        <option value="false">Undirected</option>
+                        <option value="true">Directed</option>
+                    </select>
+                </div>
+                <div style="flex:2">
+                    <label for="trav-nodes">Nodes (comma separated)</label>
+                    <input type="text" id="trav-nodes" placeholder="e.g. A,B,C,D,E,F,G" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div style="flex:3">
+                    <label for="trav-edges">Edges (one per line or comma separated: u-v)</label>
+                    <textarea id="trav-edges" rows="3" placeholder="e.g. A-B, A-C, B-D, B-E, C-F, D-G, E-G, F-G"></textarea>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap">
+                <button id="trav-build" class="btn-primary">Build Graph</button>
+                <button id="trav-preset" class="btn-sm" style="background:#e2e8f0">Load Preset</button>
+            </div>
+
+            <hr style="margin:1rem 0; border:none; border-top:1px solid var(--border)">
+
+            <div class="form-row">
+                <div style="flex:1">
+                    <label for="trav-algo">Algorithm</label>
+                    <select id="trav-algo">
+                        <option value="bfs">BFS (Breadth-First)</option>
+                        <option value="dfs">DFS (Depth-First)</option>
+                    </select>
+                </div>
+                <div style="flex:1">
+                    <label for="trav-start">Start Node</label>
+                    <input type="text" id="trav-start" placeholder="e.g. A" />
+                </div>
+                <div style="flex:0">
+                    <button id="trav-run" class="btn-accent" style="margin-top:1.3rem">Run</button>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem">
+                <button id="trav-step-back" class="btn-sm" disabled>&laquo; Prev</button>
+                <button id="trav-step-fwd" class="btn-sm" disabled>Next &raquo;</button>
+                <button id="trav-play" class="btn-sm" style="background:var(--accent);color:#fff" disabled>Play</button>
+                <span id="trav-step-info" class="info" style="margin-left:0.5rem"></span>
+            </div>
+        </div>
+
+        <!-- Graph canvas -->
+        <div class="card">
+            <h2>Graph</h2>
+            <div id="trav-canvas-wrap" class="graph-canvas-wrap">
+                <svg id="trav-svg" width="600" height="500" viewBox="0 0 600 500"></svg>
+            </div>
+        </div>
+
+        <!-- Visit order & log -->
+        <div class="card">
+            <h2>Traversal Result</h2>
+            <div id="trav-order" class="result-area"></div>
+        </div>
+
+        <div class="card">
+            <h2>Step-by-Step Log</h2>
+            <div id="trav-log" class="result-area" style="max-height:300px"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: BFS Shortest Path
+         ========================================================= -->
+    <section id="tab-shortest" class="tab-panel">
+
+        <div class="card">
+            <h2>BFS Shortest Path (Unweighted)</h2>
+            <p>Uses the same graph from the Traversal tab. Build a graph there
+               first, then find the shortest path between any two nodes using BFS.
+               The path will be highlighted on the graph.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="sp-start">Start Node</label>
+                    <input type="text" id="sp-start" placeholder="e.g. A" />
+                </div>
+                <div style="flex:1">
+                    <label for="sp-end">End Node</label>
+                    <input type="text" id="sp-end" placeholder="e.g. G" />
+                </div>
+                <div style="flex:0">
+                    <button id="sp-run" class="btn-primary" style="margin-top:1.3rem">Find Path</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graph canvas -->
+        <div class="card">
+            <h2>Graph with Shortest Path</h2>
+            <div class="graph-canvas-wrap">
+                <svg id="sp-svg" width="600" height="500" viewBox="0 0 600 500"></svg>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Result</h2>
+            <div id="sp-result" class="result-area"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Topological Sort / Cycle Detection
+         ========================================================= -->
+    <section id="tab-dag" class="tab-panel">
+
+        <div class="card">
+            <h2>DFS Applications: Topological Sort &amp; Cycle Detection</h2>
+            <p>Input a <strong>directed graph</strong>. Run topological sort
+               (valid only on a DAG) or cycle detection to find back edges.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:2">
+                    <label for="dag-nodes">Nodes (comma separated)</label>
+                    <input type="text" id="dag-nodes" placeholder="e.g. CS101, CS201, CS202, CS301" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div style="flex:3">
+                    <label for="dag-edges">Directed Edges (u-v per line or comma separated)</label>
+                    <textarea id="dag-edges" rows="3" placeholder="e.g. CS101-CS201, CS101-CS202, CS201-CS301"></textarea>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap">
+                <button id="dag-build" class="btn-primary">Build Graph</button>
+                <button id="dag-preset-dag" class="btn-sm" style="background:#e2e8f0">Preset: Course DAG</button>
+                <button id="dag-preset-cycle" class="btn-sm" style="background:#fee2e2">Preset: Graph with Cycle</button>
+            </div>
+
+            <hr style="margin:1rem 0; border:none; border-top:1px solid var(--border)">
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap">
+                <button id="dag-toposort" class="btn-accent">Topological Sort</button>
+                <button id="dag-cycle" class="btn-primary" style="background:var(--danger)">Detect Cycle</button>
+            </div>
+        </div>
+
+        <!-- Graph canvas -->
+        <div class="card">
+            <h2>Directed Graph</h2>
+            <div class="graph-canvas-wrap">
+                <svg id="dag-svg" width="600" height="500" viewBox="0 0 600 500"></svg>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Result</h2>
+            <div id="dag-result" class="result-area"></div>
+        </div>
+
+        <div class="card">
+            <h2>Step-by-Step Log</h2>
+            <div id="dag-log" class="result-area" style="max-height:300px"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Social Network Demo
+         ========================================================= -->
+    <section id="tab-social" class="tab-panel">
+
+        <div class="card">
+            <h2>Social Network -- Friend Suggestions via BFS</h2>
+            <p>A mini social network with 10 preset users. Select a user
+               and see friend suggestions (friends-of-friends) found using BFS.
+               The BFS tree from the selected user is shown on the graph.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="soc-user">Select User</label>
+                    <select id="soc-user"></select>
+                </div>
+                <div style="flex:1">
+                    <label for="soc-depth">Max Depth (hops)</label>
+                    <select id="soc-depth">
+                        <option value="2" selected>2 (friends of friends)</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div style="flex:0">
+                    <button id="soc-run" class="btn-primary" style="margin-top:1.3rem">Find Suggestions</button>
+                </div>
+            </div>
+
+            <button id="soc-init" class="btn-accent" style="margin-top:0.5rem">Load Social Network</button>
+        </div>
+
+        <!-- Graph canvas -->
+        <div class="card">
+            <h2>Social Network Graph</h2>
+            <div class="graph-canvas-wrap">
+                <svg id="soc-svg" width="600" height="500" viewBox="0 0 600 500"></svg>
+            </div>
+        </div>
+
+        <!-- Direct friends -->
+        <div class="card">
+            <h2>Direct Friends</h2>
+            <div id="soc-friends" class="result-area"></div>
+        </div>
+
+        <!-- Suggestions -->
+        <div class="card">
+            <h2>Friend Suggestions</h2>
+            <div id="soc-suggestions"></div>
+        </div>
+
+        <!-- BFS steps -->
+        <div class="card">
+            <h2>BFS Step Log</h2>
+            <div id="soc-log" class="result-area" style="max-height:300px"></div>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ============================================================= -->
+<!-- Footer                                                        -->
+<!-- ============================================================= -->
+<footer>
+    Graph Traversal Explorer &mdash; Week 11 Project
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

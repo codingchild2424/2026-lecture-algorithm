@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hash Table Explorer</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ============================================================= -->
+<!-- Header                                                        -->
+<!-- ============================================================= -->
+<header>
+    <h1>Hash Table Explorer</h1>
+    <p>Week 10 -- Interactive hash table visualization, collision resolution, and performance analysis</p>
+</header>
+
+<!-- ============================================================= -->
+<!-- Tab Navigation                                                -->
+<!-- ============================================================= -->
+<nav class="tabs">
+    <button class="tab-btn active" data-tab="tab-viz">Visualization</button>
+    <button class="tab-btn" data-tab="tab-collision">Collision Comparison</button>
+    <button class="tab-btn" data-tab="tab-phonebook">Phone Book</button>
+    <button class="tab-btn" data-tab="tab-perf">Performance</button>
+</nav>
+
+<!-- ============================================================= -->
+<!-- Main Content                                                  -->
+<!-- ============================================================= -->
+<main>
+
+    <!-- =========================================================
+         TAB: Hash Table Visualization
+         ========================================================= -->
+    <section id="tab-viz" class="tab-panel active">
+
+        <div class="card">
+            <h2>Hash Table Visualization</h2>
+            <p>Insert, search, and delete keys to see how a hash table works internally.
+               Choose between <strong>chaining</strong> (separate chains at each bucket)
+               and <strong>linear probing</strong> (open addressing).</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="viz-method">Collision Resolution</label>
+                    <select id="viz-method">
+                        <option value="chaining">Separate Chaining</option>
+                        <option value="linear_probing">Linear Probing</option>
+                    </select>
+                </div>
+                <div style="flex:1">
+                    <label for="viz-size">Table Size</label>
+                    <input type="number" id="viz-size" value="11" min="2" max="31" />
+                </div>
+                <div style="flex:0">
+                    <button id="viz-init" class="btn-accent" style="margin-top:1.3rem">Initialize</button>
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-top:0.75rem">
+                <div style="flex:2">
+                    <label for="viz-key">Key</label>
+                    <input type="text" id="viz-key" placeholder="e.g. 42 or 'hello'" />
+                </div>
+                <div style="flex:2">
+                    <label for="viz-value">Value (optional)</label>
+                    <input type="text" id="viz-value" placeholder="e.g. some data" />
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap">
+                <button id="viz-insert" class="btn-primary">Insert</button>
+                <button id="viz-search" class="btn-primary" style="background:var(--accent)">Search</button>
+                <button id="viz-delete" class="btn-primary" style="background:var(--danger)">Delete</button>
+                <button id="viz-random" class="btn-sm" style="background:#e2e8f0">Insert 5 Random</button>
+            </div>
+        </div>
+
+        <!-- Hash computation detail -->
+        <div class="card" id="viz-hash-detail" style="display:none">
+            <h2>Hash Computation</h2>
+            <div id="viz-hash-steps" class="result-area"></div>
+        </div>
+
+        <!-- Table state -->
+        <div class="card">
+            <h2>Table State</h2>
+            <div class="stats-row" id="viz-stats"></div>
+            <div id="viz-table" class="hash-table-viz"></div>
+        </div>
+
+        <!-- Operation log -->
+        <div class="card">
+            <h2>Operation Log</h2>
+            <div id="viz-log" class="result-area" style="max-height:300px"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Collision Resolution Comparison
+         ========================================================= -->
+    <section id="tab-collision" class="tab-panel">
+
+        <div class="card">
+            <h2>Collision Resolution Comparison</h2>
+            <p>Insert N random integer keys into both a chaining and a linear probing hash table
+               of the same size. Compare collisions, load factor, and average probe lengths.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div>
+                    <label for="cmp-n">Number of Keys (N)</label>
+                    <input type="number" id="cmp-n" value="20" min="1" max="500" />
+                </div>
+                <div>
+                    <label for="cmp-size">Table Size</label>
+                    <input type="number" id="cmp-size" value="11" min="2" max="101" />
+                </div>
+                <div>
+                    <label for="cmp-range">Key Range (0..R)</label>
+                    <input type="number" id="cmp-range" value="200" min="10" max="10000" />
+                </div>
+                <div style="flex:0">
+                    <button id="cmp-run" class="btn-primary" style="margin-top:1.3rem">Compare</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison results -->
+        <div id="cmp-result"></div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Phone Book
+         ========================================================= -->
+    <section id="tab-phonebook" class="tab-panel">
+
+        <div class="card">
+            <h2>Phone Book Application</h2>
+            <p>A practical application of hash tables: a phone book that stores
+               name-to-phone mappings using a custom chaining hash table.
+               See how entries are hashed, stored, and retrieved.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:1">
+                    <label for="pb-size">Hash Table Size</label>
+                    <input type="number" id="pb-size" value="17" min="5" max="53" />
+                </div>
+                <div style="flex:0">
+                    <button id="pb-init" class="btn-accent" style="margin-top:1.3rem">New Book</button>
+                </div>
+                <div style="flex:0">
+                    <button id="pb-preset" class="btn-sm" style="background:#e2e8f0;margin-top:1.3rem">Load Presets</button>
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-top:0.75rem">
+                <div style="flex:2">
+                    <label for="pb-name">Name</label>
+                    <input type="text" id="pb-name" placeholder="e.g. Alice" />
+                </div>
+                <div style="flex:2">
+                    <label for="pb-phone">Phone</label>
+                    <input type="text" id="pb-phone" placeholder="e.g. 010-1234-5678" />
+                </div>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap">
+                <button id="pb-add" class="btn-primary">Add Contact</button>
+                <button id="pb-lookup" class="btn-primary" style="background:var(--accent)">Look Up</button>
+                <button id="pb-remove" class="btn-primary" style="background:var(--danger)">Remove</button>
+            </div>
+        </div>
+
+        <!-- Last operation info -->
+        <div class="card" id="pb-op-card" style="display:none">
+            <h2>Last Operation</h2>
+            <div id="pb-op-result" class="result-area"></div>
+        </div>
+
+        <!-- Contacts list -->
+        <div class="card">
+            <h2>All Contacts</h2>
+            <div id="pb-contacts"></div>
+        </div>
+
+        <!-- Hash table internals -->
+        <div class="card">
+            <h2>Hash Table Internals</h2>
+            <div class="stats-row" id="pb-stats"></div>
+            <div id="pb-table" class="hash-table-viz"></div>
+        </div>
+
+    </section>
+
+    <!-- =========================================================
+         TAB: Performance Comparison
+         ========================================================= -->
+    <section id="tab-perf" class="tab-panel">
+
+        <div class="card">
+            <h2>Performance: Hash Table O(1) vs List O(n)</h2>
+            <p>Compare lookup time of a hash table (average O(1)) against a list
+               linear search (O(n)) at different data sizes. Each test performs
+               multiple lookups and measures total time.</p>
+
+            <div class="form-row" style="margin-top:1rem">
+                <div style="flex:3">
+                    <label for="perf-sizes">Data Sizes (comma separated)</label>
+                    <input type="text" id="perf-sizes" value="100, 500, 1000, 5000, 10000" />
+                </div>
+                <div style="flex:1">
+                    <label for="perf-searches">Lookups per Size</label>
+                    <input type="number" id="perf-searches" value="100" min="10" max="1000" />
+                </div>
+                <div style="flex:0">
+                    <button id="perf-run" class="btn-primary" style="margin-top:1.3rem">Run Benchmark</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance results -->
+        <div id="perf-result"></div>
+
+    </section>
+
+</main>
+
+<!-- ============================================================= -->
+<!-- Footer                                                        -->
+<!-- ============================================================= -->
+<footer>
+    Hash Table Explorer &mdash; Week 10 Project
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
