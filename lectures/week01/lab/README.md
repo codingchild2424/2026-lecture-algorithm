@@ -1,58 +1,39 @@
-# Week 01 Lab — Environment Setup & Coding Agents
+# Week 01 Lab — Introduction: Baekjoon Practice
 
-## Objectives
-- Set up the development environment and learn how to leverage coding agents for algorithm study.
-
-## Prerequisites
-- Python 3.10+ installed
-- Text editor or IDE (VS Code recommended)
+## Overview
+- **Duration**: 50 minutes
+- **Format**: Solve 4 Baekjoon problems (individually or in pairs)
+- **Goal**: Warm up with basic problems covering sorting, brute force, search, and simple math
 
 ---
 
-## Task 1: Install a Coding Agent (10 min)
+## Problem 1: Sort Numbers (BOJ 2750) — Bronze I
+- **Link**: https://www.acmicpc.net/problem/2750
+- **Concept**: Basic sorting — read N numbers and print them in ascending order
+- **Hint**: Any O(n²) sorting algorithm (selection sort, bubble sort, insertion sort) will work within the constraints
+- **Time limit**: ~10 min
 
-Install one of the following:
-- **Claude Code**: `npm install -g @anthropic-ai/claude-code`
-- **Gemini CLI**: `npm install -g @anthropic-ai/gemini-cli` (or refer to the official docs)
-- **OpenCode**: `go install github.com/opencode-ai/opencode@latest`
+## Problem 2: Blackjack (BOJ 2798) — Bronze II
+- **Link**: https://www.acmicpc.net/problem/2798
+- **Concept**: Brute force — try all combinations of 3 cards to find the sum closest to M without exceeding it
+- **Hint**: Use three nested loops to enumerate all 3-card combinations; N is small enough (≤ 100)
+- **Time limit**: ~10 min
 
-After installation, run the tool in your terminal and verify it works correctly.
+## Problem 3: Finding Numbers (BOJ 1920) — Silver IV
+- **Link**: https://www.acmicpc.net/problem/1920
+- **Concept**: Searching — determine whether each query number exists in a given set
+- **Hint**: Sort the array first, then use binary search (or use a set for O(1) lookup)
+- **Time limit**: ~15 min
 
-## Task 2: Verify Dev Environment & Online Judge Account (10 min)
+## Problem 4: Sugar Delivery (BOJ 2839) — Silver IV
+- **Link**: https://www.acmicpc.net/problem/2839
+- **Concept**: Greedy / math — deliver exactly N kg of sugar using 3 kg and 5 kg bags with minimum bag count
+- **Hint**: Start by using as many 5 kg bags as possible, then check if the remainder is divisible by 3
+- **Time limit**: ~15 min
 
-1. Check your Python version:
-   ```bash
-   python3 --version
-   ```
+---
 
-2. Install the required packages:
-   ```bash
-   pip install matplotlib
-   ```
-
-3. Create an account on [Baekjoon Online Judge](https://www.acmicpc.net/)
-
-## Task 3: Implement Binary Search with an Agent (15 min)
-
-Use the RALPH technique to ask a coding agent to implement binary search.
-
-**What is the RALPH technique?**
-- **R**ole: Assign a role ("You are an algorithm tutor")
-- **A**sk: Make a request ("Implement binary search in Python")
-- **L**imit: Set constraints ("Both recursive and iterative versions")
-- **P**rovide: Supply input ("Find 7 in the sorted list [1,3,5,7,9,11]")
-- **H**int: Give a hint ("Also explain why the time complexity is O(log n)")
-
-**Exercise**: Refer to `examples/binary_search.py`, implement it yourself, and compare your code with the agent's output.
-
-## Task 4: Create an Algorithm Visualization Script (10 min)
-
-Ask the agent to create a script that visually demonstrates the binary search process.
-
-Example prompt:
-> "Create a Python script that prints the binary search process step by step. At each step, show the current search range and the mid value."
-
-## Task 5: Solve Your First Baekjoon Problem (5 min)
-
-- [BOJ 1920 — Finding Numbers](https://www.acmicpc.net/problem/1920)
-- Use the agent to develop a solving strategy, then submit your solution.
+## Tips
+- If you are new to Baekjoon, read the input/output format carefully — use `input()` and `print()` in Python
+- Test your solution locally before submitting
+- Do not worry if you cannot solve all 4 problems — focus on understanding the approach

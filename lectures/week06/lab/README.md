@@ -1,45 +1,40 @@
-# Week 06 Lab — Dynamic Programming
+# Week 06 Lab — Dynamic Programming: Baekjoon Practice
 
-## Objectives
-- Understand and implement the core DP patterns (memoization, tabulation).
-- Analyze real-world examples of how DP is used in web applications.
-
----
-
-## Type A — Algorithm Implementation
-
-### A-1: Fibonacci Comparison (10 min)
-
-Run `examples/fibonacci.py` to compare the performance of three approaches:
-- Naive recursion: O(2^n)
-- Memoization: O(n)
-- Tabulation: O(n)
-
-### A-2: LCS + DP Table Visualization (15 min)
-
-Implement Longest Common Subsequence in `examples/lcs.py` and print the DP table.
-
-### A-3: 0-1 Knapsack + Backtracking (10 min)
-
-Solve the 0-1 knapsack problem in `examples/knapsack.py` and backtrack to determine which items were selected.
+## Overview
+- **Duration**: 50 minutes
+- **Format**: Solve 4 Baekjoon problems (individually or in pairs)
+- **Goal**: Practice defining recurrence relations and building DP tables
 
 ---
 
-## Type B — Web Code Analysis
+## Problem 1: Making 1 (BOJ 1463) — Silver III
+- **Link**: https://www.acmicpc.net/problem/1463
+- **Concept**: Basic DP — find the minimum number of operations to reduce N to 1 (divide by 3, divide by 2, or subtract 1)
+- **Hint**: Define dp[i] = minimum operations to reach 1 from i; dp[i] = min(dp[i/3], dp[i/2], dp[i-1]) + 1 (only use dp[i/k] when i is divisible by k)
+- **Time limit**: ~10 min
 
-### B-1: Text Diff Viewer (15 min)
+## Problem 2: RGB Street (BOJ 1149) — Silver I
+- **Link**: https://www.acmicpc.net/problem/1149
+- **Concept**: DP with constraints — paint N houses with 3 colors such that no two adjacent houses share the same color, minimizing total cost
+- **Hint**: dp[i][c] = min cost to paint houses 1..i with house i painted color c; transition from dp[i-1][other colors]
+- **Time limit**: ~15 min
 
-Run the Flask app in `examples/web_diff/`:
+## Problem 3: LCS (BOJ 9251) — Gold V
+- **Link**: https://www.acmicpc.net/problem/9251
+- **Concept**: Longest Common Subsequence — find the length of the LCS of two strings
+- **Hint**: Classic 2D DP; if characters match, dp[i][j] = dp[i-1][j-1] + 1; otherwise dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+- **Time limit**: ~15 min
 
-```bash
-cd examples/web_diff
-python app.py
-```
-
-Enter two texts and the app will highlight the differences based on LCS.
-- GitHub's diff feature works on the same principle.
+## Problem 4: Normal Knapsack (BOJ 12865) — Gold V
+- **Link**: https://www.acmicpc.net/problem/12865
+- **Concept**: 0/1 Knapsack — maximize total value without exceeding weight capacity K
+- **Hint**: dp[i][w] = max value using items 1..i with capacity w; for each item, choose to include it or skip it. Can optimize to 1D array iterating w in reverse
+- **Time limit**: ~10 min
 
 ---
 
-## Homework 5 (Final Assignment)
-See `homework/README.md` for assignment details.
+## Tips
+- Always start by defining the DP state and writing the recurrence before coding
+- Draw a small DP table by hand to verify your recurrence is correct
+- Bottom-up (tabulation) is generally easier to debug than top-down (memoization) for beginners
+- For LCS problems, remember that subsequence ≠ substring — elements do not need to be contiguous

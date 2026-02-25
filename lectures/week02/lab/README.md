@@ -1,55 +1,39 @@
-# Week 02 Lab — Complexity Analysis Practice
+# Week 02 Lab — Complexity: Baekjoon Practice
 
-## Objectives
-- Measure time complexity experimentally and compare it with theoretical analysis.
-- Experience how algorithm choice affects response time in a web API.
-
----
-
-## Type A — Algorithm Implementation
-
-### A-1: Write a Timing Utility (10 min)
-
-Refer to `examples/timer_util.py` and write a utility that measures execution time.
-
-### A-2: Finding Duplicates — O(n²) to O(n) Optimization (15 min)
-
-**Problem**: Given an array of integers, determine whether it contains any duplicate elements.
-
-1. **O(n²) solution**: Compare all pairs using nested for loops
-2. **O(n) solution**: Use a hash set (set)
-
-Refer to `examples/find_duplicate.py`.
-
-Compare the execution times of both solutions at N=100, 1,000, 10,000, and 100,000.
-
-### A-3: Execution Time Graphs (10 min)
-
-Run `examples/complexity_plot.py` to plot execution time graphs for O(1), O(n), O(n log n), and O(n²).
+## Overview
+- **Duration**: 50 minutes
+- **Format**: Solve 4 Baekjoon problems (individually or in pairs)
+- **Goal**: Analyze algorithm execution time by reading pseudocode and counting operations
 
 ---
 
-## Type B — Web Code Analysis
+## Problem 1: Algorithm Execution Time 1 (BOJ 24262) — Bronze V
+- **Link**: https://www.acmicpc.net/problem/24262
+- **Concept**: Constant-time algorithm analysis — determine the number of operations and Big-O for a given pseudocode
+- **Hint**: The pseudocode runs a fixed number of operations regardless of input size
+- **Time limit**: ~10 min
 
-### B-1: Product Search API Comparison (15 min)
+## Problem 2: Algorithm Execution Time 2 (BOJ 24263) — Bronze IV
+- **Link**: https://www.acmicpc.net/problem/24263
+- **Concept**: Linear-time algorithm analysis — count operations in a single loop
+- **Hint**: A single loop from 1 to n executes exactly n times
+- **Time limit**: ~10 min
 
-Run the Flask app in the `examples/web_search_api/` folder:
+## Problem 3: Algorithm Execution Time 3 (BOJ 24264) — Bronze III
+- **Link**: https://www.acmicpc.net/problem/24264
+- **Concept**: Quadratic-time algorithm analysis — count operations in nested loops
+- **Hint**: Two nested loops each running n times give n × n total operations
+- **Time limit**: ~15 min
 
-```bash
-cd examples/web_search_api
-pip install flask
-python app.py
-```
-
-Compare the two search endpoints:
-- `GET /search/linear?q=product_name` — Linear search O(n)
-- `GET /search/binary?q=product_name` — Binary search O(log n)
-
-Measure and compare response times with N=100, 10,000, and 1,000,000 products.
-
-**Question**: How does the difference between the two approaches change as the data grows larger?
+## Problem 4: Algorithm Execution Time 4 (BOJ 24265) — Bronze III
+- **Link**: https://www.acmicpc.net/problem/24265
+- **Concept**: Quadratic-time algorithm analysis (variant) — count operations in dependent nested loops
+- **Hint**: The inner loop starts from i+1, so total operations = n(n−1)/2
+- **Time limit**: ~15 min
 
 ---
 
-## Homework 1
-See `homework/README.md` for assignment details.
+## Tips
+- Read the pseudocode carefully — the answer is about counting, not coding
+- Express the operation count as a function of n, then determine the Big-O class
+- Remember: O(1) ⊂ O(log n) ⊂ O(n) ⊂ O(n log n) ⊂ O(n²) ⊂ O(n³) ⊂ O(2ⁿ)

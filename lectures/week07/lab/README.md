@@ -1,91 +1,39 @@
-# Week 07 Lab — Midterm Exam Preparation
+# Week 07 Lab — Review: Baekjoon Practice
 
-## Learning Objectives
-
-- Prepare for the midterm by solving past exam-style problems hands-on
-- Develop the ability to identify the appropriate algorithm paradigm for a given problem
-- Review the key algorithms from Weeks 02 through 06
-
-## Lab Structure (50 min)
-
-| Order | Exercise | Time | File |
-|-------|----------|------|------|
-| Ex 1 | Solving past exam-style problems with an AI agent | 20 min | (using an agent) |
-| Ex 2 | Algorithm paradigm identification practice | 15 min | `examples/paradigm_practice.py` |
-| Ex 3 | First-half algorithm review & code review | 15 min | `examples/review_problems.py` |
+## Overview
+- **Duration**: 50 minutes
+- **Format**: Solve 4 Baekjoon problems (individually or in pairs)
+- **Goal**: Review topics from weeks 01-06 (binary search, DP, greedy, divide and conquer)
 
 ---
 
-## Ex 1: Solving Past Exam-Style Problems with an AI Agent (20 min)
+## Problem 1: Number Card 2 (BOJ 10816) — Silver IV
+- **Link**: https://www.acmicpc.net/problem/10816
+- **Concept**: Counting occurrences — for each query, count how many times it appears in the given cards
+- **Hint**: Use a dictionary/Counter for O(1) lookup, or sort and use `bisect_left` / `bisect_right` to count via binary search
+- **Time limit**: ~10 min
 
-### Objective
-Work with an AI agent (e.g., Claude) to solve problems of the type that may appear on the midterm.
+## Problem 2: Stair Climbing (BOJ 2579) — Silver III
+- **Link**: https://www.acmicpc.net/problem/2579
+- **Concept**: DP with constraints — climb stairs to maximize score, but you cannot step on 3 consecutive stairs
+- **Hint**: dp[i] = max score reaching stair i; consider two cases: (1) skip stair i-1 and come from i-2, or (2) step on i-1 but skip i-2 (come from i-3)
+- **Time limit**: ~15 min
 
-### How to Proceed
-1. Ask the agent something like:
-   - "Give me a midterm-style algorithm problem"
-   - Scope: complexity analysis, sorting, divide and conquer, greedy, DP
-2. When you receive a problem, try solving it on your own first (5 min)
-3. Have the agent check your solution
-4. If incorrect, get a hint and try again
-5. Repeat for 2-3 problems
+## Problem 3: Gas Station (BOJ 13305) — Silver III
+- **Link**: https://www.acmicpc.net/problem/13305
+- **Concept**: Greedy — travel between cities minimizing total fuel cost
+- **Hint**: Track the minimum fuel price seen so far; at each city, if the current price is cheaper, update the minimum and use it for all subsequent distances until a cheaper city is found
+- **Time limit**: ~15 min
 
-### Recommended Prompt Example
-```
-"Give me an algorithm problem from the Week 02-06 scope that could appear on the midterm.
-Please cover a mix of: complexity analysis, sorting, divide and conquer, greedy, and DP.
-After giving the problem, please grade my solution when I submit it."
-```
-
----
-
-## Ex 2: Algorithm Paradigm Identification Practice (15 min)
-
-### Objective
-Develop the ability to read a problem and determine which algorithm paradigm
-(divide and conquer / greedy / DP / brute force) should be applied.
-
-### How to Proceed
-1. Open `examples/paradigm_practice.py` and read the 10 problems
-2. For each problem, think about which paradigm to use
-3. Briefly note your reasoning
-4. Compare with the answers and explanations at the bottom of the file
-
-### Key Identification Criteria
-| Paradigm | Key Characteristics |
-|----------|---------------------|
-| Brute Force | Explores all possibilities; suitable when constraints are small |
-| Divide and Conquer | Splits the problem into independent subproblems to solve |
-| Greedy | Makes the best choice at each step; greedy choice property |
-| DP | Optimal substructure + overlapping subproblems |
+## Problem 4: Z (BOJ 1074) — Silver I
+- **Link**: https://www.acmicpc.net/problem/1074
+- **Concept**: Divide and conquer / recursion — find the visit order of cell (r, c) in a Z-shaped traversal of a 2^n x 2^n grid
+- **Hint**: Determine which quadrant (r, c) falls into; each quadrant contains (2^(n-1))^2 cells, so add the appropriate offset and recurse into that quadrant
+- **Time limit**: ~10 min
 
 ---
 
-## Ex 3: First-Half Algorithm Review & Code Review (15 min)
-
-### Objective
-Review the key algorithms from Weeks 02-06 through 5 mini problems.
-
-### How to Proceed
-1. Open `examples/review_problems.py` and check the 5 problems
-2. Implement each skeleton function yourself
-3. Compare your solution with the provided solution after completing it
-4. If short on time, simply reading and understanding the solutions is still an effective review
-
-### Problem Breakdown
-| # | Topic | Related Week |
-|---|-------|--------------|
-| 1 | Complexity Analysis | Week 02 |
-| 2 | Sorting Applications | Week 03 |
-| 3 | Divide and Conquer | Week 04 |
-| 4 | Greedy | Week 05 |
-| 5 | DP | Week 06 |
-
----
-
-## How to Run
-
-```bash
-python examples/paradigm_practice.py
-python examples/review_problems.py
-```
+## Tips
+- This lab covers multiple topics — identify which technique each problem requires before coding
+- If you get stuck, think about which week's lecture applies to the problem
+- Use this session to identify your weak areas before the midterm

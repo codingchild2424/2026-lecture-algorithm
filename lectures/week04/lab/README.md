@@ -1,52 +1,39 @@
-# Week 04 Lab — Advanced Divide and Conquer
+# Week 04 Lab — Divide and Conquer: Baekjoon Practice
 
-## Objectives
-- Understand the recursive structure of divide and conquer algorithms and trace their execution.
-- Analyze real-world use cases of divide and conquer in web applications.
-
----
-
-## Type A — Algorithm Implementation
-
-### A-1: Merge Sort Tracing (10 min)
-
-Run `examples/merge_sort_trace.py` to observe the recursive call tree of Merge Sort.
-
-Examine how the array is split and merged at each recursive call.
-
-### A-2: Finding the k-th Smallest Element (15 min)
-
-Refer to `examples/kth_smallest.py` and implement the Randomized Select algorithm.
-
-- An algorithm that finds the k-th smallest element in expected O(n) time
-- Utilizes the partition step from Quick Sort
-
-### A-3: Closest Pair of Points (10 min)
-
-Refer to `examples/closest_pair.py` and find the closest pair of points using divide and conquer.
-
-- Brute force O(n²) vs. divide and conquer O(n log n) comparison
+## Overview
+- **Duration**: 50 minutes
+- **Format**: Solve 4 Baekjoon problems (individually or in pairs)
+- **Goal**: Apply divide and conquer and binary search techniques
 
 ---
 
-## Type B — Web Code Analysis
+## Problem 1: Making Colored Paper (BOJ 2630) — Silver V
+- **Link**: https://www.acmicpc.net/problem/2630
+- **Concept**: Recursive partitioning — count white and blue paper pieces by dividing an N×N grid into quadrants
+- **Hint**: If all cells in the current region are the same color, count it; otherwise split into 4 equal quadrants and recurse
+- **Time limit**: ~10 min
 
-### B-1: Autocomplete API (15 min)
+## Problem 2: Number of Paper Pieces (BOJ 1780) — Silver II
+- **Link**: https://www.acmicpc.net/problem/1780
+- **Concept**: Recursive partitioning (3×3) — same idea as colored paper but splitting into 9 sub-regions
+- **Hint**: Check if all values are identical; if not, divide into 9 equal N/3 × N/3 blocks and recurse
+- **Time limit**: ~15 min
 
-Run the Flask app in the `examples/web_autocomplete/` folder:
+## Problem 3: Quadtree (BOJ 1992) — Silver I
+- **Link**: https://www.acmicpc.net/problem/1992
+- **Concept**: Quadtree compression — represent a black-and-white image as a compressed string
+- **Hint**: If the region is uniform, output 0 or 1; otherwise output `(` + four quadrant results + `)`
+- **Time limit**: ~15 min
 
-```bash
-cd examples/web_autocomplete
-python app.py
-```
-
-Prefix search over a dictionary of 100,000 words:
-- `GET /autocomplete/linear?q=pre` — Sequential search
-- `GET /autocomplete/binary?q=pre` — Sorted array + binary search
-
-Type characters and experience the difference in response times.
+## Problem 4: Cutting Trees (BOJ 2805) — Silver II
+- **Link**: https://www.acmicpc.net/problem/2805
+- **Concept**: Binary search on the answer — find the maximum cutter height that yields at least M meters of wood
+- **Hint**: Binary search on the cutter height H (0 to max tree height); for each H, compute total wood collected and check if it is ≥ M
+- **Time limit**: ~10 min
 
 ---
 
-## Homework 3
-See `homework/README.md` for assignment details.
+## Tips
+- For recursive partitioning problems, draw the recursion tree on paper to understand the splitting process
+- Binary search on the answer is a powerful technique — whenever you see "find the maximum/minimum value satisfying a condition," think binary search
+- Watch out for integer overflow when summing wood lengths in Problem 4
