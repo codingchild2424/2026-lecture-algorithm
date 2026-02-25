@@ -65,12 +65,16 @@ layout: section
 
 # Assignment (10%)
 
+&nbsp;
+
 **In-class Quiz: 5%**
+
 - Quizzes in **10 classes** -> each **0.5%**
 - Week 03, 04, 05, 06, 07, 09, 10, 11, 12, 13
 - Given at the **start** of the 1st hour (~15 min), covering **previous week's content**
 
 **Take-home Assignment: 5%**
+
 - Assignments in **5 classes** -> each **1%**
 - Week 02, 03, 04, 05, 06
 
