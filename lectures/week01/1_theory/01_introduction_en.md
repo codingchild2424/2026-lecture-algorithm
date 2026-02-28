@@ -72,6 +72,8 @@ layout: section
 - Quizzes in **10 classes** -> each **0.5%**
 - Week 03, 04, 05, 06, 07, 09, 10, 11, 12, 13
 - Given at the **start** of the 1st hour (~15 min), covering **previous week's content**
+- Quiz questions may appear on the **written exams**
+- **No GenAI usage** allowed — quizzes assess whether you have internalized the material
 
 **Take-home Assignment: 5%**
 
