@@ -194,6 +194,12 @@ Definition, Representation, and Key Concepts
 - **Input:** 100 exam scores
 - **Output:** The maximum score
 
+**Think:** What steps would you follow?
+
+---
+
+# Algorithm Example: Find the Maximum — Code
+
 ```python
 def find_max(scores):
     max_val = scores[0]
@@ -210,6 +216,12 @@ This is a simple but complete algorithm -- it has a clear input, a finite proced
 # Algorithm Example: Sorting
 
 **Problem:** Sort n integers in ascending order.
+
+**Think:** Given `[64, 25, 12, 22, 11]`, how would you sort it step by step?
+
+---
+
+# Algorithm Example: Sorting — Selection Sort
 
 ```python
 def selection_sort(arr):
@@ -282,24 +294,47 @@ Classic Problems and Algorithmic Thinking
 
 - The word **"algorithm"** comes from the 9th-century Persian mathematician **al-Khwarizmi**
 - The **first known algorithm**: Euclid's GCD algorithm (~300 BC)
+- Algorithms have been around for over **2,300 years** -- long before computers existed
+
+**Question:** Given two numbers 48 and 18, how would you find their **Greatest Common Divisor**?
+
+---
+
+# Euclid's GCD Algorithm
+
+**Idea:** Repeatedly replace the larger number with the remainder of dividing the two.
 
 ```python
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
     return a
-
-# Example: gcd(48, 18)
-# 48, 18 -> 18, 12 -> 12, 6 -> 6, 0 -> return 6
 ```
 
-Algorithms have been around for over **2,300 years** -- long before computers existed.
+```
+Example: gcd(48, 18)
+  48, 18 -> 18, 12 -> 12, 6 -> 6, 0 -> return 6
+```
+
+Simple, finite, and correct -- the hallmarks of a good algorithm.
 
 ---
 
 # 1.1 Finding the Maximum
 
 **Problem:** Given cards with numbers face down, find the card with the largest number.
+
+```
+  ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐
+  │ ? │ │ ? │ │ ? │ │ ? │ │ ? │ │ ? │ │ ? │
+  └───┘ └───┘ └───┘ └───┘ └───┘ └───┘ └───┘
+```
+
+**Think:** How would you find the largest number? What steps would you follow?
+
+---
+
+# 1.1 Finding the Maximum — Solution
 
 **Approach:**
 1. Look at the first card and remember its number
@@ -322,26 +357,23 @@ This is **sequential search** -- reading cards one by one in order.
 
 # 1.2 Finding a Specific Number
 
-**Problem:** Find the number 85 among these cards.
-
-**Sequential Search:**
-- Remember 85, then check each card one by one
-- In sorted data `[15, 20, 25, 35, 45, 55, 60, 75, 85, 90]`, sequential search would take **9 comparisons** to find 85
+**Problem:** Find the number **85** among these sorted cards.
 
 ```
-15 -> 20 -> 25 -> 35 -> 45 -> 55 -> 60 -> 75 -> 85  Found!
- 1     2     3     4     5     6     7     8     9
+ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐
+ │ 15 │ │ 20 │ │ 25 │ │ 35 │ │ 45 │ │ 55 │ │ 60 │ │ 75 │ │ 85 │ │ 90 │
+ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘
 ```
 
-**Can we do better if the data is sorted?**
+**Sequential Search** checks one by one: 15 → 20 → 25 → ... → 85. Takes **9 comparisons**.
+
+**Think:** The data is **sorted**. Can we do better?
 
 ---
 
-# Binary Search
+# 1.2 Binary Search — Key Insight
 
-**Key insight:** If data is **sorted**, we can use the ordering information.
-
-**Approach:** Compare with the **middle** element, then search only **one half**.
+**Idea:** Compare with the **middle** element, then search only **one half**.
 
 ```
 Search for 85 in: [15, 20, 25, 35, 45, 55, 60, 75, 85, 90]
@@ -359,7 +391,7 @@ Only **3 comparisons** instead of 9!
 
 ---
 
-# Binary Search — Algorithm
+# 1.2 Binary Search — Code
 
 ```python
 def binary_search(arr, target):
@@ -390,29 +422,38 @@ For n = 1,000,000: sequential = 1,000,000 vs binary = ~20
 
 # 1.3 Coin Change Problem
 
-**Problem:** Pay 730 won in change using the **fewest coins** possible.
+**Problem:** Pay **730 won** in change using the **fewest coins** possible.
 
-Available coins: 500, 100, 50, 10 won
+```
+Available coins:
+
+  ┌──────┐   ┌──────┐   ┌─────┐   ┌─────┐
+  │ 500₩ │   │ 100₩ │   │ 50₩ │   │ 10₩ │
+  └──────┘   └──────┘   └─────┘   └─────┘
+```
+
+**Think:** What strategy would you use to minimize the number of coins?
+
+---
+
+# 1.3 Coin Change — Greedy Solution
 
 **Greedy approach:** Always pick the **largest** coin that doesn't exceed the remaining amount.
 
 ```
 Remaining: 730
-  -> 500 won x 1  (remaining: 230)
-  -> 100 won x 2  (remaining:  30)
-  ->  10 won x 3  (remaining:   0)
+  -> 500₩ × 1  (remaining: 230)
+  -> 100₩ × 2  (remaining:  30)
+  ->  10₩ × 3  (remaining:   0)
 
 Total coins: 1 + 2 + 3 = 6 coins (minimum!)
 ```
 
 ---
 
-# Greedy Algorithm
+# 1.3 Coin Change — Code
 
-> At each step, make the **locally optimal choice** (the "greedy" choice) hoping it leads to a **globally optimal solution**.
-
-**Coin change greedy strategy:**
-- Always select the largest denomination that doesn't exceed the remaining amount
+> **Greedy Algorithm:** At each step, make the **locally optimal choice** hoping it leads to a **globally optimal solution**.
 
 ```python
 def coin_change(amount, coins=[500, 100, 50, 10]):
@@ -437,28 +478,27 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 **Problem:** Starting from a vertex, traverse **every edge exactly once** and return to the starting vertex. Vertices may be revisited.
 
 ```
-Example graph:
-
-    1 --- 2
-    |\ /| |
-    | X | |
-    |/ \| |
-    4 --- 3
+    1 ─── 2
+    │╲   ╱│ │
+    │  ╳  │ │
+    │╱   ╲│ │
+    4 ─── 3
 ```
 
-This is the **Euler Circuit** problem.
+**Think:** Can you draw this graph in **one stroke** without lifting your pen? Try it!
 
 ---
 
-# Euler Path — The Key Insight
+# 1.4 Euler Path — The Key Insight
 
-When at vertex 7, should we go to vertex 6, 9, or 10?
+When at a vertex with multiple choices, which edge should we pick?
 
-**The rule:** Move to a neighbor only if there is a **cycle** back to the current vertex through that neighbor.
+**The rule:** Move to a neighbor only if there is a **cycle** back to the current vertex through that neighbor. Avoid **bridges** (edges whose removal disconnects the graph).
 
-- Going to vertex 6: there exists a cycle back through 5, 4, 3, 9, 7 -- **safe**
-- Going to vertex 9: there exists a cycle back through 3, 4, 5, 6, 7 -- **safe**
-- Going to vertex 10: only leads to vertex 1, no cycle back -- **dead end**
+**Example:** At vertex 7, should we go to 6, 9, or 10?
+- Vertex 6: cycle exists back through 5, 4, 3, 9, 7 → **safe**
+- Vertex 9: cycle exists back through 3, 4, 5, 6, 7 → **safe**
+- Vertex 10: only leads to vertex 1, no cycle back → **dead end**
 
 **Algorithm:**
 1. If there is only one adjacent unvisited edge (a "bridge"), take it
@@ -470,18 +510,34 @@ Cycle detection can be done using **Depth First Search (DFS)**.
 
 # 1.5 Maze Solving
 
-**The Greek myth of Theseus:**
-- Theseus entered the Labyrinth with a **ball of thread**, unwinding it as he went
-- He slew the Minotaur and followed the thread back to escape
+**The Greek myth of Theseus:** He entered the Labyrinth with a **ball of thread** to find his way back.
 
-**Without a thread:**
+```
+  ┌───┬───────┬───┐
+  │ S │       │   │
+  │   └──╴╶──┘   │
+  │   ┌───┐      │
+  ├───┘   └──┐   │
+  │          │   │
+  │   ┌──────┘   │
+  │   │       E  │
+  └───┴──────────┘
+```
+
+**Think:** Without a thread or map, how would you **guarantee** finding the exit?
+
+---
+
+# 1.5 Maze Solving — Right-Hand Rule
 
 **Right-Hand Rule:**
 1. Place your right hand on the wall
 2. Walk forward, never lifting your right hand from the wall
-3. You will always reach the exit
+3. You will **always** reach the exit
 
 This works without any markers or threads -- a simple, elegant algorithm.
+
+**Why does it work?** The wall is one connected boundary. By following it, you are guaranteed to trace the entire boundary, which includes the exit.
 
 ---
 
@@ -489,7 +545,24 @@ This works without any markers or threads -- a simple, elegant algorithm.
 
 **Problem:** Among n coins, **one** is counterfeit (slightly lighter). Find it using a **balance scale** with the minimum number of weighings.
 
-**Three approaches:**
+```
+   Real coins         Fake coin (lighter)
+  ┌──┐┌──┐┌──┐       ┌──┐
+  │10│││10│││10│       │ 9│
+  └──┘└──┘└──┘       └──┘
+
+        ┌─────────────────┐
+        │    ╱─────╲      │
+    ────┤   ╱       ╲     ├────
+        │  ╱  scale  ╲    │
+        └─────────────────┘
+```
+
+**Think:** What strategy minimizes the number of weighings for **1,024 coins**?
+
+---
+
+# 1.6 Fake Coin — Three Approaches
 
 | Approach | Method | Worst case (n coins) |
 |----------|--------|---------------------|
@@ -577,9 +650,17 @@ For n = 1,024 coins:
 
 **Story:** A king has many wine jars. A spy poisoned **exactly one** jar. The poison kills exactly **one week** after tasting, even from a tiny sip.
 
+```
+  🍷🍷🍷🍷🍷🍷🍷🍷
+  🍷🍷🍷🍷☠️🍷🍷🍷    ← one is poisoned!
+  🍷🍷🍷🍷🍷🍷🍷🍷
+```
+
 **The king's order:**
 - Find the poisoned jar in **exactly one week**
 - **Minimize** the number of servants who must taste
+
+**Think:** For **8 jars**, how many servants do you need? What about **1,000 jars**?
 
 ---
 
