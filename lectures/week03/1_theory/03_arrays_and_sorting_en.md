@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 3 — Arrays, Stacks, Queues, and Basic Sorting Algorithms
 
-Korea University Sejong Campus, Department of Computer Science
+Korea University Sejong Campus, Dept. of Computer Science & Software
 
 ---
 layout: section

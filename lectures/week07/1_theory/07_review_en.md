@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 7 — Midterm Review and Problem Solving
 
-Korea University Sejong Campus, Department of Computer Science
+Korea University Sejong Campus, Dept. of Computer Science & Software
 
 ---
 layout: section

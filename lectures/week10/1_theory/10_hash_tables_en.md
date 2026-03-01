@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 10 — Algorithms
 
-Korea University Sejong Campus, Department of Computer Science
+Korea University Sejong Campus, Dept. of Computer Science & Software
 
 ---
 layout: section

@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 2 — Algorithm Design and Complexity Analysis
 
-Korea University Sejong Campus, Department of Computer Science
+Korea University Sejong Campus, Dept. of Computer Science & Software
 
 ---
 layout: section

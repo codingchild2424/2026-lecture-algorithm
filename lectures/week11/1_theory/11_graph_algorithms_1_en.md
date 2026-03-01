@@ -12,7 +12,7 @@ transition: slide-left
 
 Week 11 — Graph Algorithms I
 
-Korea University Sejong Campus, Department of Computer Science
+Korea University Sejong Campus, Dept. of Computer Science & Software
 
 ---
 layout: section
