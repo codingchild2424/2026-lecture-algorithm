@@ -1,3 +1,5 @@
+.env
+
 # Materials
 materials/
 
@@ -14,8 +16,12 @@ package-lock.json
 **/homework/solution/
 **/homework/tests/test_hidden.py
 
-# Quiz (private)
+# Quiz slides (private)
 quiz/
+**/0_quiz/quiz_*.md
+
+# Assignment slides (private)
+**/03_assignment/assignment_*.md
 
 # Slidev
 .slidev/
