@@ -103,6 +103,47 @@ layout: section
 
 ---
 
+# Course Roadmap
+
+| Week | Topic | Week | Topic |
+|------|-------|------|-------|
+| **1** | Introduction to Algorithms | **9** | Graph Algorithms |
+| **2** | Algorithm Analysis (Complexity) | **10** | Shortest Path |
+| **3** | Divide and Conquer (1) | **11** | Dynamic Programming (1) |
+| **4** | Divide and Conquer (2) | **12** | Dynamic Programming (2) |
+| **5** | Greedy Algorithms (1) | **13** | String Matching |
+| **6** | Greedy Algorithms (2) | **14** | NP-Completeness |
+| **7** | Sorting & Selection | **15** | _Final Exam_ |
+| **8** | _Midterm Exam_ | | |
+
+---
+
+# Coding Test Landscape
+
+Algorithms are at the core of technical interviews and coding tests:
+
+| Platform | URL |
+|----------|-----|
+| **Baekjoon** (BOJ) | https://www.acmicpc.net/ |
+| **Programmers** | https://programmers.co.kr/ |
+| **LeetCode** | https://leetcode.com/ |
+| **Codeforces** | https://codeforces.com/ |
+| **solved.ac** | https://solved.ac/ |
+
+**Visualization tools** (great for studying):
+- VisuAlgo: https://visualgo.net/
+- Data Structure Visualizations: https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
+
+---
+layout: section
+---
+
+# Part 2. What is an Algorithm?
+
+Definition, Classic Problems, and Algorithmic Thinking
+
+---
+
 # Why Study Algorithms?
 
 - **The most important subject** in Computer Science
@@ -139,32 +180,6 @@ layout: section
 ```
 Problem Solving <-> Divide & Conquer <-> Recursive Thinking <-> Recurrence
 ```
-
----
-
-# Coding Test Landscape
-
-Algorithms are at the core of technical interviews and coding tests:
-
-| Platform | URL |
-|----------|-----|
-| **Baekjoon** (BOJ) | https://www.acmicpc.net/ |
-| **Programmers** | https://programmers.co.kr/ |
-| **LeetCode** | https://leetcode.com/ |
-| **Codeforces** | https://codeforces.com/ |
-| **solved.ac** | https://solved.ac/ |
-
-**Visualization tools** (great for studying):
-- VisuAlgo: https://visualgo.net/
-- Data Structure Visualizations: https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
-
----
-layout: section
----
-
-# Part 2. What is an Algorithm?
-
-Definition, Representation, and Key Concepts
 
 ---
 
@@ -271,29 +286,6 @@ Output: [11, 12, 22, 25, 64]
 - Unsorted words -> sequential search (slow)
 - Sorted words -> binary search (fast)
 - The **data structure** (sorted vs unsorted) determines which **algorithm** is efficient
-
----
-
-# Course Roadmap
-
-| Week | Topic | Week | Topic |
-|------|-------|------|-------|
-| **1** | Introduction to Algorithms | **9** | Graph Algorithms |
-| **2** | Algorithm Analysis (Complexity) | **10** | Shortest Path |
-| **3** | Divide and Conquer (1) | **11** | Dynamic Programming (1) |
-| **4** | Divide and Conquer (2) | **12** | Dynamic Programming (2) |
-| **5** | Greedy Algorithms (1) | **13** | String Matching |
-| **6** | Greedy Algorithms (2) | **14** | NP-Completeness |
-| **7** | Sorting & Selection | **15** | _Final Exam_ |
-| **8** | _Midterm Exam_ | | |
-
----
-layout: section
----
-
-# Part 3. First Steps in Algorithms
-
-Classic Problems and Algorithmic Thinking
 
 ---
 
