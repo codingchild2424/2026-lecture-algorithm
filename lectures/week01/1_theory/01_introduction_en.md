@@ -292,6 +292,11 @@ Classic Problems and Algorithmic Thinking
 
 # Origin of the Word "Algorithm"
 
+<div style="float: right; margin-left: 20px;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg/250px-Madrid_-_Ciudad_Universitaria%2C_Monumento_a_Muhammad_al-Juarismi_%28cropped%29.jpg" width="200" />
+<br><sub>al-Khwarizmi monument, Madrid</sub>
+</div>
+
 - The word **"algorithm"** comes from the 9th-century Persian mathematician **al-Khwarizmi**
 - The **first known algorithm**: Euclid's GCD algorithm (~300 BC)
 - Algorithms have been around for over **2,300 years** -- long before computers existed
@@ -324,11 +329,8 @@ Simple, finite, and correct -- the hallmarks of a good algorithm.
 
 **Problem:** Given cards with numbers face down, find the card with the largest number.
 
-```
-  ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐
-  │ ? │ │ ? │ │ ? │ │ ? │ │ ? │ │ ? │ │ ? │
-  └───┘ └───┘ └───┘ └───┘ └───┘ └───┘ └───┘
-```
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/AcetoFive.JPG/400px-AcetoFive.JPG" width="350" />
+<sub>Playing cards — Wikimedia Commons</sub>
 
 **Think:** How would you find the largest number? What steps would you follow?
 
@@ -359,11 +361,8 @@ This is **sequential search** -- reading cards one by one in order.
 
 **Problem:** Find the number **85** among these sorted cards.
 
-```
- ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐
- │ 15 │ │ 20 │ │ 25 │ │ 35 │ │ 45 │ │ 55 │ │ 60 │ │ 75 │ │ 85 │ │ 90 │
- └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘ └────┘
-```
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Binary_Search_Depiction.svg/400px-Binary_Search_Depiction.svg.png" width="400" />
+<sub>Binary Search visualization — Wikimedia Commons</sub>
 
 **Sequential Search** checks one by one: 15 → 20 → 25 → ... → 85. Takes **9 comparisons**.
 
@@ -424,13 +423,8 @@ For n = 1,000,000: sequential = 1,000,000 vs binary = ~20
 
 **Problem:** Pay **730 won** in change using the **fewest coins** possible.
 
-```
-Available coins:
-
-  ┌──────┐   ┌──────┐   ┌─────┐   ┌─────┐
-  │ 500₩ │   │ 100₩ │   │ 50₩ │   │ 10₩ │
-  └──────┘   └──────┘   └─────┘   └─────┘
-```
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Currency_South_Korea.jpg/400px-Currency_South_Korea.jpg" width="350" />
+<sub>South Korean coins — Wikimedia Commons</sub>
 
 **Think:** What strategy would you use to minimize the number of coins?
 
@@ -439,6 +433,9 @@ Available coins:
 # 1.3 Coin Change — Greedy Solution
 
 **Greedy approach:** Always pick the **largest** coin that doesn't exceed the remaining amount.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Greedy_algorithm_36_cents.svg/400px-Greedy_algorithm_36_cents.svg.png" width="350" />
+<sub>Greedy coin selection — Wikimedia Commons</sub>
 
 ```
 Remaining: 730
@@ -477,13 +474,8 @@ def coin_change(amount, coins=[500, 100, 50, 10]):
 
 **Problem:** Starting from a vertex, traverse **every edge exactly once** and return to the starting vertex. Vertices may be revisited.
 
-```
-    1 ─── 2
-    │╲   ╱│ │
-    │  ╳  │ │
-    │╱   ╲│ │
-    4 ─── 3
-```
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridges_of_Konigsberg.png/350px-Bridges_of_Konigsberg.png" width="300" />
+<sub>Seven Bridges of Königsberg — Wikimedia Commons</sub>
 
 **Think:** Can you draw this graph in **one stroke** without lifting your pen? Try it!
 
@@ -512,17 +504,11 @@ Cycle detection can be done using **Depth First Search (DFS)**.
 
 **The Greek myth of Theseus:** He entered the Labyrinth with a **ball of thread** to find his way back.
 
-```
-  ┌───┬───────┬───┐
-  │ S │       │   │
-  │   └──╴╶──┘   │
-  │   ┌───┐      │
-  ├───┘   └──┐   │
-  │          │   │
-  │   ┌──────┘   │
-  │   │       E  │
-  └───┴──────────┘
-```
+<div style="display: flex; gap: 20px; align-items: center;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Longleat-maze.jpg/300px-Longleat-maze.jpg" width="250" />
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg/300px-Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg" width="200" />
+</div>
+<sub>Longleat hedge maze & Theseus and the Minotaur — Wikimedia Commons</sub>
 
 **Think:** Without a thread or map, how would you **guarantee** finding the exit?
 
@@ -545,18 +531,8 @@ This works without any markers or threads -- a simple, elegant algorithm.
 
 **Problem:** Among n coins, **one** is counterfeit (slightly lighter). Find it using a **balance scale** with the minimum number of weighings.
 
-```
-   Real coins         Fake coin (lighter)
-  ┌──┐┌──┐┌──┐       ┌──┐
-  │10│││10│││10│       │ 9│
-  └──┘└──┘└──┘       └──┘
-
-        ┌─────────────────┐
-        │    ╱─────╲      │
-    ────┤   ╱       ╲     ├────
-        │  ╱  scale  ╲    │
-        └─────────────────┘
-```
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Balance_%C3%A0_tabac_1850.JPG/350px-Balance_%C3%A0_tabac_1850.JPG" width="280" />
+<sub>Balance scale — Wikimedia Commons</sub>
 
 **Think:** What strategy minimizes the number of weighings for **1,024 coins**?
 
@@ -650,11 +626,8 @@ For n = 1,024 coins:
 
 **Story:** A king has many wine jars. A spy poisoned **exactly one** jar. The poison kills exactly **one week** after tasting, even from a tiny sip.
 
-```
-  🍷🍷🍷🍷🍷🍷🍷🍷
-  🍷🍷🍷🍷☠️🍷🍷🍷    ← one is poisoned!
-  🍷🍷🍷🍷🍷🍷🍷🍷
-```
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Oak-wine-barrel-at-toneleria-nacional-chile.jpg/350px-Oak-wine-barrel-at-toneleria-nacional-chile.jpg" width="300" />
+<sub>Wine barrels — Wikimedia Commons</sub>
 
 **The king's order:**
 - Find the poisoned jar in **exactly one week**
