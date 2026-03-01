@@ -299,9 +299,9 @@ You do **not** need a perfect benchmark -- the **process** matters.
 
 # Assignments & Team Project
 
-### Weekly Assignments (Weeks 03--07)
+### Weekly Assignments (Weeks 02--06)
 
-- Starting **Week 3**, you will receive weekly assignments
+- **Weeks 2--6**, you will receive weekly assignments
 - Each assignment: build a **web application** that applies the algorithm learned that week
 - Goal: experience how algorithms improve real software performance
 
