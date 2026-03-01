@@ -1,6 +1,6 @@
 ---
 theme: default
-title: "Week 01 Lab — Environment Setup & Coding Agents"
+title: "Algorithms Lab — Week 1 – Coding Agents"
 info: "Algorithms Lab"
 class: text-center
 drawings:
@@ -8,348 +8,327 @@ drawings:
 transition: slide-left
 ---
 
-# Week 01 Lab
-## Environment Setup & Coding Agents
+# Algorithms Lab
 
-Algorithms Lab
+## Week 1 -- Coding Agents
 
----
-layout: section
----
-
-# Overview
+Korea University Sejong Campus, Department of Computer Science & Software
 
 ---
 
-# Today's Objectives
+# Lab Overview
 
-- Install and configure a **coding agent** (Claude Code, Gemini CLI, or OpenCode)
-- Verify your **Python development environment**
-- Implement **binary search** using the RALPH prompting technique
-- Create an **algorithm visualization** script
-- Solve your **first Baekjoon** Online Judge problem
+- **Goal**: Install and use an AI-powered coding agent for real development tasks
+- **Duration**: ~50 minutes
+- **Submission**: None -- exploration lab
+- These tools will be used **throughout the semester** for labs and assignments
 
-<br>
-
-### Prerequisites
-
-- Python 3.10+ installed
-- Text editor or IDE (VS Code recommended)
-
----
-layout: section
----
-
-# Task 1
-## Install a Coding Agent
-
----
-
-# Task 1: Install a Coding Agent (10 min)
-
-Choose and install one of the following:
-
-| Agent | Install Command |
-|-------|----------------|
-| **Claude Code** | `npm install -g @anthropic-ai/claude-code` |
-| **Gemini CLI** | `npm install -g @google/gemini-cli` |
-| **OpenCode** | `go install github.com/opencode-ai/opencode@latest` |
-
-<br>
-
-### After installation
-
-1. Open your terminal
-2. Run the agent command (e.g., `claude`)
-3. Verify it launches and responds correctly
-4. Try a simple prompt: *"Hello, can you help me with algorithms?"*
-
----
-layout: section
----
-
-# Task 2
-## Verify Dev Environment
+<div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 40px;">
+  <div style="background: #dce6f7; border: 1px solid #b0c4de; border-radius: 8px; padding: 12px 16px; text-align: center; min-width: 120px;">
+    <div style="font-weight: bold;">Task 1</div>
+    <div style="font-size: 0.85em;">Install Agent</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #dce6f7; border: 1px solid #b0c4de; border-radius: 8px; padding: 12px 16px; text-align: center; min-width: 120px;">
+    <div style="font-weight: bold;">Task 2</div>
+    <div style="font-size: 0.85em;">File Organization</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #dce6f7; border: 1px solid #b0c4de; border-radius: 8px; padding: 12px 16px; text-align: center; min-width: 120px;">
+    <div style="font-weight: bold;">Task 3</div>
+    <div style="font-size: 0.85em;">Repo Documentation</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #dce6f7; border: 1px solid #b0c4de; border-radius: 8px; padding: 12px 16px; text-align: center; min-width: 120px;">
+    <div style="font-weight: bold;">Task 4</div>
+    <div style="font-size: 0.85em;">RALPH Technique</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #dce6f7; border: 1px solid #b0c4de; border-radius: 8px; padding: 12px 16px; text-align: center; min-width: 120px;">
+    <div style="font-weight: bold;">Task 5</div>
+    <div style="font-size: 0.85em;">Sorting Benchmark</div>
+  </div>
+</div>
 
 ---
 
-# Task 2: Verify Dev Environment (10 min)
+# What Are Coding Agents?
 
-### Step 1 -- Check Python version
+AI-powered CLI tools that understand and generate code **in context**
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin: 30px 0;">
+  <div style="background: #e3f2fd; border: 2px solid #90caf9; border-radius: 8px; padding: 16px 20px; text-align: center;">
+    <div style="font-weight: bold;">Read</div>
+    <div style="font-size: 0.85em;">files & context</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #fff8e1; border: 2px solid #ffe082; border-radius: 8px; padding: 16px 20px; text-align: center;">
+    <div style="font-weight: bold;">Plan</div>
+    <div style="font-size: 0.85em;">what to do</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #e8f5e9; border: 2px solid #a5d6a7; border-radius: 8px; padding: 16px 20px; text-align: center;">
+    <div style="font-weight: bold;">Act</div>
+    <div style="font-size: 0.85em;">edit & run</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #fce4ec; border: 2px solid #f48fb1; border-radius: 8px; padding: 16px 20px; text-align: center;">
+    <div style="font-weight: bold;">Verify</div>
+    <div style="font-size: 0.85em;">check results</div>
+  </div>
+</div>
+
+<div style="text-align: center; font-style: italic; margin-bottom: 20px;">← iterate →</div>
+
+- Can read your file system, run commands, and make edits autonomously
+- Useful for: scaffolding, refactoring, documentation, debugging
+
+> **Example**: *"Create a Python sorting benchmark with timing utilities"* Agent: reads directory → writes files → confirms tests pass
+
+---
+
+# Available Agents
+
+<div style="display: flex; justify-content: center; gap: 80px; margin: 40px 0 20px;">
+  <div style="text-align: center;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Google-gemini-icon.svg" alt="Gemini" width="56" style="margin-bottom: 8px;" />
+    <div style="font-weight: bold; font-size: 1.1em;">Gemini CLI</div>
+    <div style="color: #2e7d32; font-size: 0.9em;">Free (1000 calls/day)</div>
+    <div style="font-size: 0.85em; color: #666;">Google's agent</div>
+    <div style="font-size: 0.85em; color: #666;">Good default choice</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg" alt="Claude" width="56" style="margin-bottom: 8px;" />
+    <div style="font-weight: bold; font-size: 1.1em;">Claude Code</div>
+    <div style="color: #e65100; font-size: 0.9em;">Paid</div>
+    <div style="font-size: 0.85em; color: #666;">Anthropic's agent</div>
+    <div style="font-size: 0.85em; color: #666;">Strong multi-file reasoning</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg" alt="OpenAI" width="56" style="margin-bottom: 8px;" />
+    <div style="font-weight: bold; font-size: 1.1em;">Codex CLI</div>
+    <div style="color: #e65100; font-size: 0.9em;">Paid</div>
+    <div style="font-size: 0.85em; color: #666;">OpenAI's agent</div>
+    <div style="font-size: 0.85em; color: #666;">Open-source CLI</div>
+  </div>
+</div>
+
+Also available: **OpenCode** (open-source harness -- use any model including open-source LLMs)
+
+> *Recommendation*: Install **Gemini CLI** if you have no preference -- it's free and easy to set up.
+
+---
+
+# Task 1 -- Install a Coding Agent
+
+Install at least one coding agent by following its official documentation.
+
+**Installation commands:**
 
 ```bash
-python3 --version
-# Expected: Python 3.10.x or higher
+npm install -g @google/gemini-cli          # Gemini CLI (free)
+npm install -g @anthropic-ai/claude-code    # Claude Code (paid)
 ```
 
-### Step 2 -- Install required packages
+**Verify installation:**
 
 ```bash
-pip install matplotlib
+gemini --version    # or: claude --version
 ```
 
-### Step 3 -- Create a Baekjoon Online Judge account
+**What to check:**
 
-Go to: **https://www.acmicpc.net/**
-
-```
-+----------------------------------------------+
-|        Baekjoon Online Judge (BOJ)           |
-|                                              |
-|   [Sign Up] to create your account           |
-|   You will submit solutions here all         |
-|   semester long!                             |
-+----------------------------------------------+
-```
-
----
-layout: section
----
-
-# Task 3
-## Binary Search with RALPH Technique
+- The CLI launches without errors
+- You can authenticate (Google account for Gemini, Anthropic account for Claude)
+- Try a simple prompt: `"What is 2 + 2?"` to confirm it responds
 
 ---
 
-# The RALPH Technique
+# Task 2 -- Organize Files
 
-A structured approach to prompting coding agents:
+Use the agent to **organize files** in a messy directory.
+
+**Example prompt:**
 
 ```
-+-------------------------------------------+
-|  R - Role      Assign a role              |
-|  A - Ask       Make a request             |
-|  L - Limit     Set constraints            |
-|  P - Provide   Supply input/context       |
-|  H - Hint      Give a hint or direction   |
-+-------------------------------------------+
+"Organize the files in ~/Downloads by file type into subfolders
+ (images, documents, code, etc.). Show me the plan before executing."
 ```
+
+**What to observe:**
+
+- Does the agent **ask for confirmation** before moving files?
+- Does it create a sensible folder structure?
+- Does it handle edge cases (e.g., files with no extension)?
+
+**Discussion:**
+
+- What would happen if you didn't say *"show me the plan first"*?
+- How do you give the agent more specific instructions if the result isn't right?
+
+---
+
+# Task 3 -- Document a GitHub Repo
+
+Use the agent to **generate a README.md** for an existing codebase.
+
+**Pick a target repository:**
+
+- Your own project, or a public repo such as:
+  - `https://github.com/code-yeongyu/oh-my-opencode`
+
+**Example prompt:**
+
+```
+"Read this codebase and generate a comprehensive README.md
+ with architecture overview, setup instructions, and usage examples."
+```
+
+**Evaluate the output:**
+
+- Does the README **accurately** describe the project?
+- Are the setup instructions correct and complete?
+- Is anything missing (license, contributing guide, screenshots)?
+
+> Save this README -- you'll improve it in the next task.
+
+---
+
+# Task 4 -- RALPH Technique
+
+Create a **verifiable evaluation rubric** and use it to iteratively improve output quality.
+
+**R**equest → **A**nalyze → **L**ist issues → **P**rompt again → **H**armonize
+
+**Step-by-step:**
+
+1. Ask the agent to generate a rubric (e.g., *"What makes a top-tier README?"*)
+2. Ask the agent to **evaluate its own output** against the rubric
+3. Ask it to fix all identified issues
+4. Repeat until all criteria are met
+
+**Key phrases to try:**
+
+- *"Keep going until the criteria are met"*
+- *"Evaluate against the rubric and fix all issues"*
+
+---
+
+# Task 4 -- RALPH in Practice
+
+**Example workflow using the README from Task 3:**
+
+```
+You:    "Generate a rubric for evaluating a high-quality open-source README."
+Agent:  Returns 8 criteria (description, install, usage, architecture, ... )
+
+You:    "Now evaluate the README you wrote against this rubric. Score each criterion."
+Agent:  Scores 6/8 — missing: architecture diagram, contributing guide.
+
+You:    "Fix all failing criteria. Add an architecture diagram and contributing guide."
+Agent:  Updates the README with both additions.
+
+You:    "Re-evaluate. Are all criteria met now?"
+Agent:  8/8 — all criteria satisfied.
+```
+
+**Why this matters:**
+
+- Agents produce *good-enough* output on first try, but **not perfect**
+- The RALPH loop teaches you to **systematically improve** agent output
+- This skill transfers to any AI tool, not just coding agents
+
+---
+
+# Task 5 -- Build a Sorting Benchmark
+
+Use the agent to **build a multi-file sorting benchmark** -- a preview of the semester project.
+
+**Example prompt:**
+
+```
+"Create a Python sorting benchmark that compares bubble sort, merge sort,
+ and Python's built-in sort. Include timing utilities and a results table.
+ Organize the code into separate modules."
+```
+
+**Expected output files:**
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 30px;">
+  <div style="background: #e3f2fd; border: 1px solid #90caf9; border-radius: 8px; padding: 12px 16px; text-align: center;">
+    <div style="font-weight: bold;">sorting.py</div>
+    <div style="font-size: 0.85em;">sort algorithms</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 12px 16px; text-align: center;">
+    <div style="font-weight: bold;">timer.py</div>
+    <div style="font-size: 0.85em;">timing utility</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 8px; padding: 12px 16px; text-align: center;">
+    <div style="font-weight: bold;">benchmark.py</div>
+    <div style="font-size: 0.85em;">main runner</div>
+  </div>
+  <div style="font-size: 1.2em;">→</div>
+  <div style="background: #fce4ec; border: 1px solid #f48fb1; border-radius: 8px; padding: 12px 16px; text-align: center;">
+    <div style="font-weight: bold;">README.md</div>
+    <div style="font-size: 0.85em;">documentation</div>
+  </div>
+</div>
+
+---
+
+# Task 5 -- What to Observe
+
+You do **not** need a perfect benchmark -- the **process** matters.
+
+**Watch how the agent:**
+
+- Breaks a complex problem into multiple files
+- Explains each component's role
+- Handles errors when you give feedback
+- Iterates on build failures (if any)
+
+**Try follow-up prompts:**
+
+- *"Add a bar chart visualization of the results"*
+- *"Explain the time complexity of each sorting algorithm"*
+- *"The benchmark crashes with large N -- fix it"*
+
+---
+
+# Assignments & Team Project
+
+### Weekly Assignments (Weeks 03--07)
+
+- Starting **Week 3**, you will receive weekly assignments
+- Each assignment: build a **web application** that applies the algorithm learned that week
+- Goal: experience how algorithms improve real software performance
+
+### Team Project (Final Exam, Weeks 09--13)
+
+- Teams of 3--4 will build a **web application** that incorporates **all algorithms** covered in the course
+- Deliverables: **working web app** + **report** + **presentation**
+- The agent will be your primary development tool throughout
 
 <br>
 
-### Example for Binary Search
-
-| Letter | Prompt |
-|--------|--------|
-| **R** | "You are an algorithm tutor" |
-| **A** | "Implement binary search in Python" |
-| **L** | "Both recursive and iterative versions" |
-| **P** | "Find 7 in the sorted list [1,3,5,7,9,11]" |
-| **H** | "Also explain why the time complexity is O(log n)" |
+> Make the most of coding agents -- they will be essential for both assignments and the final project.
 
 ---
 
-# Task 3: Your Turn (15 min)
+# Summary & Next Steps
 
-### Exercise
+**What we practiced today:**
 
-1. Open your coding agent
-2. Craft a RALPH prompt for binary search
-3. Compare the agent's output with `examples/binary_search.py`
+| Task | Skill Learned |
+|------|---------------|
+| 1. Install agent | Tool setup, authentication, basic prompting |
+| 2. File organization | Delegating real tasks, reviewing agent decisions |
+| 3. Repo documentation | Evaluating AI-generated technical writing |
+| 4. RALPH technique | Systematic iterative refinement with rubrics |
+| 5. Sorting benchmark | Tackling complex multi-file algorithm projects |
 
-<br>
+**Coming up -- Week 2 Lab**: Complexity Analysis Practice (O(n²) vs O(n) comparison)
 
-### Think about
-
-- Did the agent produce correct code?
-- How does it compare to the reference implementation?
-- Did the explanation of O(log n) make sense?
-
----
-
-# Binary Search -- Problem
-
-Given a **sorted** array, find the index of a target value.
-
-```
-Array: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-Target: 7
-
-Step 1:  [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-          L              M                  R     mid=9 > 7, go left
-
-Step 2:  [1, 3, 5, 7, 9]
-          L     M     R                           mid=5 < 7, go right
-
-Step 3:        [7, 9]
-                L  R                              mid=7 == 7, found!
-                M
-```
-
-**Time Complexity**: O(log n) -- halving the search space each step
-
----
-
-# Binary Search -- Iterative Solution
-
-```python
-def binary_search_iterative(arr, target):
-    """Return the index of target in sorted arr, or -1 if not found."""
-    left, right = 0, len(arr) - 1
-    while left <= right:
-        mid = (left + right) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-    return -1
-```
-
-```python
-data = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-idx = binary_search_iterative(data, 7)
-print(f"Found at index {idx}")   # Found at index 3
-```
-
----
-
-# Binary Search -- Recursive Solution
-
-```python
-def binary_search_recursive(arr, target, left, right):
-    """Return the index of target in arr[left..right], or -1."""
-    if left > right:
-        return -1
-    mid = (left + right) // 2
-    if arr[mid] == target:
-        return mid
-    elif arr[mid] < target:
-        return binary_search_recursive(arr, target, mid + 1, right)
-    else:
-        return binary_search_recursive(arr, target, left, mid - 1)
-```
-
-```python
-data = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
-idx = binary_search_recursive(data, 7, 0, len(data) - 1)
-print(f"Found at index {idx}")   # Found at index 3
-```
-
----
-layout: section
----
-
-# Task 4
-## Algorithm Visualization
-
----
-
-# Task 4: Visualization Script (10 min)
-
-Ask your coding agent to create a step-by-step trace of binary search.
-
-### Example prompt
-
-> "Create a Python script that prints the binary search process step by step.
-> At each step, show the current search range and the mid value."
-
-### Expected output
-
-```
---- Binary Search Trace for target=7 ---
-Step 1: range=[0,9], mid=4, arr[mid]=9
-  -> 9 > 7, search left half
-Step 2: range=[0,3], mid=1, arr[mid]=3
-  -> 3 < 7, search right half
-Step 3: range=[2,3], mid=2, arr[mid]=5
-  -> 5 < 7, search right half
-Step 4: range=[3,3], mid=3, arr[mid]=7
-  -> Found at index 3!
-```
-
----
-layout: section
----
-
-# Task 5
-## First BOJ Problem
-
----
-
-# Task 5: BOJ 1920 -- Finding Numbers (5 min)
-
-**Problem**: https://www.acmicpc.net/problem/1920
-
-Given N integers and M query integers, determine whether each query exists in the N integers.
-
-```
-Input:                    Output:
-5                         1
-4 1 5 2 3                 1
-5                         0
-1 3 7 9 5
-```
-
-### Strategy
-
-1. Read the N integers into a **set** (or sort + binary search)
-2. For each query, check membership
-
-```python
-n = int(input())
-a = set(map(int, input().split()))
-m = int(input())
-for x in map(int, input().split()):
-    print(1 if x in a else 0)
-```
-
-Use the agent to develop your strategy, then **submit on BOJ**!
-
----
-layout: section
----
-
-# Semester Project Preview
-
----
-
-# Semester Project (Weeks 09--13)
-
-Teams of 3--4 will build a **web application** incorporating course algorithms.
-
-| Phase | Week | Activity |
-|-------|------|----------|
-| Kickoff | 09 | Claude Code tutorial + team formation |
-| Sprint 1 | 10 | Hash table features + performance comparison |
-| Sprint 2 | 11 | Graph traversal features + mid-check |
-| Sprint 3 | 12 | Shortest path features + presentation prep |
-| Final | 13 | Code finalization + team presentations |
-
-### Grading
-
-| Criterion | Weight |
-|-----------|--------|
-| Algorithm application (4+ algorithms) | 40% |
-| Performance comparison | 20% |
-| Completeness (working app, code quality) | 20% |
-| Presentation (slides, explanation, Q&A) | 20% |
-
----
-layout: section
----
-
-# Wrap-Up
-
----
-
-# Summary
-
-### What we did today
-
-- Installed a **coding agent** and learned the RALPH technique
-- Verified our **Python environment** and created BOJ accounts
-- Implemented **binary search** (iterative + recursive)
-- Created a **visualization** of binary search
-- Solved **BOJ 1920** -- our first online judge submission
-
-### Homework 1
-
-See `homework/README.md` for assignment details.
-
-<br>
-
-### Next week
-
-**Week 02**: Complexity Analysis Practice -- measuring and comparing O(n^2) vs O(n) experimentally!
+> Coding agents are tools -- understanding what they produce is still **your** responsibility.
