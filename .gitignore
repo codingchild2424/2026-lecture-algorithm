@@ -19,9 +19,11 @@ package-lock.json
 # Quiz slides (private)
 quiz/
 **/0_quiz/quiz_*.md
+**/0_quiz/quiz_*.pdf
 
 # Assignment slides (private)
 **/03_assignment/assignment_*.md
+**/03_assignment/assignment_*.pdf
 
 # Slidev
 .slidev/
