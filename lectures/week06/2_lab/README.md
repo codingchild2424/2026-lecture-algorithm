@@ -38,8 +38,3 @@ python app.py
 
 Enter two texts and the app will highlight the differences based on LCS.
 - GitHub's diff feature works on the same principle.
-
----
-
-## Homework 5 (Final Assignment)
-See `homework/README.md` for assignment details.

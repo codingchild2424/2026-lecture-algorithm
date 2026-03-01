@@ -48,8 +48,3 @@ Compare the two search endpoints:
 Measure and compare response times with N=100, 10,000, and 1,000,000 products.
 
 **Question**: How does the difference between the two approaches change as the data grows larger?
-
----
-
-## Homework 1
-See `homework/README.md` for assignment details.

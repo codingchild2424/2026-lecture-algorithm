@@ -55,8 +55,3 @@ Open `http://localhost:5000` in your browser and:
 3. Change the number of products from 1,000 to 10,000 to 50,000 and feel the difference
 
 **Question**: What would happen if a real online shopping mall used an O(n²) sorting algorithm?
-
----
-
-## Homework 2
-See `homework/README.md` for assignment details.

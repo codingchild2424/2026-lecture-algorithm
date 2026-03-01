@@ -89,8 +89,3 @@ Review the key algorithms from Weeks 02-06 through 5 mini problems.
 python examples/paradigm_practice.py
 python examples/review_problems.py
 ```
-
----
-
-## Homework 6
-See `homework/README.md` for assignment details.

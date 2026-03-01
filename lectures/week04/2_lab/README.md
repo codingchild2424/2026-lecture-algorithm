@@ -45,8 +45,3 @@ Prefix search over a dictionary of 100,000 words:
 - `GET /autocomplete/binary?q=pre` — Sorted array + binary search
 
 Type characters and experience the difference in response times.
-
----
-
-## Homework 3
-See `homework/README.md` for assignment details.

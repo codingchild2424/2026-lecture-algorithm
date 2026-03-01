@@ -78,8 +78,3 @@ Starting in **Week 09**, you will work in teams of 3-4 to build a **web applicat
 - Performance comparison (20%): Before/after measurement results
 - Completeness (20%): Working web app, code quality
 - Presentation (20%): Slides, explanation, Q&A
-
----
-
-## Homework 1
-See `homework/README.md` for assignment details.

@@ -44,8 +44,3 @@ python app.py
 Analyze the scheduler that uses the Activity Selection algorithm.
 - Determine the maximum number of meetings that can be scheduled from a list of meeting requests
 - Think about why the greedy strategy (sorting by end time) is optimal
-
----
-
-## Homework 4
-See `homework/README.md` for assignment details.
