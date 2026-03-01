@@ -174,12 +174,19 @@ Definition, Representation, and Key Concepts
 
 - Given an **input** (the problem), after a **finite number of steps**, it produces the desired **output** (the result).
 
-```
-┌─────────┐    ┌─────────────────┐    ┌──────────┐
-│  Input   │ -> │    Algorithm    │ -> │  Output   │
-│ (Problem)│    │ (finite steps)  │    │ (Result)  │
-└─────────┘    └─────────────────┘    └──────────┘
-```
+<div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin: 20px 0;">
+  <div style="border: 2px solid #333; border-radius: 8px; padding: 16px 24px; text-align: center; background: #e3f2fd;">
+    <strong>Input</strong><br><span style="font-size: 0.85em;">(Problem)</span>
+  </div>
+  <span style="font-size: 2em;">→</span>
+  <div style="border: 2px solid #333; border-radius: 8px; padding: 16px 24px; text-align: center; background: #fff3e0;">
+    <strong>Algorithm</strong><br><span style="font-size: 0.85em;">(finite steps)</span>
+  </div>
+  <span style="font-size: 2em;">→</span>
+  <div style="border: 2px solid #333; border-radius: 8px; padding: 16px 24px; text-align: center; background: #e8f5e9;">
+    <strong>Output</strong><br><span style="font-size: 0.85em;">(Result)</span>
+  </div>
+</div>
 
 **Requirements:**
 - Clearly specify input and output
