@@ -103,6 +103,24 @@ layout: section
 
 ---
 
+# Textbook
+
+<div style="float: right; margin-left: 20px;">
+<img src="https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg" width="160" />
+</div>
+
+**Main textbook:**
+- *Introduction to Algorithms*, 3rd Edition (CLRS)
+  - Cormen, Leiserson, Rivest, Stein
+
+**Key idea throughout the course:**
+
+```
+Problem Solving <-> Divide & Conquer <-> Recursive Thinking <-> Recurrence
+```
+
+---
+
 # Course Roadmap
 
 | Week | Topic | Week | Topic |
@@ -166,20 +184,6 @@ Definition, Classic Problems, and Algorithmic Thinking
   - Flowcharts, Pseudocode
 - **Efficiency and complexity analysis**
   - How execution time grows with input size
-
----
-
-# Textbook
-
-**Main textbook:**
-- *Introduction to Algorithms*, 3rd Edition (CLRS)
-  - Cormen, Leiserson, Rivest, Stein
-
-**Key idea throughout the course:**
-
-```
-Problem Solving <-> Divide & Conquer <-> Recursive Thinking <-> Recurrence
-```
 
 ---
 
