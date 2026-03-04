@@ -802,17 +802,26 @@ Let $h(n) = n^{\log_b a}$. Compare $f(n)$ with $h(n)$:
 
 # Master Theorem — Intuition
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 $$T(n) = aT(n/b) + f(n)$$
 
-The total work is: $f(n) + a \cdot f(n/b) + a^2 \cdot f(n/b^2) + \cdots + n^{\log_b a} \cdot T(1)$
-
-**Who dominates?**
+Each level of the recursion tree does work. **Who dominates?**
 
 | Scenario | Winner | Result |
 |----------|--------|--------|
-| $h(n) = n^{\log_b a}$ dominates $f(n)$ | Leaf work wins | $T(n) = \Theta(h(n))$ |
-| $f(n)$ dominates $h(n)$ | Root work wins | $T(n) = \Theta(f(n))$ |
-| $h(n)$ and $f(n)$ are equal | Balanced — each level contributes equally | $T(n) = \Theta(h(n) \log n)$ |
+| Leaves dominate | Leaf work wins | $T(n) = \Theta(n^{\log_b a})$ |
+| Root dominates | Root work wins | $T(n) = \Theta(f(n))$ |
+| Balanced | Equal per level | $T(n) = \Theta(n^{\log_b a} \log n)$ |
+
+The tree has height $\log_b n$, and each level's total cost sums to the right.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/recursion-tree-costs.png" alt="Recursion tree with level costs" width="320" />
+</div>
+</div>
 
 ---
 
