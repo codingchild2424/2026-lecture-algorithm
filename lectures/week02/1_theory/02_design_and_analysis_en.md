@@ -30,7 +30,7 @@ layout: section
 
 ```
 ┌───────┐      ┌─────────────┐      ┌────────┐
-│ Input │ ───► │  Algorithm   │ ───► │ Output │
+│ Input │ ───► │  Algorithm  │ ───► │ Output │
 └───────┘      └─────────────┘      └────────┘
 ```
 
@@ -147,16 +147,21 @@ Three common ways to express an algorithm:
 
 ---
 
-# Example: Find the Maximum Number
+# Example: Find the Maximum — Natural Language
 
-**Natural language:**
+**Problem:** Given $n$ cards with numbers, find the largest number.
+
 1. Read the first card's number and remember it
 2. Read the next card and compare it with the remembered number
 3. Keep the larger number in memory
 4. If cards remain, go to step 2
 5. The remembered number is the maximum
 
-**Pseudocode (array of 10 elements):**
+> Plain verbal description — easy to understand, but can be ambiguous.
+
+---
+
+# Example: Find the Maximum — Pseudocode
 
 ```
 FindMax(A[], n)
@@ -166,6 +171,52 @@ FindMax(A[], n)
           max = A[i]
   return max
 ```
+
+- Structured notation — precise and unambiguous
+- The most common representation in algorithm textbooks
+
+---
+
+# Example: Find the Maximum — Flowchart
+
+```
+        ┌───────────┐
+        │   Start   │
+        └─────┬─────┘
+              ▼
+        ┌───────────┐
+        │ max = A[0]│
+        │ i = 1     │
+        └─────┬─────┘
+              ▼
+        ┌───────────┐     No
+        │  i < n ?  │──────────┐
+        └─────┬─────┘          │
+              │ Yes            │
+              ▼                │
+        ┌───────────────┐      │
+        │ A[i] > max ?  │      │
+        └──┬─────────┬──┘      │
+       Yes │         │ No      │
+           ▼         │         │
+     ┌──────────┐    │         │
+     │max = A[i]│    │         │
+     └────┬─────┘    │         │
+          │◄─────────┘         │
+          ▼                    │
+     ┌──────────┐              │
+     │ i = i + 1│              │
+     └────┬─────┘              │
+          │                    │
+          └────────►───────────┤
+                               │
+                               ▼
+                       ┌──────────────┐
+                       │  return max  │
+                       └──────────────┘
+```
+
+> Visual diagram — intuitive flow, but becomes complex for large algorithms.
 
 ---
 layout: section
