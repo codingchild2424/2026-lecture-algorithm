@@ -331,19 +331,7 @@ Problem $A$ **reduces to** problem $B$ (written $A \leq_P B$) if:
 1. Every instance of $A$ can be **transformed** into an instance of $B$ in **polynomial time**
 2. The **Yes/No answers are preserved**: instance $\alpha$ of $A$ is Yes $\iff$ transformed instance $\beta$ of $B$ is Yes
 
-```
-                    Polynomial-time
-  Instance alpha  ──────────────────>  Instance beta
-  (Problem A)         transform         (Problem B)
-       │                                     │
-       │                                     ▼
-       │                              Algorithm for B
-       │                                     │
-       ▼                                     ▼
-    Answer:                               Answer:
-    Yes ◄────────────────────────────────► Yes
-    No  ◄────────────────────────────────► No
-```
+<img src="./images/ch34_p005_001.png" alt="Polynomial-time reduction diagram" width="600" />
 
 **Consequence:** If $A \leq_P B$ and $B$ is solvable in polynomial time, then $A$ is also solvable in polynomial time.
 
@@ -533,30 +521,21 @@ The first NP-Complete proof was for **SAT** (Boolean Satisfiability) by Cook (19
 
 All subsequent proofs use **reduction from a known NP-Complete problem**:
 
-```
-  CIRCUIT-SAT (Cook-Levin, 1971)
-    │
-    ▼
-   SAT
-    │
-    ▼
-  3-SAT ──────────────────────────────┐
-    │                                  │
-    ├──────────┐                       │
-    ▼          ▼                       ▼
-  CLIQUE   SUBSET-SUM            VERTEX-COVER
-    │                                  │
-    │                            ┌─────┼─────────┐
-    │                            ▼     ▼          ▼
-    │                      HAM-CYCLE HAM-PATH HAM-PATH-2-PTS
-    │                          │                   │
-    │                          ▼                   ▼
-    │                         TSP            LONGEST-PATH
-    ▼
-   ...
-```
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
+Each arrow means "reduces to":
+- **CIRCUIT-SAT** → SAT → **3-CNF-SAT**
+- 3-SAT → CLIQUE → VERTEX-COVER → HAM-CYCLE → **TSP**
+- 3-SAT → **SUBSET-SUM**
 
 > Today, **thousands** of problems are known to be NP-Complete. If you could solve **any one** of them in polynomial time, **all** of them would be solvable in polynomial time.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch34_p040_013.png" alt="NP-Completeness reduction chain" width="280" />
+</div>
+</div>
 
 ---
 
@@ -595,33 +574,26 @@ Some problems that **look** similar have vastly different complexity:
 
 # The Venn Diagram — P, NP, NP-Hard, NP-Complete
 
-```
-  Assuming P != NP (widely believed):
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
 
-  ┌─────────────────────────────────────────────────────┐
-  │                    NP-Hard                           │
-  │                                                     │
-  │    ┌──────────────────────────────────────────┐     │
-  │    │                 NP                        │     │
-  │    │                                           │     │
-  │    │    ┌─────────────────────┐                │     │
-  │    │    │                     │  NP-Complete   │     │
-  │    │    │         P           │  ┌──────────┐  │     │
-  │    │    │                     │  │ SAT      │  │     │
-  │    │    │  - Sorting          │  │ TSP      │  │     │
-  │    │    │  - Shortest Path    │  │ Clique   │  │     │
-  │    │    │  - MST              │  │ V-Cover  │  │     │
-  │    │    │  - Matching         │  │ 3-SAT    │  │     │
-  │    │    │                     │  │ SubsetSum│  │     │
-  │    │    └─────────────────────┘  └──────────┘  │     │
-  │    │                                           │     │
-  │    └──────────────────────────────────────────┘     │
-  │                                                     │
-  │    NP-Hard but NOT in NP:                           │
-  │    - Halting Problem                                │
-  │    - Generalized Chess (EXPTIME-complete)           │
-  └─────────────────────────────────────────────────────┘
-```
+Assuming P != NP (widely believed):
+
+| Class | Examples |
+|-------|---------|
+| **P** | Sorting, Shortest Path, MST, Matching |
+| **NP-Complete** | SAT, TSP, Clique, Vertex Cover, 3-SAT, Subset Sum |
+| **NP-Hard but not in NP** | Halting Problem, Generalized Chess |
+
+- **NPC = NP ∩ NP-Hard**
+- P ⊂ NP (if P ≠ NP)
+- NP-Hard problems may or may not be in NP
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch34_p023_006.png" alt="P, NP, NPC Venn diagram" width="300" />
+</div>
+</div>
 
 ---
 
@@ -640,14 +612,7 @@ Given 3-SAT instance with $m$ clauses, construct a graph:
   - They are **contradictory** (e.g., $x_1$ and $\overline{x_1}$)
 - Set $k = m$ (number of clauses)
 
-**Example:** $(x_1 \lor x_2 \lor x_3) \land (\overline{x_1} \lor x_2 \lor x_3)$
-
-```
-  Clause 1:  x1    x2    x3
-              \   / |  \ / \
-               \ /  |   X   \
-  Clause 2: ~x1    x2    x3
-```
+<img src="./images/ch34_p041_014.png" alt="3-SAT to CLIQUE reduction graph construction" width="520" />
 
 Edges connect vertices from different clauses that are not contradictory. A clique of size $m$ selects one literal per clause with no contradictions $\Rightarrow$ satisfying assignment.
 
@@ -865,16 +830,23 @@ layout: section
 
 # Vertex Cover — Problem Definition
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 **Vertex Cover** of a graph G = (V, E):
 - A subset S of V such that **every edge** in E has at least one endpoint in S
 - **Goal**: Find the **minimum-size** vertex cover
 
 **Real-world analogy**: Placing the minimum number of CCTV cameras at intersections so that every corridor (edge) is monitored.
 
-**Example**: For a triangle graph {1, 2, 3}:
-- {1, 2, 3}, {1, 2}, {1, 3}, {2, 3} are all vertex covers
-- {1} is the minimum vertex cover if vertex 1 connects to all edges
-- {2} alone fails if edge (1,3) is uncovered
+**(a)** Graph with all edges shown
+**(b)** Optimal vertex cover {u, v, w, z} — every edge has at least one shaded endpoint
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch34_p043_015.png" alt="Vertex cover example" width="340" />
+</div>
+</div>
 
 ---
 

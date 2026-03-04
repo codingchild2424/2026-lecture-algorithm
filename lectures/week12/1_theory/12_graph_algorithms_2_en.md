@@ -63,17 +63,10 @@ This property enables **dynamic programming** and **greedy** approaches.
 
 # Key Property 2 — Relaxation
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 **Relaxation** = updating the shortest distance estimate when a shorter path is found.
-
-```
-Before relaxation:          After relaxation:
-d[v] = 10                   d[v] = 7
-
-    d[u] = 4                    d[u] = 4
-        \                           \
-    w=3  \                      w=3  \
-          v  (d[v]=10)                v  (d[v]=7)
-```
 
 ```
 RELAX(u, v, w):
@@ -82,7 +75,16 @@ RELAX(u, v, w):
         prev[v] <- u
 ```
 
+- **(a)** d[u]+w = 5+2 = 7 < 9 = d[v] → update d[v] = 7
+- **(b)** d[u]+w = 5+2 = 7 >= 6 = d[v] → no change
+
 Every shortest-path algorithm uses relaxation as its core operation.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch24_p007_003.png" alt="Relaxation: before and after" width="300" />
+</div>
+</div>
 
 ---
 
@@ -127,31 +129,25 @@ Dijkstra(G, r):
 
 # Dijkstra — Step-by-Step Example
 
-Graph with 5 vertices, source = vertex 1:
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
 
-```
-     1 --8--> 2 --2--> 3
-     |         ^        |
-    10         1        3
-     |         |        |
-     v         |        v
-     4 --------+   5 <--+
-     |              ^
-     +------7-------+
-```
+| Step | Extracted | d[s] | d[t] | d[x] | d[y] | d[z] |
+|------|-----------|------|------|------|------|------|
+| Init | -- | **0** | inf | inf | inf | inf |
+| (b) | s | 0 | 10 | inf | 5 | inf |
+| (c) | y | 0 | 8 | 14 | 5 | 7 |
+| (d) | z | 0 | 8 | 13 | 5 | 7 |
+| (e) | t | 0 | 8 | 9 | 5 | 7 |
+| (f) | x | 0 | 8 | 9 | 5 | 7 |
 
-Edges: 1->2 (8), 1->4 (10), 2->3 (2), 3->5 (3), 4->2 (1), 4->5 (7)
+The predecessor array `prev[]` lets us reconstruct the actual shortest path. Bold edges show the shortest-path tree.
 
-| Step | Extracted | S | d[1] | d[2] | d[3] | d[4] | d[5] |
-|------|-----------|---|------|------|------|------|------|
-| Init | -- | {} | **0** | inf | inf | inf | inf |
-| (a) | 1 | {1} | 0 | 8 | inf | 10 | inf |
-| (b) | 2 | {1,2} | 0 | 8 | 10 | 10 | inf |
-| (c) | 3 | {1,2,3} | 0 | 8 | 10 | 10 | 13 |
-| (d) | 4 | {1,2,3,4} | 0 | 8 | 10 | 10 | 13 |
-| (e) | 5 | {1,2,3,4,5} | 0 | 8 | 10 | 10 | 13 |
-
-The predecessor array `prev[]` lets us reconstruct the actual shortest path.
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch24_p017_006.png" alt="Dijkstra step-by-step execution" width="380" />
+</div>
+</div>
 
 ---
 
@@ -207,24 +203,28 @@ BellmanFord(G, r):
 
 # Bellman-Ford — Step-by-Step Example
 
-Graph with negative edges (including edge weight -7 and -15):
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
 
-```
-Source = vertex 1, edges include weights: 8, 9, 8, 10, 1, 3, 12, -7, 11, 8, -15
-```
+Graph with negative edges, source = s:
 
-| Iteration | d[1] | d[2] | d[3] | d[4] | d[5] | d[6] | d[7] | d[8] |
-|-----------|------|------|------|------|------|------|------|------|
-| Init | **0** | inf | inf | inf | inf | inf | inf | inf |
-| i = 1 | 0 | inf | 11 | 9 | inf | inf | 8 | inf |
-| i = 2 | 0 | 19 | 11 | 9 | 19 | 10 | -6 | inf |
-| i = 3 | 0 | 19 | 11 | 9 | 12 | 4 | -6 | 12 |
-| i = 4 | 0 | 16 | 11 | 9 | 12 | 4 | -6 | 6 |
-| i = 5 | 0 | 16 | 11 | 9 | 12 | 4 | -6 | 6 |
-| i = 6 | 0 | 10 | 11 | 9 | 3 | 4 | -6 | 6 |
-| i = 7 | 0 | 10 | 11 | 9 | 3 | 4 | -6 | 6 |
+| Pass | d[s] | d[t] | d[x] | d[y] | d[z] |
+|------|------|------|------|------|------|
+| Init | **0** | inf | inf | inf | inf |
+| (b) i=1 | 0 | 6 | inf | 7 | inf |
+| (c) i=2 | 0 | 6 | 4 | 7 | 2 |
+| (d) i=3 | 0 | 2 | 4 | 7 | -2 |
+| (e) i=4 | 0 | 2 | 4 | 7 | -2 |
 
-After Phase 2: no further decrease detected -- **no negative cycle**.
+After Phase 2: no further decrease → **no negative cycle**.
+
+Bold edges show the shortest-path tree.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch24_p010_004.png" alt="Bellman-Ford step-by-step iterations" width="400" />
+</div>
+</div>
 
 ---
 
@@ -532,23 +532,26 @@ DAG-ShortestPath(G, r):
 
 # DAG Shortest Paths — Example
 
-```
-Topological order: 4, 1, 3, 2, 6, 5
-Edge weights: (4->1)=6, (1->3)=3, (3->2)=-2, (2->6)=-3, (1->6)=1, (3->5)=7, (5->6)=4, (1->5)=5
-Source r = vertex 4
-```
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
 
-| Step | Process | d[4] | d[1] | d[3] | d[2] | d[6] | d[5] |
-|------|---------|------|------|------|------|------|------|
+| Step | Process | d[v0] | d[v1] | d[v2] | d[v3] | d[v4] | d[v5] |
+|------|---------|-------|-------|-------|-------|-------|-------|
 | Init | -- | **0** | inf | inf | inf | inf | inf |
-| (a) | vertex 4 | 0 | **6** | inf | inf | inf | inf |
-| (b) | vertex 1 | 0 | 6 | **9** | inf | **7** | **11** |
-| (c) | vertex 3 | 0 | 6 | 9 | **7** | 7 | 11 |
-| (d) | vertex 2 | 0 | 6 | 9 | 7 | **4** | 11 |
-| (e) | vertex 6 | 0 | 6 | 9 | 7 | 4 | 11 |
-| (f) | vertex 5 | 0 | 6 | 9 | 7 | 4 | 11 |
+| (a) | v0 | 0 | inf | inf | inf | **-4** | inf |
+| (b) | v1 | 0 | inf | inf | inf | -4 | **-1** |
+| (c) | v2 | 0 | **-5** | inf | **0** | -4 | -1 |
+| (d) | v3 | 0 | -5 | **-3** | 0 | -4 | -1 |
+| (e) | v4 | 0 | -5 | -3 | 0 | -4 | -1 |
+| (f) | v5 | 0 | -5 | -3 | 0 | -4 | -1 |
 
-Final: d = [0, 6, 7, 9, 4, 11] -- computed in a **single pass**.
+Computed in a **single pass** over topological order. Bold edges show the shortest-path tree.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch24_p025_008.png" alt="DAG shortest paths example" width="280" />
+</div>
+</div>
 
 ---
 
