@@ -196,25 +196,62 @@ Use the agent to **generate a README.md** for an existing codebase.
 
 # Task 4 -- RALPH Technique
 
-Create a **verifiable evaluation rubric** and use it to iteratively improve output quality.
+<div style="display: flex; align-items: center; gap: 24px;">
+<div style="flex: 1;">
+
+### What is RALPH Mode?
+
+An **autonomous verification loop** where coding agents run continuously, self-validating outputs without human intervention.
+
+<br>
 
 **R**equest → **A**nalyze → **L**ist issues → **P**rompt again → **H**armonize
 
-**Step-by-step:**
+<br>
 
-1. Ask the agent to generate a rubric (e.g., *"What makes a top-tier README?"*)
-2. Ask the agent to **evaluate its own output** against the rubric
-3. Ask it to fix all identified issues
-4. Repeat until all criteria are met
+> The developer's role is shifting from **implementer** to **architect** — you design specs and validation systems, the agent codes.
 
-**Key phrases to try:**
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/openclaw-lobster.png" alt="OpenClaw Lobster" width="280" />
+</div>
+</div>
 
-- *"Keep going until the criteria are met"*
-- *"Evaluate against the rubric and fix all issues"*
+---
+
+# RALPH Mode -- Real-World Impact
+
+At Korea's first **Ralphton** hackathon, 13 elite teams let AI agents code **autonomously overnight** and reviewed results the next morning.
+
+<div style="display: flex; justify-content: center; gap: 16px; margin: 24px 0;">
+  <div style="background: #e8f5e9; border: 2px solid #a5d6a7; border-radius: 8px; padding: 16px 20px; text-align: center; min-width: 160px;">
+    <div style="font-size: 1.8em; font-weight: bold;">100,000</div>
+    <div style="font-size: 0.85em;">lines of code (winner)</div>
+  </div>
+  <div style="background: #fff8e1; border: 2px solid #ffe082; border-radius: 8px; padding: 16px 20px; text-align: center; min-width: 160px;">
+    <div style="font-size: 1.8em; font-weight: bold;">70%</div>
+    <div style="font-size: 0.85em;">was test code</div>
+  </div>
+  <div style="background: #e3f2fd; border: 2px solid #90caf9; border-radius: 8px; padding: 16px 20px; text-align: center; min-width: 160px;">
+    <div style="font-size: 1.8em; font-weight: bold;">133</div>
+    <div style="font-size: 0.85em;">Socratic reasoning iterations</div>
+  </div>
+</div>
+
+### The Engineering Evolution
+
+```
+Prompt Engineering  →  Context Engineering  →  Harness Engineering
+   (what to say)        (what to provide)       (how to verify)
+```
+
+> *Source: [Korean First Ralphton Review — Brian Jang](https://briandwjang.substack.com/p/8d3)*
 
 ---
 
 # Task 4 -- RALPH in Practice
+
+Create a **verifiable evaluation rubric** and use it to iteratively improve output quality.
 
 **Example workflow using the README from Task 3:**
 
@@ -231,6 +268,11 @@ Agent:  Updates the README with both additions.
 You:    "Re-evaluate. Are all criteria met now?"
 Agent:  8/8 — all criteria satisfied.
 ```
+
+**Key phrases to try:**
+
+- *"Keep going until the criteria are met"*
+- *"Evaluate against the rubric and fix all issues"*
 
 **Why this matters:**
 
