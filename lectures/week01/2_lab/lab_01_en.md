@@ -194,91 +194,93 @@ Use the agent to **generate a README.md** for an existing codebase.
 
 ---
 
-# Task 4 -- RALPH Technique
+# Task 4 -- The Ralph Technique
 
 <div style="display: flex; align-items: center; gap: 24px;">
 <div style="flex: 1;">
 
-### What is RALPH Mode?
+### What is the Ralph Technique?
 
-An **autonomous verification loop** where coding agents run continuously, self-validating outputs without human intervention.
+A **bash script loop** created by Geoffrey Huntley, named after **Ralph Wiggum** from *The Simpsons*. It automates AI coding agents by running them **repeatedly** until a task is completed.
 
-<br>
+**How it works:**
 
-**R**equest → **A**nalyze → **L**ist issues → **P**rompt again → **H**armonize
-
-<br>
-
-> The developer's role is shifting from **implementer** to **architect** — you design specs and validation systems, the agent codes.
+- **Continuous loop** — `while true` keeps prompting the agent until the goal is achieved
+- **Fresh context** — each iteration starts clean, preventing the AI from getting stuck
+- **File-based memory** — the agent reads/writes the file system (git, progress files) instead of relying on chat history
+- **Ship code while you sleep** — run tests and make changes autonomously overnight
 
 </div>
 <div style="flex-shrink: 0;">
-  <img src="./images/openclaw-lobster.png" alt="OpenClaw Lobster" width="280" />
+  <img src="./images/ralph-wiggum.jpg" alt="Ralph Wiggum" width="260" style="border-radius: 12px;" />
 </div>
 </div>
 
 ---
 
-# RALPH Mode -- Real-World Impact
+# Ralphton Hackathon -- Ralph in the Real World
+
+<div style="display: flex; align-items: center; gap: 24px;">
+<div style="flex: 1;">
 
 At Korea's first **Ralphton** hackathon, 13 elite teams let AI agents code **autonomously overnight** and reviewed results the next morning.
 
-<div style="display: flex; justify-content: center; gap: 16px; margin: 24px 0;">
-  <div style="background: #e8f5e9; border: 2px solid #a5d6a7; border-radius: 8px; padding: 16px 20px; text-align: center; min-width: 160px;">
-    <div style="font-size: 1.8em; font-weight: bold;">100,000</div>
-    <div style="font-size: 0.85em;">lines of code (winner)</div>
+<div style="display: flex; gap: 12px; margin: 16px 0;">
+  <div style="background: #e8f5e9; border: 2px solid #a5d6a7; border-radius: 8px; padding: 12px 14px; text-align: center; flex: 1;">
+    <div style="font-size: 1.5em; font-weight: bold;">100K</div>
+    <div style="font-size: 0.8em;">lines of code</div>
   </div>
-  <div style="background: #fff8e1; border: 2px solid #ffe082; border-radius: 8px; padding: 16px 20px; text-align: center; min-width: 160px;">
-    <div style="font-size: 1.8em; font-weight: bold;">70%</div>
-    <div style="font-size: 0.85em;">was test code</div>
+  <div style="background: #fff8e1; border: 2px solid #ffe082; border-radius: 8px; padding: 12px 14px; text-align: center; flex: 1;">
+    <div style="font-size: 1.5em; font-weight: bold;">70%</div>
+    <div style="font-size: 0.8em;">was test code</div>
   </div>
-  <div style="background: #e3f2fd; border: 2px solid #90caf9; border-radius: 8px; padding: 16px 20px; text-align: center; min-width: 160px;">
-    <div style="font-size: 1.8em; font-weight: bold;">133</div>
-    <div style="font-size: 0.85em;">Socratic reasoning iterations</div>
+  <div style="background: #e3f2fd; border: 2px solid #90caf9; border-radius: 8px; padding: 12px 14px; text-align: center; flex: 1;">
+    <div style="font-size: 1.5em; font-weight: bold;">133</div>
+    <div style="font-size: 0.8em;">reasoning loops</div>
   </div>
 </div>
 
 ### The Engineering Evolution
 
 ```
-Prompt Engineering  →  Context Engineering  →  Harness Engineering
-   (what to say)        (what to provide)       (how to verify)
+Prompt Engineering → Context Engineering → Harness Engineering
+  (what to say)       (what to provide)     (how to verify)
 ```
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/openclaw-lobster.png" alt="OpenClaw Lobster" width="240" />
+</div>
+</div>
 
 > *Source: [Korean First Ralphton Review — Brian Jang](https://briandwjang.substack.com/p/8d3)*
 
 ---
 
-# Task 4 -- RALPH in Practice
+# Task 4 -- Ralph in Practice
 
-Create a **verifiable evaluation rubric** and use it to iteratively improve output quality.
+Use the Ralph technique to **iteratively improve** the README from Task 3.
 
-**Example workflow using the README from Task 3:**
+**Example workflow:**
 
 ```
 You:    "Generate a rubric for evaluating a high-quality open-source README."
 Agent:  Returns 8 criteria (description, install, usage, architecture, ... )
 
-You:    "Now evaluate the README you wrote against this rubric. Score each criterion."
+You:    "Evaluate the README you wrote against this rubric. Score each criterion."
 Agent:  Scores 6/8 — missing: architecture diagram, contributing guide.
 
-You:    "Fix all failing criteria. Add an architecture diagram and contributing guide."
-Agent:  Updates the README with both additions.
+You:    "Fix all failing criteria. Keep going until all criteria are met."
+Agent:  Loops autonomously — updates README, re-evaluates, fixes again...
 
-You:    "Re-evaluate. Are all criteria met now?"
-Agent:  8/8 — all criteria satisfied.
+Result: 8/8 — all criteria satisfied.
 ```
 
-**Key phrases to try:**
+**Key insight — this is the Ralph loop in action:**
 
-- *"Keep going until the criteria are met"*
-- *"Evaluate against the rubric and fix all issues"*
-
-**Why this matters:**
-
-- Agents produce *good-enough* output on first try, but **not perfect**
-- The RALPH loop teaches you to **systematically improve** agent output
-- This skill transfers to any AI tool, not just coding agents
+- Each iteration: the agent evaluates → finds issues → fixes → re-evaluates
+- You set the **goal and criteria**, the agent loops until done
+- Same principle as the bash loop — **persistent iteration** beats one-shot prompting
 
 ---
 
