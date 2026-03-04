@@ -60,22 +60,31 @@ layout: section
 
 # DP vs. Divide-and-Conquer
 
+<div style="display: flex; align-items: flex-start; gap: 16px;">
+<div style="flex: 1;">
+
 ```
-Divide-and-Conquer                Dynamic Programming
-
-       A                               A
-      / \                             / \
-     B   C                           B   C
-    /|   |\                          /|\ /|\
-   D E   F G                       D  E F  G
-                                      (shared!)
-
-- Subproblems are independent      - Subproblems OVERLAP
-- Solve top-down                   - Solve bottom-up (small → large)
-- No reuse of subproblem results   - Store and reuse subproblem results
+DaC                    DP
+   A                    A
+  / \                  / \
+ B   C                B   C
+/|   |\              /|\ /|\
+D E   F G            D  E F  G
+                       (shared!)
 ```
 
-In DaC, subproblems D, E, F, G are distinct. In DP, E and F may be shared between B and C — solving them once and reusing saves time.
+- DaC: subproblems are **independent**
+- DP: subproblems **overlap** — solve once, reuse
+- DaC: top-down | DP: bottom-up (small → large)
+
+</div>
+<div style="flex-shrink: 0; text-align: center;">
+  <img src="./images/ch15_p006_002.png" alt="Recursive call tree" width="160" />
+  <div style="font-size: 0.6em;">Tree → </div>
+  <img src="./images/ch15_p009_003.png" alt="Subproblem DAG" width="100" />
+  <div style="font-size: 0.6em;">DAG (DP)</div>
+</div>
+</div>
 
 ---
 
@@ -285,9 +294,9 @@ X = `ABCBDAB`, Y = `BDCABA`
 | **A** | 0 | 1 | 2 | 2 | **3** | 3 | **4** |
 | **B** | 0 | 1 | 2 | 2 | 3 | **4** | 4 |
 
-**LCS length = 4** (e.g., `BCBA`).
+**LCS length = 4** (e.g., `BCBA`). Bold cells show where $x_i = y_j$ (diagonal + 1).
 
-Bold cells show where $x_i = y_j$ (diagonal + 1).
+<img src="./images/ch15_p037_007.png" alt="LCS table with traceback arrows (CLRS)" width="280" style="margin-top: 4px;" />
 
 ---
 
@@ -438,23 +447,24 @@ FloydWarshall(W, n):
 
 # Floyd-Warshall: Example
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 ```
-Graph:                    Initial D^(0):
-  1 ──3──► 2              │   1    2    3    4
-  │        │              │─────────────────────
-  7        2              1│  0    3    inf  7
-  │        │              2│  inf  0    2    inf
-  ▼        ▼              3│  5    inf  0    1
-  4 ◄──1── 3              4│  2    inf  inf  0
-  │
-  2──►1                After k=1,2,3,4:   D^(4):
-                          │   1    2    3    4
-                          │─────────────────────
-                          1│  0    3    5    6
-                          2│  5    0    2    3
-                          3│  3    6    0    1
-                          4│  2    5    7    0
+Initial D^(0):            After k=1,2,3,4: D^(4):
+│   1   2   3   4         │   1   2   3   4
+│───────────────────      │───────────────────
+1│  0   3  inf  7         1│  0   3   5   6
+2│ inf  0   2  inf        2│  5   0   2   3
+3│  5  inf  0   1         3│  3   6   0   1
+4│  2  inf inf  0         4│  2   5   7   0
 ```
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch15_p024_005.png" alt="Graph example (CLRS)" width="140" />
+</div>
+</div>
 
 Each cell $D[i,j]$ now holds the shortest distance from $i$ to $j$.
 
