@@ -96,22 +96,23 @@ bottom →│  A  │
 
 # Heap
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 - A **complete binary tree** satisfying the heap property
   - **Max Heap**: key(parent) >= key(child)
   - **Min Heap**: key(parent) <= key(child)
-
-```
-     Min Heap             Array Representation
-        3                 A = [3, 6, 4, 8, 9, 7]
-       / \                     1  2  3  4  5  6
-      6   4
-     / \   \              A[i]'s children: A[2i], A[2i+1]
-    8   9   7             A[i]'s parent:   A[floor(i/2)]
-```
-
 - Heaps are stored as **arrays** (no pointers needed)
+  - A[i]'s children: **A[2i]**, **A[2i+1]**
+  - A[i]'s parent: **A[floor(i/2)]**
 - Applications: priority queues, heap sort
-- Visualization: [https://visualgo.net/en/heap](https://visualgo.net/en/heap)
+- Visualization: [visualgo.net/en/heap](https://visualgo.net/en/heap)
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch06_p002_001.png" alt="Heap: tree and array representation" width="380" />
+</div>
+</div>
 
 ---
 
@@ -497,31 +498,39 @@ partition(A[], p, r)
 > `i` marks the boundary: everything at or below index `i` is <= pivot.
 > `j` scans through the array from left to right.
 
+<img src="./images/ch07_p004_002.png" alt="Partition invariant" width="400" style="margin-top: 8px;" />
+
 ---
 
 # Quick Sort — Partition Example
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 Partition `[31, 8, 48, 73, 11, 3, 20, 29, 65, 15]` with pivot = 15:
 
-```
+<pre style="font-size: 0.7em; line-height: 1.3;">
 pivot = A[10] = 15,  i = 0
 
 j=1: A[1]=31 > 15  → skip
-j=2: A[2]=8  ≤ 15  → i=1, swap A[1]↔A[2] → [8, 31, 48, 73, 11, 3, 20, 29, 65, 15]
+j=2: A[2]=8  ≤ 15  → i=1, swap A[1]↔A[2]
 j=3: A[3]=48 > 15  → skip
 j=4: A[4]=73 > 15  → skip
-j=5: A[5]=11 ≤ 15  → i=2, swap A[2]↔A[5] → [8, 11, 48, 73, 31, 3, 20, 29, 65, 15]
-j=6: A[6]=3  ≤ 15  → i=3, swap A[3]↔A[6] → [8, 11, 3, 73, 31, 48, 20, 29, 65, 15]
-j=7: A[7]=20 > 15  → skip
-j=8: A[8]=29 > 15  → skip
-j=9: A[9]=65 > 15  → skip
+j=5: A[5]=11 ≤ 15  → i=2, swap A[2]↔A[5]
+j=6: A[6]=3  ≤ 15  → i=3, swap A[3]↔A[6]
+j=7~9: > 15  → skip
 
-Final: swap A[i+1]↔A[r] → swap A[4]↔A[10]
-Result: [8, 11, 3, |15|, 31, 48, 20, 29, 65, 73]
-                     ↑ pivot in final position (index 4)
-```
+Final: swap A[4]↔A[10]
+→ [8, 11, 3, |15|, 31, 48, 20, 29, 65, 73]
+</pre>
 
-> Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
+> Animation: [visualgo.net/en/sorting](https://visualgo.net/en/sorting)
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch07_p003_001.png" alt="PARTITION step-by-step (CLRS)" width="180" />
+</div>
+</div>
 
 ---
 
@@ -535,30 +544,39 @@ Result: [8, 11, 3, |15|, 31, 48, 20, 29, 65, 73]
 | **Best** | n/2 : n/2 (perfect split) | T(n) = 2T(n/2) + Theta(n) | **Theta(n log n)** |
 | **Average** | random partition | See below | **Theta(n log n)** |
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 **Worst case** — Input already sorted, pivot always min or max:
 ```
 T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
      = Θ(n) + Θ(n-1) + ... + Θ(1) = Θ(n²)
 ```
 
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch07_p008_006.png" alt="Quick sort worst vs best case" width="260" />
+</div>
+</div>
+
 ---
 
 # Quick Sort — Why Average Case is O(n log n)
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 **Key insight**: As long as the partition ratio is **any constant fraction** (even 1:9 or 1:99), the depth remains O(log n).
 
-```
- Even a 1/10 : 9/10 split:
-     n
-    / \
-  n/10  9n/10
-  / \    / \
- ...    ...
-```
-
-- The longest path: n -> 9n/10 -> (9/10)^2 n -> ... -> 1
+- The longest path: n → 9n/10 → (9/10)²n → ... → 1
 - Depth = log_{10/9}(n) = O(log n)
 - Each level still does O(n) total work
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch07_p007_004.png" alt="1/10 : 9/10 recursion tree" width="320" />
+</div>
+</div>
 
 **Average-case proof** (using induction):
 - Assume T(i) <= c * i * log(i) for all i < n
@@ -569,6 +587,9 @@ T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
 ---
 
 # Heap Sort — Heap Recap
+
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
 
 **Heap**: A complete binary tree stored as an array, with the heap property.
 
@@ -585,6 +606,12 @@ T(n) = T(0) + T(n-1) + Θ(n) = T(n-1) + Θ(n)
 - Children of A[i]: **A[2i]** and **A[2i + 1]**
 - Parent of A[i]: **A[floor(i/2)]**
 - Sibling of A[i]: **A[i-1]** (when i is odd)
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch06_p005_002.png" alt="MAX-HEAPIFY operation" width="280" />
+</div>
+</div>
 
 ---
 
@@ -643,46 +670,62 @@ heapify(A[], k, n)                     ▷ Fix heap rooted at A[k]
 
 # Heap Sort — buildHeap Example
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 Build a min-heap from `A = [7, 9, 4, 8, 6, 3]`:
 
 ```
-Step (a): Start          Step (b): heapify(3)    Step (c): heapify(2)
-     7                        7                        7
-    / \                      / \                      / \
-   9   4                    9   3                    6   3
-  / \   \                  / \   \                  / \   \
- 8   6   3                8   6   4                8   9   4
+(a) Start       (b) heapify(3)  (c) heapify(2)
+     7               7               7
+    / \              / \             / \
+   9   4            9   3           6   3
+  / \   \          / \   \         / \   \
+ 8   6   3        8   6   4       8   9   4
 
-Step (d): heapify(1)     Step (e): Final heap
-     3                        3
-    / \                      / \
-   6   4                    6   4
-  / \   \                  / \   \
- 8   9   7                8   9   7
-
-Array: [3, 6, 4, 8, 9, 7]
+(d) heapify(1)  (e) Final heap
+     3               3
+    / \              / \
+   6   4            6   4
+  / \   \          / \   \
+ 8   9   7        8   9   7
 ```
 
 > buildHeap processes nodes from **bottom to top** (floor(n/2) down to 1).
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch06_p008_003.png" alt="BUILD-MAX-HEAP (CLRS)" width="260" />
+</div>
+</div>
 
 ---
 
 # Heap Sort — Sorting Phase
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 After buildHeap, repeatedly extract the minimum:
 
 ```
-(a) [3,6,4,8,9,7]   Swap A[1]↔A[6]: [7,6,4,8,9,|3]   heapify → [4,6,7,8,9,|3]
-(b) [4,6,7,8,9,|3]  Swap A[1]↔A[5]: [9,6,7,8,|4,3]   heapify → [6,8,7,9,|4,3]
-(c) [6,8,7,9,|4,3]  Swap A[1]↔A[4]: [9,8,7,|6,4,3]   heapify → [7,8,9,|6,4,3]
-(d) [7,8,9,|6,4,3]  Swap A[1]↔A[3]: [9,8,|7,6,4,3]   heapify → [8,9,|7,6,4,3]
-(e) [8,9,|7,6,4,3]  Swap A[1]↔A[2]: [9,|8,7,6,4,3]   Done!
+(a) [3,6,4,8,9,7]  Swap A[1]↔A[6], heapify → [4,6,7,8,9,|3]
+(b) [4,6,7,8,9,|3] Swap A[1]↔A[5], heapify → [6,8,7,9,|4,3]
+(c) [6,8,7,9,|4,3] Swap A[1]↔A[4], heapify → [7,8,9,|6,4,3]
+(d) [7,8,9,|6,4,3] Swap A[1]↔A[3], heapify → [8,9,|7,6,4,3]
+(e) [8,9,|7,6,4,3] Swap A[1]↔A[2] → Done!
 
 Result (descending): [9, 8, 7, 6, 4, 3]
 ```
 
-> With a min-heap, the sorted result is in **descending** order.
-> With a max-heap, the sorted result is in **ascending** order.
+> With a min-heap → **descending** order.
+> With a max-heap → **ascending** order.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch06_p011_004.png" alt="HEAPSORT sorting phase (CLRS)" width="280" />
+</div>
+</div>
 
 ---
 
