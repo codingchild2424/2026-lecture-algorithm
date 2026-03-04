@@ -442,15 +442,24 @@ In practice, **worst-case analysis** is the most commonly used.
 
 # Commute Time Analogy
 
+<div style="display: flex; align-items: center; gap: 24px;">
+<div style="flex: 1;">
+
 **Scenario:** Home → Station (6 min) → Subway (20 min) → Classroom (10 min)
 
 | Case | Time | Explanation |
 |------|------|-------------|
-| **Best** | 36 min | Arrive at station, train is there immediately |
-| **Worst** | 40 min | Just missed the train, wait 4 min for the next one |
-| **Average** | 38 min | Average wait of ~2 min |
+| **Best** | 36 min | Train is there immediately |
+| **Worst** | 40 min | Just missed it, wait 4 min |
+| **Average** | 38 min | Average wait ~2 min |
 
 This is how we think about algorithm analysis — the **worst case** gives us a guarantee.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/seoul-metro.jpg" alt="Seoul Metro" width="320" style="border-radius: 8px;" />
+</div>
+</div>
 
 ---
 layout: section
