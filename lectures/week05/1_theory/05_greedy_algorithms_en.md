@@ -180,6 +180,9 @@ FractionalKnapsack(items, C):
 
 # Fractional Knapsack — Worked Example
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 **Knapsack capacity = 40 kg**
 
 | Item | Weight | Value | Value/Weight |
@@ -189,15 +192,17 @@ FractionalKnapsack(items, C):
 | Silver | 25 kg | 10 | 0.4 |
 | Tin | 20 kg | 2 | 0.1 |
 
-**Sorted by value/weight**: Platinum, Gold, Silver, Tin
-
 | Step | Action | w | v |
 |------|--------|---|---|
 | 1 | Take all Platinum (10 kg) | 10 | 60 |
 | 2 | Take all Gold (15 kg) | 25 | 135 |
-| 3 | Silver: need 40-25=15 kg, take 15/25=0.6 of it | 40 | 135 + 6 = **141** |
+| 3 | Silver: take 15/25=0.6 | 40 | **141** |
 
-**Time complexity**: O(n log n) — dominated by the sorting step
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch16_p014_003.png" alt="Fractional knapsack (CLRS)" width="320" />
+</div>
+</div>
 
 ---
 layout: section
@@ -273,7 +278,8 @@ ActivitySelection(jobs):
 
 - Among the three strategies (shortest job, earliest start, earliest finish), only **earliest finish time first** guarantees optimal for the single-machine variant.
 - **Time complexity**: O(n log n)
-- This is the classic **Activity Selection Problem** from CLRS Ch. 16.1
+
+<img src="./images/ch16_p007_001.png" alt="Activity selection (CLRS)" width="520" style="margin-top: 8px;" />
 
 ---
 
@@ -294,6 +300,8 @@ ActivitySelection(jobs):
 <br>
 
 > Huffman coding builds a **binary tree** based on character frequencies. Each leaf is a character. Left edges = 0, right edges = 1. The path from root to leaf gives the code.
+
+<img src="./images/ch16_p017_004.png" alt="Huffman tree: fixed vs variable length codes" width="500" style="margin-top: 8px;" />
 
 ---
 
@@ -342,6 +350,9 @@ Step 3: Q = [A:450, 480]
 
 **Resulting tree and codes:**
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 ```
         930
        /   \
@@ -351,6 +362,12 @@ Step 3: Q = [A:450, 480]
        /   \             G  = 111  (3 bits)
      T:90  G:120
 ```
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch16_p019_005.png" alt="Huffman tree construction steps" width="340" />
+</div>
+</div>
 
 ---
 
