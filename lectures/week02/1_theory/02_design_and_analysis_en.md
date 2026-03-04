@@ -792,14 +792,8 @@ This is $cn + 1$, **not** $\leq cn$. The proof fails!
 $$T(n) \leq 2(c(n/2) - 2) + 1 = cn - 4 + 1 = cn - 3 \leq cn - 2 \;\checkmark$$
 
 ---
-layout: section
----
 
-# Master Theorem
-
----
-
-# Master Theorem — Statement
+# Method 3: Master Theorem — Statement
 
 For recurrences of the form:
 
