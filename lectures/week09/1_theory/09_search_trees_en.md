@@ -195,16 +195,25 @@ Insert: 1, 2, 3, 4, 5
             [5]
 ```
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 The tree degenerates into a **linked list**!
 
 $$T(n) = T(n-1) + O(1) \implies T(n) = O(n)$$
 
 | Case | Height | Search/Insert |
 |------|--------|---------------|
-| Average (random input) | O(log n) | O(log n) |
-| Worst (sorted input) | O(n) | O(n) |
+| Average (random) | O(log n) | O(log n) |
+| Worst (sorted) | O(n) | O(n) |
 
 BST has excellent average-case performance, but **no guarantee** against worst-case degradation.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch12_p002_001.png" alt="Balanced vs degenerate BST" width="300" />
+</div>
+</div>
 
 ---
 
@@ -334,6 +343,8 @@ Property 4: Red node 18 has black children 10, 22  ✓
 Property 5: Every root-to-leaf path has 2 black nodes  ✓
 ```
 
+<img src="./images/ch13_p003_001.png" alt="Red-Black Tree example (CLRS)" width="460" style="margin-top: 4px;" />
+
 ---
 
 # Why RBT Guarantees O(log n)
@@ -426,6 +437,8 @@ Others: 3, 7 => become children (red)
 ```
 
 Restructuring is a **local** operation — it does NOT propagate upward. Done in **O(1)**.
+
+<img src="./images/ch13_p006_002.png" alt="Left-Rotate and Right-Rotate (CLRS)" width="420" style="margin-top: 4px;" />
 
 ---
 
@@ -543,17 +556,25 @@ A Red-Black Tree with n = 10^9 nodes has height ~30.
 
 **Solution**: Make each node hold **many keys** so the tree is **wide and shallow**.
 
-```
-BST (tall, narrow):              B-Tree (short, wide):
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
 
-        [50]                     [20 | 40 | 60 | 80]
-       /    \                   /   |    |    |    \
-     [25]  [75]              [...] [...] [...] [...] [...]
-    / \    / \
-  ... ... ... ...
-
-Height ~30 for 10^9 nodes     Height ~3 for 10^9 nodes!
 ```
+BST (tall, narrow):         B-Tree (short, wide):
+
+     [50]                  [20|40|60|80]
+    /    \                / |  |  |  \
+  [25]  [75]           [..][..][..][..][..]
+ / \    / \
+......                  Height ~3 for 10^9 nodes!
+Height ~30
+```
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch13_p027_011.png" alt="B-Tree example (CLRS)" width="300" />
+</div>
+</div>
 
 **Key design decisions**:
 - One node = one **disk block** (typically 4KB)
