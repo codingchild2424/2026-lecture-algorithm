@@ -109,6 +109,9 @@ $$T(n) = a \cdot T(n/b) + O(f(n))$$
 
 # Master Theorem — Recursion Tree Intuition
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 For $T(n) = a \cdot T(n/b) + O(f(n))$:
 
 **Cost at each level of the recursion tree:**
@@ -117,33 +120,48 @@ For $T(n) = a \cdot T(n/b) + O(f(n))$:
 |-------|-------------|---------------|------|
 | 0 (root) | $n$ | 1 | $f(n)$ |
 | 1 | $n/b$ | $a$ | $a \cdot f(n/b)$ |
-| ... | ... | ... | ... |
 | $k$ | $n/b^k$ | $a^k$ | $a^k \cdot f(n/b^k)$ |
 
-**Depth:** $n/b^k = 1 \implies k = \log_b n$
+**Depth:** $k = \log_b n$ &nbsp; **Leaves:** $n^{\log_b a}$
 
-**Number of leaves:** $a^{\log_b n} = n^{\log_b a}$
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch04_p035_008.png" alt="Master Theorem recursion tree" width="340" />
+</div>
+</div>
 
 ---
 
 # Master Theorem — Three Cases
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 For $T(n) = a \cdot T(n/b) + O(f(n))$, compare $f(n)$ with $n^{\log_b a}$:
 
-**Case 1:** $f(n) = O(n^{\log_b a - \varepsilon})$ for some $\varepsilon > 0$ (leaf cost dominates)
+**Case 1:** $f(n) = O(n^{\log_b a - \varepsilon})$ — leaf cost dominates
 $$T(n) = \Theta(n^{\log_b a})$$
 
-**Case 2:** $f(n) = \Theta(n^{\log_b a})$ (costs balanced across levels)
+**Case 2:** $f(n) = \Theta(n^{\log_b a})$ — costs balanced
 $$T(n) = \Theta(n^{\log_b a} \log n)$$
 
-**Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$ for some $\varepsilon > 0$ (combine cost dominates)
+**Case 3:** $f(n) = \Omega(n^{\log_b a + \varepsilon})$ — combine cost dominates
 $$T(n) = \Theta(f(n))$$
 
-> **Note (Case 3):** Also requires the *regularity condition*: $a \cdot f(n/b) \le c \cdot f(n)$ for some $c < 1$ and sufficiently large $n$.
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch04_p025_006.png" alt="Recursion tree example: T(n)=3T(n/4)+cn²" width="300" />
+</div>
+</div>
+
+> **Note (Case 3):** Also requires the *regularity condition*: $a \cdot f(n/b) \le c \cdot f(n)$ for some $c < 1$.
 
 ---
 
 # Other DaC Recurrence Patterns
+
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
 
 | Recurrence | Description | Example |
 |-----------|-------------|---------|
@@ -151,6 +169,12 @@ $$T(n) = \Theta(f(n))$$
 | $T(n) = T(n/2) + O(?)$ | 2 parts, only 1 needed, half size | Binary search |
 | $T(n) = \max\{T(i), T(n-i)\} + O(?)$ | 2 parts, only 1 needed, unequal | Selection |
 | $T(n) = T(n-1) + O(?)$ | Size decreases by 1 | Insertion sort, Fibonacci |
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch04_p027_007.png" alt="Unequal split recursion tree" width="260" />
+</div>
+</div>
 
 ---
 layout: section
