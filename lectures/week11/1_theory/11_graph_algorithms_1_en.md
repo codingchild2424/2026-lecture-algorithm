@@ -76,20 +76,28 @@ Undirected:          Directed:           Weighted:
 
 # Graph Representation 1: Adjacency Matrix
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 - Use an **N x N** matrix (N = number of vertices)
-  - Entry (i, j) = **1** if edge exists between vertex i and vertex j
-  - Entry (i, j) = **0** if no edge exists
+  - Entry (i, j) = **1** if edge exists; **0** if not
 - **Directed graph**: entry (i, j) means edge from i to j
 - **Weighted graph**: entry (i, j) stores the **weight** instead of 1
 
 ```
-Graph:              Adjacency Matrix:
-  1 --- 2              1  2  3  4
-  |   / |          1 [ 0  1  1  0 ]
-  |  /  |          2 [ 1  0  1  1 ]
-  | /   |          3 [ 1  1  0  1 ]
-  3 --- 4          4 [ 0  1  1  0 ]
+Graph:         Adjacency Matrix:
+  1 --- 2         1  2  3  4
+  |   / |     1 [ 0  1  1  0 ]
+  |  /  |     2 [ 1  0  1  1 ]
+  | /   |     3 [ 1  1  0  1 ]
+  3 --- 4     4 [ 0  1  1  0 ]
 ```
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch22_p002_001.png" alt="Graph with adjacency list and matrix (CLRS)" width="300" />
+</div>
+</div>
 
 ---
 
@@ -281,6 +289,9 @@ aDFS(v)
 
 # DFS — Step-by-Step Example
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 ```
 Graph:                     Adjacency Lists:
   1 --- 2                  1: [2, 3, 4, 6]
@@ -292,18 +303,23 @@ Graph:                     Adjacency Lists:
   4--6
 ```
 
-```
+<pre style="font-size: 0.65em; line-height: 1.3;">
 DFS starting from vertex 1:
-
 Step 1: Visit 1, go to neighbor 2
-Step 2: Visit 2, go to neighbor 3 (1 already visited)
-Step 3: Visit 3, go to neighbor 5 (1,2 already visited)
-Step 4: Visit 5, go to neighbor 6 (3 already visited)
-Step 5: Visit 6, go to neighbor 4 (1,5 already visited)
-Step 6: Visit 4, no unvisited neighbors -> backtrack
+Step 2: Visit 2, go to neighbor 3
+Step 3: Visit 3, go to neighbor 5
+Step 4: Visit 5, go to neighbor 6
+Step 5: Visit 6, go to neighbor 4
+Step 6: Visit 4, backtrack
 
-Traversal order: 1 -> 2 -> 3 -> 5 -> 6 -> 4
-```
+Traversal: 1→2→3→5→6→4
+</pre>
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch22_p017_004.png" alt="DFS step-by-step with discovery/finish times" width="400" />
+</div>
+</div>
 
 ---
 
@@ -503,6 +519,9 @@ DFS-TS(v)
 
 # Topological Sort — DFS Example
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 ```
 DAG:
   A --> B --> D
@@ -512,16 +531,22 @@ DAG:
 
 DFS-TS from A:
   Visit A -> Visit B -> Visit D
-    D has no unvisited children -> insert D at front: R = [D]
-    B done -> insert B at front: R = [B, D]
+    D done -> R = [D]
+    B done -> R = [B, D]
   Visit C
-    C's neighbor D already visited -> insert C at front: R = [C, B, D]
-  A done -> insert A at front: R = [A, C, B, D]
+    D already visited -> R = [C, B, D]
+  A done -> R = [A, C, B, D]
 
-Result: A -> C -> B -> D   (valid topological order)
+Result: A -> C -> B -> D  ✓
 ```
 
-Key insight: A vertex is added to the front of the list **only after** all vertices reachable from it have been processed.
+Key insight: A vertex is added to the front **only after** all reachable vertices have been processed.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch22_p025_007.png" alt="Topological sort DFS example — getting dressed" width="340" />
+</div>
+</div>
 
 ---
 layout: section

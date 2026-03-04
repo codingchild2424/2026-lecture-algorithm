@@ -42,13 +42,22 @@ Key  ──►  Hash Function  ──►  Hash Value (Index)  ──►  Hash Ta
 
 # Hash Table Structure
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 Three core components:
 
 | Component | Role |
 |-----------|------|
-| **Key** | Unique identifier (string, integer, etc.) for each data item |
-| **Hash Function** | Converts a key into a hash value (table index) |
-| **Hash Table** | Array where data is stored at the index computed by the hash function |
+| **Key** | Unique identifier for each data item |
+| **Hash Function** | Converts a key into a hash value (index) |
+| **Hash Table** | Array where data is stored at the computed index |
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch11_p002_001.png" alt="Hash table structure (CLRS)" width="320" />
+</div>
+</div>
 
 ```
   Key: "Alice"                    Hash Table
@@ -132,10 +141,19 @@ $$h(k) = \lfloor m \cdot (k \cdot A \bmod 1) \rfloor \quad \text{where } 0 < A <
 
 **Two main strategies to resolve collisions**:
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 | Strategy | Also Known As | Idea |
 |----------|--------------|------|
-| Separate Chaining | Open Hashing | Each slot stores a linked list of colliding elements |
-| Open Addressing | Closed Hashing | Find another empty slot within the table |
+| Separate Chaining | Open Hashing | Linked list of colliding elements |
+| Open Addressing | Closed Hashing | Find another empty slot |
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch11_p004_002.png" alt="Hash collision (CLRS)" width="280" />
+</div>
+</div>
 
 ---
 layout: section
@@ -169,6 +187,8 @@ Each table slot holds a **linked list** of all key-value pairs that hash to that
 - **Insert(k)**: Compute h(k), prepend to the list at slot h(k) -- O(1)
 - **Search(k)**: Compute h(k), traverse the list at slot h(k) -- O(chain length)
 - **Delete(k)**: Search for k, then remove from the list -- O(chain length)
+
+<img src="./images/ch11_p005_003.png" alt="Separate chaining (CLRS)" width="400" style="margin-top: 4px;" />
 
 ---
 
@@ -273,6 +293,8 @@ Step 5: Insert 73 → h(73)=3
 **Quadratic probing** reduces primary clustering but may cause **secondary clustering**
 
 **Double hashing** produces the best distribution -- nearly eliminates clustering
+
+<img src="./images/ch11_p021_005.png" alt="Open addressing example (CLRS)" width="200" style="margin-top: 4px;" />
 
 ---
 
