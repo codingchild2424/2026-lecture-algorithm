@@ -149,6 +149,9 @@ Three common ways to express an algorithm:
 
 # Example: Find the Maximum — Natural Language
 
+<div style="display: flex; align-items: center; gap: 24px;">
+<div style="flex: 1;">
+
 **Problem:** Given $n$ cards with numbers, find the largest number.
 
 1. Read the first card's number and remember it
@@ -158,6 +161,12 @@ Three common ways to express an algorithm:
 5. The remembered number is the maximum
 
 > Plain verbal description — easy to understand, but can be ambiguous.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch02_p002_001.png" alt="Card comparison" width="220" style="border-radius: 8px;" />
+</div>
+</div>
 
 ---
 
@@ -244,19 +253,20 @@ Six major types based on problem-solving strategy
 
 # Divide and Conquer
 
+<div style="display: flex; align-items: center; gap: 24px;">
+<div style="flex: 1;">
+
 **Idea:** Break a large problem into smaller subproblems, solve each recursively, then combine.
 
 **Examples:** Merge Sort, Quick Sort, Binary Search
 
-```
-          Problem(n)
-         /          \
-   Sub(n/2)      Sub(n/2)
-     /  \          /  \
-  S(n/4) S(n/4) S(n/4) S(n/4)
-```
-
 **Strengths:** Effective when the problem structure is naturally recursive.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch02_p020_006.png" alt="Merge Sort tree" width="320" />
+</div>
+</div>
 
 ---
 
@@ -471,19 +481,24 @@ layout: section
 
 # Why Asymptotic Notation?
 
+<div style="display: flex; align-items: center; gap: 24px;">
+<div style="flex: 1;">
+
 - Time complexity is a function of $n$ (usually a polynomial with multiple terms)
 - As $n$ grows large, only the **dominant term** matters
 - **Asymptotic notation** simplifies the expression by focusing on growth rate
 
-<br>
-
-Three main notations:
-
 | Notation | Meaning | Intuition |
 |----------|---------|-----------|
-| $O$ (Big-O) | Upper bound | Worst case — "at most this fast" |
-| $\Omega$ (Big-Omega) | Lower bound | Best case — "at least this fast" |
+| $O$ (Big-O) | Upper bound | "at most this fast" |
+| $\Omega$ (Big-Omega) | Lower bound | "at least this fast" |
 | $\Theta$ (Theta) | Tight bound | Exact growth rate |
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch03_p003_001.png" alt="Asymptotic notation graphs" width="360" />
+</div>
+</div>
 
 ---
 
