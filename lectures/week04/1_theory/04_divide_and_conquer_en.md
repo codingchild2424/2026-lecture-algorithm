@@ -226,7 +226,7 @@ $$T(n) = \Theta(n \log n)$$
 
 # Merge Sort — Step-by-Step Example
 
-```
+```text
 [38, 27, 43, 3, 9, 82, 10]
            Divide
 [38, 27, 43, 3]     [9, 82, 10]

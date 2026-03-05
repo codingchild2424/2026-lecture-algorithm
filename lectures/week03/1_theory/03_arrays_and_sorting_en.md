@@ -149,7 +149,7 @@ For each iteration:
 3. **Exclude** that element (it is now in its final position)
 4. Repeat until one element remains
 
-```
+```text
 [15, 11, 29, 20, 65, 3, 73, 48, 31, 8]   Find max (73)
 [15, 11, 29, 20, 65, 3,  8, 48, 31|73]   Swap 73↔8, exclude 73
 [15, 11, 29, 20, 31, 3,  8, 48|65, 73]   Find max (65), swap 65↔31, exclude
@@ -211,7 +211,7 @@ For each iteration:
 3. The largest element "**bubbles up**" to the rightmost position
 4. Exclude the rightmost element and repeat
 
-```
+```text
 [15, 65, 29, 20, 11, 8, 73, 48, 31, 3]   Compare adjacent pairs
 [15, 29, 20, 11, 8, 65, 48, 31, 3, |73|]  73 bubbles to end, exclude
 [15, 20, 11, 8, 29, 48, 31, 3, |65, 73|]  65 bubbles, exclude
@@ -269,7 +269,7 @@ For each iteration:
 2. **Shift** elements in the sorted portion that are larger
 3. **Insert** the element into its correct position
 
-```
+```text
 [29]  10  14  37  13           29 is trivially sorted
 [10, 29]  14  37  13           Insert 10: shift 29, place 10
 [10, 14, 29]  37  13           Insert 14: shift 29, place 14
@@ -358,7 +358,7 @@ Merge Sort, Quick Sort, Heap Sort
 2. **Conquer**: Recursively sort each half
 3. **Combine**: Merge the two sorted halves
 
-```
+```text
 [31, 3, 65, 73, 8, 11, 20, 29, 48, 15]    Original
 
 [31, 3, 65, 73, 8] | [11, 20, 29, 48, 15]  ① Divide
@@ -456,7 +456,7 @@ $$T(n) = \Theta(n \log n)$$
 3. The pivot is now in its **final sorted position**
 4. Recursively sort the left and right subarrays
 
-```
+```text
 [31, 8, 48, 73, 11, 3, 20, 29, 65, 15]   pivot = 15
 
 [8, 11, 3, |15|, 31, 48, 20, 29, 65, 73]  After partition

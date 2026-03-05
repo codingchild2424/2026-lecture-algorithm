@@ -81,7 +81,7 @@ A BST is a binary tree that maintains a **sorted order**:
 
 $$\text{left subtree} < \text{root} < \text{right subtree}$$
 
-```
+```text
               [15]
              /    \
           [6]      [18]
@@ -223,7 +223,7 @@ Deletion is more complex than search or insert. Three cases:
 
 **Case 1**: Node has **no children** — simply remove it.
 
-```
+```text
     [5]          [5]
    /   \   =>   /   \
  [3]   [7]    [3]   [7]
@@ -233,7 +233,7 @@ Deletion is more complex than search or insert. Three cases:
 
 **Case 2**: Node has **one child** — replace node with its child.
 
-```
+```text
     [5]          [5]
    /   \   =>   /   \
  [3]   [7]    [4]   [7]
@@ -329,7 +329,7 @@ Every Red-Black Tree must satisfy these five properties:
 | 4 | If a node is **red**, both its children are **black** (no two consecutive reds) |
 | 5 | For each node, all paths from that node to descendant leaves contain the **same number of black nodes** |
 
-```
+```text
             [7:B]
            /     \
        [3:R]     [18:R]
