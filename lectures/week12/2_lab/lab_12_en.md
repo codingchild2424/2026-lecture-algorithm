@@ -42,7 +42,7 @@ C ----------- E
 - Return shortest distances and predecessor map
 - Reconstruct the shortest path to any target
 
-Refer to `examples/dijkstra.py` | **Time**: 10 min
+Refer to `examples/ex1_dijkstra.py` | **Time**: 10 min
 
 ---
 
@@ -100,7 +100,7 @@ A --2--> C                    C --10-> E
 
 **Question**: Why can Dijkstra not handle negative weights?
 
-Refer to `examples/bellman_ford.py` | **Time**: 10 min
+Refer to `examples/ex2_bellman_ford.py` | **Time**: 10 min
 
 ---
 

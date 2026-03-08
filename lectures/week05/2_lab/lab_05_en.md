@@ -96,7 +96,7 @@ def coin_change_greedy(amount, coins):
     return result if remaining == 0 else None
 ```
 
-Run: `python examples/coin_change.py`
+Run: `python examples/a1_coin_change.py`
 
 ---
 
@@ -190,7 +190,7 @@ def fractional_knapsack(capacity, items):
     return total_value
 ```
 
-Run: `python examples/fractional_knapsack.py`
+Run: `python examples/a2_fractional_knapsack.py`
 
 ---
 
@@ -317,7 +317,7 @@ def generate_codes(root, prefix="", codes=None):
     return codes
 ```
 
-Run: `python examples/huffman.py`
+Run: `python examples/a3_huffman.py`
 
 ---
 
@@ -365,7 +365,7 @@ layout: section
 Run the Flask app:
 
 ```bash
-cd examples/web_scheduler
+cd examples/b1_web_scheduler
 python app.py
 ```
 

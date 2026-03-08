@@ -103,7 +103,7 @@ for n in [1_000, 10_000, 100_000, 1_000_000]:
     print(f"N={n:>10,}: {elapsed:.6f} sec")
 ```
 
-File: `examples/timer_util.py`
+File: `examples/a1_timer_util.py`
 
 ---
 layout: section
@@ -197,7 +197,7 @@ Only **4 steps** instead of 10 comparisons!
 
 # A-2: Benchmark Results
 
-Run `examples/find_duplicate.py` and compare:
+Run `examples/a2_find_duplicate.py` and compare:
 
 ```
          N |        O(n^2) |         O(n) |  Speedup
@@ -225,10 +225,10 @@ layout: section
 
 # A-3: Complexity Plot (10 min)
 
-Run `examples/complexity_plot.py` to visualize growth rates:
+Run `examples/a3_complexity_plot.py` to visualize growth rates:
 
 ```bash
-python examples/complexity_plot.py
+python examples/a3_complexity_plot.py
 ```
 
 ```
@@ -275,7 +275,7 @@ layout: section
 Run the Flask app to compare search strategies in a web context:
 
 ```bash
-cd examples/web_search_api
+cd examples/b1_web_search_api
 pip install flask
 python app.py
 ```

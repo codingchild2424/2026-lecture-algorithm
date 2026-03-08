@@ -177,7 +177,7 @@ def insertion_sort(arr):
 ### Run and test
 
 ```bash
-python examples/basic_sorts.py
+python examples/a1_basic_sorts.py
 ```
 
 ---
@@ -282,7 +282,7 @@ def quick_sort(arr):
 ### Run and test
 
 ```bash
-python examples/advanced_sorts.py
+python examples/a2_advanced_sorts.py
 ```
 
 ---
@@ -311,7 +311,7 @@ layout: section
 # A-3: Benchmark -- Run It
 
 ```bash
-python examples/sort_benchmark.py
+python examples/a3_sort_benchmark.py
 ```
 
 Measure execution time at N = 100, 1,000, 10,000, and 100,000:
@@ -373,7 +373,7 @@ layout: section
 Run the Flask app:
 
 ```bash
-cd examples/web_sort_demo
+cd examples/b1_web_sort_demo
 pip install flask
 python app.py
 ```

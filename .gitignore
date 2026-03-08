@@ -12,9 +12,9 @@ package-lock.json
 **/script_ko.md
 **/script.md
 
-# Homework solutions & hidden tests (private)
-**/homework/solution/
-**/homework/tests/test_hidden.py
+# Assignment solutions & hidden tests (private)
+**/3_assignment/solution/
+**/3_assignment/tests/test_hidden.py
 
 # Quiz slides (private)
 quiz/
@@ -34,6 +34,9 @@ npm-debug.log*
 # Python
 __pycache__/
 *.pyc
+
+# Generated plots
+*.png
 
 # OS files
 .DS_Store

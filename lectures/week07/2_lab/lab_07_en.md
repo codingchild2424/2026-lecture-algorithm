@@ -34,8 +34,8 @@ layout: section
 | Order | Exercise | Time | Resource |
 |-------|----------|------|----------|
 | **Ex 1** | Solving exam problems with an AI agent | 20 min | (using an agent) |
-| **Ex 2** | Algorithm paradigm identification | 15 min | `examples/paradigm_practice.py` |
-| **Ex 3** | First-half review & code review | 15 min | `examples/review_problems.py` |
+| **Ex 2** | Algorithm paradigm identification | 15 min | `examples/ex2_paradigm_practice.py` |
+| **Ex 3** | First-half review & code review | 15 min | `examples/ex3_review_problems.py` |
 
 ---
 layout: section
@@ -130,12 +130,12 @@ layout: section
 
 ### How to Proceed
 
-1. Open `examples/paradigm_practice.py` and read the 10 problems
+1. Open `examples/ex2_paradigm_practice.py` and read the 10 problems
 2. For each problem, decide which paradigm to use
 3. Briefly note your reasoning
 4. Compare with the answers at the bottom of the file
 
-Run: `python examples/paradigm_practice.py`
+Run: `python examples/ex2_paradigm_practice.py`
 
 ---
 
@@ -262,12 +262,12 @@ layout: section
 
 ### How to Proceed
 
-1. Open `examples/review_problems.py`
+1. Open `examples/ex3_review_problems.py`
 2. Implement each skeleton function yourself
 3. Compare with the provided solution
 4. If short on time, reading and understanding the solutions is also effective
 
-Run: `python examples/review_problems.py`
+Run: `python examples/ex3_review_problems.py`
 
 ---
 
