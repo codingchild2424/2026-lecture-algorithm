@@ -41,5 +41,5 @@
 - Theory: `theory/02_design_and_analysis_en.md`
 - Script: `theory/script.md`
 - Lab: lab/README.md, lab/examples/
-- Homework: Assignment 1 — Complexity Analysis (see lab/homework/)
+- Homework: Assignment 1 — Complexity Analysis (see 3_assignment/)
 - Quiz: None (quizzes start Week 03)

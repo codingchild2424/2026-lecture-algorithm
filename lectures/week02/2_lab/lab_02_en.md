@@ -343,7 +343,7 @@ layout: section
 
 ### Homework 1
 
-See `homework/README.md` for assignment details.
+See `../3_assignment/README.md` for assignment details.
 
 ### Next week
 

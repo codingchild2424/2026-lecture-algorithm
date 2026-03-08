@@ -478,7 +478,7 @@ Greedy works when:
 
 ### Homework 4
 
-See `homework/README.md` for assignment details.
+See `../3_assignment/README.md` for assignment details.
 
 ### Next week
 

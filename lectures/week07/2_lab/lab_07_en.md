@@ -477,6 +477,6 @@ layout: section
 
 ### Homework 6
 
-See `homework/README.md` for assignment details.
+See `../3_assignment/README.md` for assignment details.
 
 ### Good luck on the midterm!

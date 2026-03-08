@@ -455,7 +455,7 @@ layout: section
 
 ### Homework 5 (Final Assignment)
 
-See `homework/README.md` for assignment details.
+See `../3_assignment/README.md` for assignment details.
 
 ### Next week
 
