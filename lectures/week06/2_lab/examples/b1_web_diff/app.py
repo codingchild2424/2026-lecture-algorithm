@@ -1,97 +1,183 @@
-"""Text Diff Viewer - LCS-based diff visualization."""
-from flask import Flask, request, jsonify
+"""
+Text Diff Viewer -- LCS-based change detection
+
+Uses LCS (Longest Common Subsequence) to detect differences between two texts,
+and displays added/removed/kept lines distinguished by color.
+
+Run: python app.py
+Access: http://localhost:5001
+"""
+
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
 
-def compute_lcs_table(s1, s2):
-    m, n = len(s1), len(s2)
+def compute_lcs_table(lines_a, lines_b):
+    """Build the LCS DP table between two line lists.
+
+    Args:
+        lines_a: list of lines from the original text
+        lines_b: list of lines from the modified text
+
+    Returns:
+        2D DP table
+    """
+    m, n = len(lines_a), len(lines_b)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
+
     for i in range(1, m + 1):
         for j in range(1, n + 1):
-            if s1[i-1] == s2[j-1]:
-                dp[i][j] = dp[i-1][j-1] + 1
+            if lines_a[i - 1] == lines_b[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
             else:
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
     return dp
 
 
-def compute_diff(lines1, lines2):
-    dp = compute_lcs_table(lines1, lines2)
+def compute_diff(lines_a, lines_b):
+    """Generate a diff using LCS backtracking.
+
+    Returns:
+        List of diff items: [{"type": "keep"|"add"|"remove", "text": str}, ...]
+    """
+    dp = compute_lcs_table(lines_a, lines_b)
     diff = []
-    i, j = len(lines1), len(lines2)
+
+    i, j = len(lines_a), len(lines_b)
+
+    # Backtrack
     while i > 0 or j > 0:
-        if i > 0 and j > 0 and lines1[i-1] == lines2[j-1]:
-            diff.append({"type": "same", "line": lines1[i-1]})
-            i -= 1; j -= 1
-        elif j > 0 and (i == 0 or dp[i][j-1] >= dp[i-1][j]):
-            diff.append({"type": "add", "line": lines2[j-1]})
+        if i > 0 and j > 0 and lines_a[i - 1] == lines_b[j - 1]:
+            diff.append({
+                "type": "keep",
+                "text": lines_a[i - 1],
+                "line_a": i,
+                "line_b": j,
+            })
+            i -= 1
+            j -= 1
+        elif j > 0 and (i == 0 or dp[i][j - 1] >= dp[i - 1][j]):
+            diff.append({
+                "type": "add",
+                "text": lines_b[j - 1],
+                "line_b": j,
+            })
             j -= 1
         else:
-            diff.append({"type": "remove", "line": lines1[i-1]})
+            diff.append({
+                "type": "remove",
+                "text": lines_a[i - 1],
+                "line_a": i,
+            })
             i -= 1
-    return list(reversed(diff))
+
+    diff.reverse()
+    return diff
+
+
+def compute_similarity(lines_a, lines_b):
+    """Compute the similarity between two texts.
+
+    LCS length / max(len(a), len(b)) * 100
+
+    Returns:
+        (LCS length, similarity percentage)
+    """
+    dp = compute_lcs_table(lines_a, lines_b)
+    lcs_length = dp[len(lines_a)][len(lines_b)]
+    max_len = max(len(lines_a), len(lines_b))
+    similarity = (lcs_length / max_len * 100) if max_len > 0 else 100.0
+    return lcs_length, similarity
 
 
 @app.route("/")
 def index():
-    return """<!DOCTYPE html>
-<html><head><title>Text Diff Viewer</title>
-<style>
-body { font-family: monospace; max-width: 800px; margin: 40px auto; }
-textarea { width: 100%; height: 120px; }
-.same { color: #333; }
-.add { background: #d4edda; color: #155724; }
-.remove { background: #f8d7da; color: #721c24; }
-.diff-line { padding: 2px 8px; white-space: pre; }
-</style></head>
-<body>
-<h1>Text Diff Viewer (LCS-based)</h1>
-<table width="100%"><tr>
-<td><b>Original</b><br><textarea id="t1">Hello World
-This is a test
-Foo bar baz
-Keep this line</textarea></td>
-<td><b>Modified</b><br><textarea id="t2">Hello World
-This is an example
-Foo bar baz
-Added new line
-Keep this line</textarea></td>
-</tr></table>
-<button onclick="diff()">Compute Diff</button>
-<div id="result"></div>
-<script>
-async function diff() {
-    const t1 = document.getElementById('t1').value;
-    const t2 = document.getElementById('t2').value;
-    const res = await fetch('/api/diff', {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({text1: t1, text2: t2})
-    });
-    const data = await res.json();
-    document.getElementById('result').innerHTML =
-        `<p>LCS length: ${data.lcs_length}, Diff computed in ${data.time_ms}ms</p>` +
-        data.diff.map(d => {
-            const prefix = d.type === 'add' ? '+' : d.type === 'remove' ? '-' : ' ';
-            return `<div class="diff-line ${d.type}">${prefix} ${d.line}</div>`;
-        }).join('');
-}
-</script>
-</body></html>"""
+    return render_template("index.html")
 
 
 @app.route("/api/diff", methods=["POST"])
-def api_diff():
-    import time
-    data = request.json
-    lines1 = data["text1"].splitlines()
-    lines2 = data["text2"].splitlines()
-    start = time.perf_counter()
-    diff = compute_diff(lines1, lines2)
-    lcs_len = sum(1 for d in diff if d["type"] == "same")
-    elapsed = (time.perf_counter() - start) * 1000
-    return jsonify({"diff": diff, "lcs_length": lcs_len, "time_ms": round(elapsed, 3)})
+def diff():
+    """Compute and return the diff of two texts."""
+    data = request.get_json()
+    text_a = data.get("text_a", "")
+    text_b = data.get("text_b", "")
+
+    lines_a = text_a.splitlines() if text_a else []
+    lines_b = text_b.splitlines() if text_b else []
+
+    diff_result = compute_diff(lines_a, lines_b)
+    lcs_length, similarity = compute_similarity(lines_a, lines_b)
+
+    stats = {
+        "lines_a": len(lines_a),
+        "lines_b": len(lines_b),
+        "lcs_length": lcs_length,
+        "similarity": round(similarity, 1),
+        "added": sum(1 for d in diff_result if d["type"] == "add"),
+        "removed": sum(1 for d in diff_result if d["type"] == "remove"),
+        "kept": sum(1 for d in diff_result if d["type"] == "keep"),
+    }
+
+    return jsonify({
+        "diff": diff_result,
+        "stats": stats,
+    })
+
+
+SAMPLE_ORIGINAL = """def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+def main():
+    data = [64, 34, 25, 12, 22, 11, 90]
+    print("Original:", data)
+    result = bubble_sort(data)
+    print("Sorted:", result)
+
+if __name__ == "__main__":
+    main()"""
+
+SAMPLE_MODIFIED = """def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr
+
+def main():
+    data = [64, 34, 25, 12, 22, 11, 90]
+    print("Original:", data)
+    result = bubble_sort(data)
+    print("Sorted:", result)
+    print("Length:", len(result))
+
+if __name__ == "__main__":
+    main()"""
+
+
+@app.route("/api/sample")
+def sample():
+    """Return sample texts."""
+    return jsonify({
+        "text_a": SAMPLE_ORIGINAL,
+        "text_b": SAMPLE_MODIFIED,
+    })
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    print("=" * 50)
+    print(" Text Diff Viewer (LCS-based)")
+    print(" http://localhost:5001")
+    print("=" * 50)
+    app.run(debug=True, port=5001)

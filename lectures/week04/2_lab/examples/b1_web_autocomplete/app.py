@@ -1,79 +1,108 @@
-"""Autocomplete API - linear vs binary search comparison."""
-from flask import Flask, request, jsonify
+"""
+Autocomplete API -- Linear Search vs Binary Search Comparison Demo
+Flask server: http://localhost:5004
+"""
+
 import time
 import bisect
 import random
 import string
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
-# Generate dictionary of ~100,000 words
-def generate_words(n=100000):
-    words = set()
-    for length in range(3, 10):
-        while len(words) < n:
-            word = ''.join(random.choices(string.ascii_lowercase, k=length))
-            words.add(word)
-            if len(words) >= n:
-                break
-    return sorted(list(words)[:n])
 
-words = generate_words()
-print(f"Dictionary loaded: {len(words)} words")
+def generate_words(n=100_000):
+    """
+    Generates n random English words.
+    Creates combinations of lowercase letters with length 3-8, removing duplicates.
+    """
+    words = set()
+    while len(words) < n:
+        length = random.randint(3, 8)
+        word = "".join(random.choices(string.ascii_lowercase, k=length))
+        words.add(word)
+    return sorted(words)
+
+
+# Generate word dictionary at server startup
+print("Generating 100,000 words...")
+word_list = generate_words(100_000)
+print(f"Done. {len(word_list)} unique words generated.")
+
+
+def linear_search_prefix(words, prefix):
+    """
+    Linear search: iterates through all words to find those starting with the prefix.
+    Time complexity: O(n * m) -- n: number of words, m: prefix length
+    """
+    return [w for w in words if w.startswith(prefix)]
+
+
+def binary_search_prefix(words, prefix):
+    """
+    Binary search: uses bisect on a sorted dictionary to find the prefix range.
+    Time complexity: O(log n + k) -- k: number of matching words
+    """
+    if not prefix:
+        return words[:]
+
+    # First position >= prefix
+    lo = bisect.bisect_left(words, prefix)
+
+    # Next prefix after the given one (e.g., "abc" -> "abd")
+    # Increment the last character of the prefix by 1
+    next_prefix = prefix[:-1] + chr(ord(prefix[-1]) + 1)
+    hi = bisect.bisect_left(words, next_prefix)
+
+    return words[lo:hi]
 
 
 @app.route("/")
 def index():
-    return """<!DOCTYPE html>
-<html><head><title>Autocomplete Demo</title></head>
-<body>
-<h1>Autocomplete - Search Algorithm Comparison</h1>
-<p>Type a prefix and see response times for linear vs binary search:</p>
-<input type="text" id="q" placeholder="Type a prefix..." oninput="search()">
-<div id="results"></div>
-<script>
-let timeout;
-async function search() {
-    clearTimeout(timeout);
-    timeout = setTimeout(async () => {
-        const q = document.getElementById('q').value;
-        if (q.length < 1) return;
-        const [r1, r2] = await Promise.all([
-            fetch(`/autocomplete/linear?q=${q}`).then(r => r.json()),
-            fetch(`/autocomplete/binary?q=${q}`).then(r => r.json())
-        ]);
-        document.getElementById('results').innerHTML = `
-            <p><b>Linear:</b> ${r1.time_ms.toFixed(3)}ms, ${r1.count} matches</p>
-            <p><b>Binary:</b> ${r2.time_ms.toFixed(3)}ms, ${r2.count} matches</p>
-            <p>Speedup: ${(r1.time_ms / Math.max(r2.time_ms, 0.001)).toFixed(1)}x</p>
-            <p>Matches: ${r2.matches.slice(0, 10).join(', ')}${r2.count > 10 ? '...' : ''}</p>`;
-    }, 100);
-}
-</script>
-</body></html>"""
+    return render_template("index.html")
 
 
-@app.route("/autocomplete/linear")
+@app.route("/api/autocomplete/linear")
 def autocomplete_linear():
-    q = request.args.get("q", "")
+    prefix = request.args.get("prefix", "").lower().strip()
+    if not prefix:
+        return jsonify({"method": "linear", "prefix": "", "matches": [], "count": 0, "elapsed_ms": 0})
+
     start = time.perf_counter()
-    matches = [w for w in words if w.startswith(q)]
-    elapsed = (time.perf_counter() - start) * 1000
-    return jsonify({"method": "linear", "time_ms": round(elapsed, 4),
-                     "count": len(matches), "matches": matches[:20]})
+    matches = linear_search_prefix(word_list, prefix)
+    elapsed_ms = (time.perf_counter() - start) * 1000
+
+    return jsonify({
+        "method": "linear",
+        "prefix": prefix,
+        "matches": matches[:20],
+        "count": len(matches),
+        "elapsed_ms": round(elapsed_ms, 4),
+        "total_words": len(word_list),
+    })
 
 
-@app.route("/autocomplete/binary")
+@app.route("/api/autocomplete/binary")
 def autocomplete_binary():
-    q = request.args.get("q", "")
+    prefix = request.args.get("prefix", "").lower().strip()
+    if not prefix:
+        return jsonify({"method": "binary", "prefix": "", "matches": [], "count": 0, "elapsed_ms": 0})
+
     start = time.perf_counter()
-    lo = bisect.bisect_left(words, q)
-    hi = bisect.bisect_left(words, q[:-1] + chr(ord(q[-1]) + 1)) if q else len(words)
-    matches = words[lo:hi]
-    elapsed = (time.perf_counter() - start) * 1000
-    return jsonify({"method": "binary", "time_ms": round(elapsed, 4),
-                     "count": len(matches), "matches": matches[:20]})
+    matches = binary_search_prefix(word_list, prefix)
+    elapsed_ms = (time.perf_counter() - start) * 1000
+
+    return jsonify({
+        "method": "binary",
+        "prefix": prefix,
+        "matches": matches[:20],
+        "count": len(matches),
+        "elapsed_ms": round(elapsed_ms, 4),
+        "total_words": len(word_list),
+    })
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    print("Starting server on http://localhost:5004")
+    app.run(debug=True, port=5004)

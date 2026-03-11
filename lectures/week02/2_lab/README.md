@@ -10,7 +10,7 @@
 
 ### A-1: Write a Timing Utility (10 min)
 
-Refer to `examples/timer_util.py` and write a utility that measures execution time.
+Refer to `examples/a1_timer_util.py` and write a utility that measures execution time.
 
 ### A-2: Finding Duplicates — O(n²) to O(n) Optimization (15 min)
 
@@ -19,13 +19,13 @@ Refer to `examples/timer_util.py` and write a utility that measures execution ti
 1. **O(n²) solution**: Compare all pairs using nested for loops
 2. **O(n) solution**: Use a hash set (set)
 
-Refer to `examples/find_duplicate.py`.
+Refer to `examples/a2_find_duplicate.py`.
 
 Compare the execution times of both solutions at N=100, 1,000, 10,000, and 100,000.
 
 ### A-3: Execution Time Graphs (10 min)
 
-Run `examples/complexity_plot.py` to plot execution time graphs for O(1), O(n), O(n log n), and O(n²).
+Run `examples/a3_complexity_plot.py` to plot execution time graphs for O(1), O(n), O(n log n), and O(n²).
 
 ---
 
@@ -33,10 +33,10 @@ Run `examples/complexity_plot.py` to plot execution time graphs for O(1), O(n), 
 
 ### B-1: Product Search API Comparison (15 min)
 
-Run the Flask app in the `examples/web_search_api/` folder:
+Run the Flask app in the `examples/b1_web_search/` folder:
 
 ```bash
-cd examples/web_search_api
+cd examples/b1_web_search
 pip install flask
 python app.py
 ```

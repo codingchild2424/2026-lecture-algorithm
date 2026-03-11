@@ -41,10 +41,10 @@ Measure the execution time of each algorithm at N=100, 1,000, 10,000, and 100,00
 
 ### B-1: Mini Shopping Mall Sort Comparison (15 min)
 
-Run the Flask app in `examples/b1_web_sort_demo/`:
+Run the Flask app in `examples/b1_web_sort/`:
 
 ```bash
-cd examples/b1_web_sort_demo
+cd examples/b1_web_sort
 pip install flask
 python app.py
 ```

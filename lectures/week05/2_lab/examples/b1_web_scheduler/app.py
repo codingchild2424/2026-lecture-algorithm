@@ -1,79 +1,162 @@
-"""Meeting Room Scheduler - Activity Selection demo."""
-from flask import Flask, request, jsonify
+"""
+Meeting Room Scheduler -- Activity Selection Problem
+
+Greedy strategy: Selecting meetings with the earliest end time maximizes the number of meetings.
+Brute force: Checks all subsets to find the optimal solution (only feasible for small N).
+
+Run: python app.py
+Access: http://localhost:5000
+"""
+
+from flask import Flask, render_template, request, jsonify
+from itertools import combinations
 import random
 
 app = Flask(__name__)
 
 
-def activity_selection(meetings):
-    """Greedy: select maximum non-overlapping meetings (sort by end time)."""
+def greedy_schedule(meetings):
+    """Select the maximum number of meetings using greedy.
+
+    Activity Selection: Sort by end time in ascending order,
+    then select meetings that do not overlap with the previously selected one.
+
+    Time complexity: O(n log n) -- sorting dominates
+
+    Args:
+        meetings: [{"id": int, "name": str, "start": float, "end": float}, ...]
+
+    Returns:
+        List of selected meeting ids
+    """
+    # Sort by end time
     sorted_meetings = sorted(meetings, key=lambda m: m["end"])
-    selected = [sorted_meetings[0]]
-    for m in sorted_meetings[1:]:
-        if m["start"] >= selected[-1]["end"]:
-            selected.append(m)
+
+    selected = []
+    last_end = -1
+
+    for meeting in sorted_meetings:
+        if meeting["start"] >= last_end:
+            selected.append(meeting["id"])
+            last_end = meeting["end"]
+
     return selected
 
 
-def generate_meetings(n=20):
+def bruteforce_schedule(meetings):
+    """Select the maximum number of meetings using brute force.
+
+    Checks all subsets to find the maximum number of non-overlapping meetings.
+
+    Time complexity: O(2^n * n) -- checks all subsets
+
+    Args:
+        meetings: [{"id": int, "name": str, "start": float, "end": float}, ...]
+
+    Returns:
+        List of selected meeting ids
+    """
+    n = len(meetings)
+
+    # Prevent timeout for large N
+    if n > 20:
+        return None
+
+    def is_compatible(subset):
+        """Check if all meetings in the subset are non-overlapping."""
+        sorted_sub = sorted(subset, key=lambda m: m["start"])
+        for i in range(1, len(sorted_sub)):
+            if sorted_sub[i]["start"] < sorted_sub[i - 1]["end"]:
+                return False
+        return True
+
+    best_selection = []
+
+    for size in range(n, 0, -1):
+        for combo in combinations(meetings, size):
+            if is_compatible(combo):
+                best_selection = [m["id"] for m in combo]
+                return best_selection
+
+    return best_selection
+
+
+def generate_sample_meetings(count=10):
+    """Generate random meeting data."""
+    random.seed(42)
+    names = [
+        "Team Meeting", "Planning", "Code Review", "Design Discussion", "Sprint Planning",
+        "Client Meeting", "1:1 Meeting", "Tech Seminar", "Project Report", "Brainstorming",
+        "Strategy Meeting", "Budget Discussion", "Performance Review", "Workshop", "Training Session",
+    ]
     meetings = []
-    for i in range(n):
-        start = random.randint(8, 17)
-        duration = random.randint(1, 3)
-        meetings.append({"id": i, "name": f"Meeting-{i}", "start": start, "end": start + duration})
+    for i in range(count):
+        start = random.randint(9, 16)
+        duration = random.choice([0.5, 1, 1.5, 2])
+        end = min(start + duration, 18)
+        meetings.append({
+            "id": i,
+            "name": names[i % len(names)],
+            "start": start,
+            "end": end,
+        })
     return meetings
 
 
 @app.route("/")
 def index():
-    return """<!DOCTYPE html>
-<html><head><title>Meeting Scheduler</title>
-<style>
-.timeline { position: relative; height: 30px; margin: 2px 0; }
-.meeting { position: absolute; height: 28px; border-radius: 4px; font-size: 11px;
-           display: flex; align-items: center; padding: 0 4px; color: white; }
-.selected { background: #2196F3; }
-.rejected { background: #ccc; color: #666; }
-</style></head>
-<body>
-<h1>Meeting Room Scheduler</h1>
-<p>Greedy Algorithm: select meetings sorted by end time.</p>
-<button onclick="run()">Generate & Schedule</button>
-<p id="info"></p>
-<div id="timeline"></div>
-<script>
-async function run() {
-    const res = await fetch('/api/schedule');
-    const data = await res.json();
-    document.getElementById('info').innerHTML =
-        `Total requests: ${data.total}, Selected: ${data.selected_count} (Greedy - Activity Selection)`;
-    const div = document.getElementById('timeline');
-    const ids = new Set(data.selected.map(m => m.id));
-    div.innerHTML = '<div style="position:relative;margin-left:60px">' +
-        Array.from({length:13}, (_,i) =>
-            `<span style="position:absolute;left:${i*60}px;top:-15px;font-size:11px">${i+8}:00</span>`
-        ).join('') + '</div>' +
-        data.all.map(m => {
-            const cls = ids.has(m.id) ? 'selected' : 'rejected';
-            return `<div class="timeline"><span style="width:55px;display:inline-block;font-size:12px">${m.name}</span>` +
-                `<div class="meeting ${cls}" style="left:${(m.start-8)*60+60}px;width:${(m.end-m.start)*60}px">${m.start}~${m.end}</div></div>`;
-        }).join('');
-}
-</script>
-</body></html>"""
+    return render_template("index.html")
 
 
-@app.route("/api/schedule")
-def api_schedule():
-    meetings = generate_meetings(15)
-    selected = activity_selection(meetings)
+@app.route("/api/schedule", methods=["POST"])
+def schedule_greedy():
+    """Return the optimal schedule using greedy."""
+    data = request.get_json()
+    meetings = data.get("meetings", [])
+
+    selected_ids = greedy_schedule(meetings)
+
     return jsonify({
-        "all": sorted(meetings, key=lambda m: m["start"]),
-        "selected": selected,
+        "selected_ids": selected_ids,
+        "count": len(selected_ids),
         "total": len(meetings),
-        "selected_count": len(selected)
+        "algorithm": "greedy",
     })
 
 
+@app.route("/api/schedule/bruteforce", methods=["POST"])
+def schedule_bruteforce():
+    """Return the optimal schedule using brute force."""
+    data = request.get_json()
+    meetings = data.get("meetings", [])
+
+    if len(meetings) > 20:
+        return jsonify({
+            "error": "Brute force can only run with 20 or fewer meetings.",
+        }), 400
+
+    selected_ids = bruteforce_schedule(meetings)
+
+    return jsonify({
+        "selected_ids": selected_ids if selected_ids is not None else [],
+        "count": len(selected_ids) if selected_ids is not None else 0,
+        "total": len(meetings),
+        "algorithm": "bruteforce",
+    })
+
+
+@app.route("/api/sample")
+def sample_data():
+    """Return sample meeting data."""
+    count = request.args.get("count", 10, type=int)
+    count = min(count, 20)
+    meetings = generate_sample_meetings(count)
+    return jsonify({"meetings": meetings})
+
+
 if __name__ == "__main__":
+    print("=" * 50)
+    print(" Meeting Room Scheduler")
+    print(" http://localhost:5000")
+    print("=" * 50)
     app.run(debug=True, port=5000)
