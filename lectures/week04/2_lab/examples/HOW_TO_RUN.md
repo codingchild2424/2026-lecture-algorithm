@@ -52,7 +52,7 @@ python a3_closest_pair.py
 
 ---
 
-### B-1: Web Autocomplete (`b1_web_autocomplete/`)
+### B-1: Web Autocomplete (`solutions/b1_web_autocomplete/`)
 Interactive web demo -- no modification needed. See the directory for its own instructions.
 
 ---

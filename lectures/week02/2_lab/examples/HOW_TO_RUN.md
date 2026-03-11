@@ -53,7 +53,7 @@ python3 a3_complexity_plot.py
 
 ---
 
-### B-1: Web Search Demo (`b1_web_search/`)
+### B-1: Web Search Demo (`solutions/b1_web_search/`)
 A web application demo. See the README inside the directory for instructions.
 
 ---

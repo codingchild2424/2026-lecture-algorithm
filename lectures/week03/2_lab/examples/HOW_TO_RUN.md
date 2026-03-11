@@ -17,7 +17,7 @@ Implement two O(n log n) divide-and-conquer sorting algorithms:
 Runs all sorting algorithms on increasing input sizes and compares execution times.
 No implementation needed — this file imports from A-1 and A-2.
 
-### B-1: Web Sort Demo (`b1_web_sort/`)
+### B-1: Web Sort Demo (`solutions/b1_web_sort/`)
 Interactive web visualization of sorting algorithms. No changes needed.
 
 ## How to Run

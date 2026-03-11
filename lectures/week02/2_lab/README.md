@@ -33,10 +33,10 @@ Run `examples/skeletons/a3_complexity_plot.py` to plot execution time graphs for
 
 ### B-1: Product Search API Comparison (15 min)
 
-Run the Flask app in the `examples/b1_web_search/` folder:
+Run the Flask app in the `examples/solutions/b1_web_search/` folder:
 
 ```bash
-cd examples/b1_web_search
+cd examples/solutions/b1_web_search
 pip install flask
 python app.py
 ```

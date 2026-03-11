@@ -29,10 +29,10 @@ Solve the 0-1 knapsack problem in `examples/skeletons/a3_knapsack.py` and backtr
 
 ### B-1: Text Diff Viewer (15 min)
 
-Run the Flask app in `examples/b1_web_diff/`:
+Run the Flask app in `examples/solutions/b1_web_diff/`:
 
 ```bash
-cd examples/b1_web_diff
+cd examples/solutions/b1_web_diff
 python app.py
 ```
 

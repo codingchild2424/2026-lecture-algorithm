@@ -33,10 +33,10 @@ Refer to `examples/skeletons/a3_closest_pair.py` and find the closest pair of po
 
 ### B-1: Autocomplete API (15 min)
 
-Run the Flask app in the `examples/b1_web_autocomplete/` folder:
+Run the Flask app in the `examples/solutions/b1_web_autocomplete/` folder:
 
 ```bash
-cd examples/b1_web_autocomplete
+cd examples/solutions/b1_web_autocomplete
 python app.py
 ```
 

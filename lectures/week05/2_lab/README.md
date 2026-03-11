@@ -34,10 +34,10 @@ Implement Huffman coding in `examples/skeletons/a3_huffman.py`.
 
 ### B-1: Meeting Room Reservation System (15 min)
 
-Run the Flask app in `examples/b1_web_scheduler/`:
+Run the Flask app in `examples/solutions/b1_web_scheduler/`:
 
 ```bash
-cd examples/b1_web_scheduler
+cd examples/solutions/b1_web_scheduler
 python app.py
 ```
 

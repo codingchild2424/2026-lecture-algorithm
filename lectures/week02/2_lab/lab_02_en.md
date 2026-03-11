@@ -275,7 +275,7 @@ layout: section
 Run the Flask app to compare search strategies in a web context:
 
 ```bash
-cd examples/b1_web_search
+cd examples/solutions/b1_web_search
 pip install flask
 python app.py
 ```

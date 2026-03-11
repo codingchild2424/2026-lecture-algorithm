@@ -32,7 +32,7 @@ python solutions/a3_huffman.py
 
 ## Web Demo
 
-The `b1_web_scheduler/` directory contains a web-based scheduling demo.
+The `solutions/b1_web_scheduler/` directory contains a web-based scheduling demo.
 See its own README for setup instructions.
 
 ## Requirements

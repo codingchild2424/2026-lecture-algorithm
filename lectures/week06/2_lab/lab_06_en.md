@@ -374,7 +374,7 @@ layout: section
 Run the Flask app:
 
 ```bash
-cd examples/b1_web_diff
+cd examples/solutions/b1_web_diff
 python app.py
 ```
 

@@ -384,7 +384,7 @@ layout: section
 Run the Flask app:
 
 ```bash
-cd examples/b1_web_autocomplete
+cd examples/solutions/b1_web_autocomplete
 python app.py
 ```
 

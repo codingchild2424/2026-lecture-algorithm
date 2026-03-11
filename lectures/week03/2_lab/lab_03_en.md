@@ -373,7 +373,7 @@ layout: section
 Run the Flask app:
 
 ```bash
-cd examples/b1_web_sort
+cd examples/solutions/b1_web_sort
 pip install flask
 python app.py
 ```

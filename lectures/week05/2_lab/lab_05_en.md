@@ -365,7 +365,7 @@ layout: section
 Run the Flask app:
 
 ```bash
-cd examples/b1_web_scheduler
+cd examples/solutions/b1_web_scheduler
 python app.py
 ```
 
