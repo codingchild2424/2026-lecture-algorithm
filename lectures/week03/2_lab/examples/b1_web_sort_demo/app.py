@@ -1,6 +1,6 @@
 """
-쇼핑몰 상품 정렬 비교 데모
-Flask 서버: http://localhost:5003
+Shopping mall product sorting comparison demo
+Flask server: http://localhost:5003
 """
 
 import time
@@ -13,7 +13,7 @@ NUM_PRODUCTS = 10_000
 
 
 def generate_products(n):
-    """랜덤 가격의 상품 n개를 생성합니다."""
+    """Generate n products with random prices."""
     return [
         {"id": i, "name": f"Product-{i:05d}", "price": random.randint(1000, 999999)}
         for i in range(n)
@@ -21,7 +21,7 @@ def generate_products(n):
 
 
 def bubble_sort_by_price(products):
-    """버블 정렬: O(n^2)"""
+    """Bubble Sort: O(n^2)"""
     arr = products[:]
     n = len(arr)
     for i in range(n):
@@ -36,7 +36,7 @@ def bubble_sort_by_price(products):
 
 
 def quick_sort_by_price(products):
-    """퀵 정렬: O(n log n) 평균"""
+    """Quick Sort: O(n log n) average"""
     if len(products) <= 1:
         return products[:]
     pivot = products[len(products) // 2]["price"]
@@ -47,11 +47,11 @@ def quick_sort_by_price(products):
 
 
 def builtin_sort_by_price(products):
-    """Python 내장 정렬 (Timsort): O(n log n)"""
+    """Python built-in sort (Timsort): O(n log n)"""
     return sorted(products, key=lambda p: p["price"])
 
 
-# 시작 시 상품 데이터 생성
+# Generate product data at startup
 products_data = generate_products(NUM_PRODUCTS)
 
 
@@ -84,13 +84,13 @@ def api_products():
         "sort_method": sort_method,
         "sort_time_ms": round(elapsed_ms, 4),
         "count": len(sorted_products),
-        "products": sorted_products[:100],  # 상위 100개만 반환
+        "products": sorted_products[:100],  # Return only the top 100
     })
 
 
 @app.route("/api/regenerate")
 def regenerate():
-    """상품 데이터를 재생성합니다 (가격 셔플)."""
+    """Regenerate product data (shuffle prices)."""
     global products_data
     n = request.args.get("n", NUM_PRODUCTS, type=int)
     n = min(n, 50_000)

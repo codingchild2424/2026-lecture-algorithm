@@ -1,13 +1,13 @@
-# === A-2: 중복 원소 찾기 (모든 중복 원소 반환) ===
-# 배열에서 중복된 모든 원소를 찾아 반환하는 두 가지 알고리즘을 비교합니다.
-# - 브루트포스(Brute Force): O(n²) — 이중 루프로 모든 쌍 비교
-# - 해시셋(HashSet): O(n) — set 두 개를 사용한 선형 탐색
+# === A-2: Find All Duplicate Elements ===
+# Compares two algorithms for finding all duplicate elements in an array.
+# - Brute Force: O(n^2) — nested loops comparing all pairs
+# - HashSet: O(n) — linear scan using two sets
 #
-# a2_find_duplicate.py와의 차이:
-#   - find_duplicate: 중복 "존재 여부"만 판별 (True/False)
-#   - find_duplicates: 중복된 "모든 원소"를 찾아 반환 (set)
+# Difference from a2_find_duplicate.py:
+#   - find_duplicate: only checks existence of duplicates (True/False)
+#   - find_duplicates: finds and returns all duplicate elements (set)
 """
-중복 원소 찾기 — O(n^2) vs O(n) 비교
+Find all duplicate elements — O(n^2) vs O(n) comparison
 """
 
 import time
@@ -16,119 +16,119 @@ import random
 
 def find_duplicates_bruteforce(arr):
     """
-    브루트포스로 모든 중복 원소를 찾습니다.
+    Finds all duplicate elements using brute force.
 
-    알고리즘: 이중 반복문으로 모든 (i, j) 쌍을 비교하여 같은 값을 수집
-    시간 복잡도: O(n²) — n*(n-1)/2 번의 비교
-    공간 복잡도: O(d) — d는 중복 원소의 개수
+    Algorithm: nested loops comparing all (i, j) pairs, collecting matching values
+    Time complexity: O(n^2) — n*(n-1)/2 comparisons
+    Space complexity: O(d) — where d is the number of duplicate elements
     """
-    duplicates = set()  # 발견된 중복 원소를 저장할 set
+    duplicates = set()  # set to store discovered duplicates
     n = len(arr)
-    for i in range(n):  # 각 원소에 대해
-        for j in range(i + 1, n):  # 뒤의 모든 원소와 비교
-            if arr[i] == arr[j]:  # 같은 값이면 중복
-                duplicates.add(arr[i])  # 중복 원소 기록
+    for i in range(n):  # for each element
+        for j in range(i + 1, n):  # compare with all subsequent elements
+            if arr[i] == arr[j]:  # values match — duplicate found
+                duplicates.add(arr[i])  # record the duplicate element
     return duplicates
 
 
 def find_duplicates_hashset(arr):
     """
-    해시셋을 사용하여 모든 중복 원소를 찾습니다.
+    Finds all duplicate elements using hash sets.
 
-    알고리즘:
-      - seen: 지금까지 본 원소를 저장
-      - duplicates: 두 번 이상 등장한 원소를 저장
-      - 배열을 한 번 순회하면서 seen에 있으면 duplicates에 추가
+    Algorithm:
+      - seen: stores elements encountered so far
+      - duplicates: stores elements that appear more than once
+      - Iterate through array; if element is in seen, add to duplicates
 
-    시간 복잡도: O(n) — set의 탐색/삽입이 평균 O(1)
-    공간 복잡도: O(n) — seen set이 최대 n개의 원소를 저장
+    Time complexity: O(n) — set lookup/insertion is O(1) on average
+    Space complexity: O(n) — seen set stores up to n elements
     """
-    seen = set()  # 이미 확인한 원소
-    duplicates = set()  # 중복으로 확인된 원소
+    seen = set()  # elements encountered so far
+    duplicates = set()  # elements confirmed as duplicates
     for x in arr:
-        if x in seen:  # 이전에 본 적 있는 원소 → 중복
+        if x in seen:  # previously encountered — it's a duplicate
             duplicates.add(x)
         else:
-            seen.add(x)  # 처음 보는 원소 → seen에 추가
+            seen.add(x)  # first occurrence — add to seen
     return duplicates
 
 
 def generate_test_data(n, duplicate_ratio=0.3):
     """
-    중복이 포함된 테스트 데이터를 생성합니다.
+    Generates test data containing duplicates.
 
-    매개변수:
-      n              — 전체 데이터 크기
-      duplicate_ratio — 중복 비율 (기본값: 0.3 = 30%)
+    Parameters:
+      n              — total data size
+      duplicate_ratio — ratio of duplicates (default: 0.3 = 30%)
 
-    알고리즘:
-      1. 고유 원소 개수 = n * (1 - duplicate_ratio)
-      2. 나머지는 기존 범위에서 랜덤으로 선택하여 중복 생성
-      3. 전체를 섞어(shuffle) 반환
+    Algorithm:
+      1. Number of unique elements = n * (1 - duplicate_ratio)
+      2. Fill remaining slots with random picks from existing range to create duplicates
+      3. Shuffle and return
 
-    시간 복잡도: O(n)
-    공간 복잡도: O(n)
+    Time complexity: O(n)
+    Space complexity: O(n)
     """
-    unique_count = int(n * (1 - duplicate_ratio))  # 고유 원소 개수 계산
-    base = list(range(unique_count))  # 0부터 unique_count-1까지 고유 원소
-    extras = [random.randint(0, unique_count - 1) for _ in range(n - unique_count)]  # 중복 원소 생성
-    data = base + extras  # 고유 원소 + 중복 원소 합침
-    random.shuffle(data)  # 순서를 랜덤으로 섞음
+    unique_count = int(n * (1 - duplicate_ratio))  # compute number of unique elements
+    base = list(range(unique_count))  # unique elements from 0 to unique_count-1
+    extras = [random.randint(0, unique_count - 1) for _ in range(n - unique_count)]  # generate duplicates
+    data = base + extras  # combine unique and duplicate elements
+    random.shuffle(data)  # randomize order
     return data
 
 
 def benchmark_one(func, data, repeat=3):
     """
-    함수의 실행 시간을 반복 측정하여 평균을 반환합니다.
+    Repeatedly measures a function's execution time and returns the average.
 
-    시간 복잡도: O(repeat * T(func))
+    Time complexity: O(repeat * T(func))
     """
     times = []
     for _ in range(repeat):
-        start = time.perf_counter()  # 고해상도 시작 시간
+        start = time.perf_counter()  # high-resolution start time
         func(data)
-        end = time.perf_counter()  # 고해상도 종료 시간
+        end = time.perf_counter()  # high-resolution end time
         times.append(end - start)
-    return sum(times) / len(times)  # 평균 반환
+    return sum(times) / len(times)  # return average
 
 
 if __name__ == "__main__":
     print("=" * 65)
-    print("중복 원소 찾기: O(n²) vs O(n) 벤치마크")
+    print("Find Duplicates: O(n^2) vs O(n) Benchmark")
     print("=" * 65)
 
-    # 정확성 검증: 두 알고리즘이 같은 결과를 내는지 확인
+    # Correctness verification: ensure both algorithms produce the same result
     test = [1, 2, 3, 2, 4, 5, 1, 6]
-    bf_result = find_duplicates_bruteforce(test)  # 브루트포스 결과
-    hs_result = find_duplicates_hashset(test)  # 해시셋 결과
-    print(f"\n검증 데이터: {test}")
-    print(f"Bruteforce 결과: {bf_result}")
-    print(f"HashSet 결과:    {hs_result}")
-    assert bf_result == hs_result, "결과가 다릅니다!"
-    print("-> 두 결과 일치 확인\n")
+    bf_result = find_duplicates_bruteforce(test)  # brute-force result
+    hs_result = find_duplicates_hashset(test)  # hash set result
+    print(f"\nTest data: {test}")
+    print(f"Bruteforce result: {bf_result}")
+    print(f"HashSet result:    {hs_result}")
+    assert bf_result == hs_result, "Results do not match!"
+    print("-> Both results match\n")
 
-    # 벤치마크: 입력 크기별 실행 시간 비교
+    # Benchmark: compare execution times across input sizes
     sizes = [1000, 2000, 5000, 10000]
-    print(f"{'N':>8s} | {'O(n²) [초]':>12s} | {'O(n) [초]':>12s} | {'배율':>8s}")
+    print(f"{'N':>8s} | {'O(n^2) [sec]':>12s} | {'O(n) [sec]':>12s} | {'Speedup':>8s}")
     print("-" * 50)
 
     for n in sizes:
-        data = generate_test_data(n)  # 중복 포함 테스트 데이터 생성
+        data = generate_test_data(n)  # generate test data with duplicates
 
-        # O(n²)은 N이 크면 너무 오래 걸리므로 제한
+        # O(n^2) is too slow for large N, so skip if necessary
         if n <= 10000:
             t_bf = benchmark_one(find_duplicates_bruteforce, data, repeat=1)
         else:
-            t_bf = float("inf")  # 너무 느려서 건너뜀
+            t_bf = float("inf")  # too slow — skip
 
         t_hs = benchmark_one(find_duplicates_hashset, data, repeat=3)
 
         if t_bf != float("inf"):
-            ratio = t_bf / t_hs if t_hs > 0 else float("inf")  # 속도 향상 비율
+            ratio = t_bf / t_hs if t_hs > 0 else float("inf")  # compute speedup ratio
             print(f"{n:>8d} | {t_bf:>12.6f} | {t_hs:>12.6f} | {ratio:>7.1f}x")
         else:
             print(f"{n:>8d} | {'(skip)':>12s} | {t_hs:>12.6f} | {'N/A':>8s}")
 
-    # 핵심 결론: 알고리즘 복잡도가 실제 성능에 미치는 영향
-    print("\n결론: N이 커질수록 O(n²)과 O(n)의 차이가 극적으로 벌어집니다.")
-    print("N이 2배가 되면 O(n²)은 약 4배, O(n)은 약 2배 증가합니다.")
+    # Key takeaway: impact of algorithm complexity on real-world performance
+    print("\nConclusion: As N grows, the gap between O(n^2) and O(n) becomes dramatic.")
+    print("When N doubles, O(n^2) takes ~4x longer while O(n) takes ~2x longer.")

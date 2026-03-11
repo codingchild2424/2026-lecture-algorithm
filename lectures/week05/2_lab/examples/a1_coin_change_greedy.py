@@ -1,31 +1,31 @@
-# === A-1: 동전 교환 - 그리디 vs DP 상세 비교 ===
-# 그리디 알고리즘이 최적해를 보장하는 조건과 실패하는 경우를 분석
+# === A-1: Coin Change - Greedy vs DP Detailed Comparison ===
+# Analysis of when the greedy algorithm guarantees optimality and when it fails
 #
-# 핵심 개념:
-# - 그리디 전략: 항상 가장 큰 동전부터 사용
-# - 탐욕 선택 속성: 동전이 배수 관계일 때 성립
-# - DP로 항상 최적해를 구할 수 있음
-# - 시간 복잡도: 그리디 O(k), DP O(k * amount)
+# Key concepts:
+# - Greedy strategy: Always use the largest coin first
+# - Greedy choice property: Holds when coins have divisibility relationships
+# - DP can always find the optimal solution
+# - Time complexity: Greedy O(k), DP O(k * amount)
 """
-동전 거스름돈 -- 그리디 알고리즘의 성공과 실패
+Coin Change -- Success and Failure of the Greedy Algorithm
 
-그리디 전략: 항상 가장 큰 동전부터 사용한다.
-- 표준 동전 세트에서는 최적해를 보장한다.
-- 비표준 동전 세트에서는 최적해를 보장하지 않는다.
+Greedy strategy: Always use the largest coin first.
+- Guarantees the optimal solution for standard coin sets.
+- Does NOT guarantee the optimal solution for non-standard coin sets.
 """
 
 
 def greedy_coin_change(coins, amount):
-    """그리디 방식으로 거스름돈을 계산한다.
+    """Calculate change using the greedy approach.
 
-    큰 동전부터 최대한 많이 사용하는 전략.
+    Strategy: use the largest coin as much as possible.
 
     Args:
-        coins: 동전 종류 리스트 (내림차순 정렬 불필요, 내부에서 정렬)
-        amount: 거슬러 줄 금액
+        coins: List of coin denominations (no need to pre-sort descending; sorted internally)
+        amount: The amount of change to make
 
     Returns:
-        (사용 동전 리스트, 총 동전 수) 또는 거스름돈을 만들 수 없으면 None
+        (list of coins used, total coin count) or None if change cannot be made
     """
     coins_sorted = sorted(coins, reverse=True)
     result = []
@@ -42,21 +42,21 @@ def greedy_coin_change(coins, amount):
 
 
 def dp_coin_change(coins, amount):
-    """DP 방식으로 최소 동전 수를 계산한다.
+    """Calculate minimum number of coins using DP.
 
-    dp[i] = 금액 i를 만들기 위한 최소 동전 수
+    dp[i] = minimum number of coins to make amount i
 
     Args:
-        coins: 동전 종류 리스트
-        amount: 거슬러 줄 금액
+        coins: List of coin denominations
+        amount: The amount of change to make
 
     Returns:
-        (사용 동전 리스트, 총 동전 수) 또는 만들 수 없으면 None
+        (list of coins used, total coin count) or None if change cannot be made
     """
     INF = float("inf")
     dp = [INF] * (amount + 1)
     dp[0] = 0
-    parent = [-1] * (amount + 1)  # 역추적을 위한 배열
+    parent = [-1] * (amount + 1)  # Array for backtracking
 
     for i in range(1, amount + 1):
         for coin in coins:
@@ -67,7 +67,7 @@ def dp_coin_change(coins, amount):
     if dp[amount] == INF:
         return None
 
-    # 역추적으로 사용된 동전 복원
+    # Recover the coins used via backtracking
     result = []
     current = amount
     while current > 0:
@@ -78,11 +78,11 @@ def dp_coin_change(coins, amount):
 
 
 def test_coin_set(coins, amount, label):
-    """주어진 동전 세트로 그리디와 DP 결과를 비교한다."""
+    """Compare greedy and DP results for a given coin set."""
     print(f"\n{'='*60}")
     print(f"[{label}]")
-    print(f"동전 종류: {coins}")
-    print(f"거슬러 줄 금액: {amount}")
+    print(f"Coin types: {coins}")
+    print(f"Amount to change: {amount}")
     print(f"{'='*60}")
 
     greedy_result = greedy_coin_change(coins, amount)
@@ -90,82 +90,82 @@ def test_coin_set(coins, amount, label):
 
     if greedy_result:
         g_coins, g_count = greedy_result
-        print(f"\n  그리디 결과: {g_coins}")
-        print(f"  동전 수: {g_count}개")
+        print(f"\n  Greedy result: {g_coins}")
+        print(f"  Coin count: {g_count}")
     else:
-        print("\n  그리디: 거스름돈을 만들 수 없음")
+        print("\n  Greedy: Cannot make change")
 
     if dp_result:
         d_coins, d_count = dp_result
-        print(f"\n  DP 결과 (최적): {d_coins}")
-        print(f"  동전 수: {d_count}개")
+        print(f"\n  DP result (optimal): {d_coins}")
+        print(f"  Coin count: {d_count}")
     else:
-        print("\n  DP: 거스름돈을 만들 수 없음")
+        print("\n  DP: Cannot make change")
 
-    # 비교
+    # Comparison
     if greedy_result and dp_result:
         g_count = greedy_result[1]
         d_count = dp_result[1]
         if g_count == d_count:
-            print(f"\n  --> 그리디 = 최적 (동일한 {g_count}개)")
+            print(f"\n  --> Greedy = Optimal (same {g_count} coins)")
         else:
-            print(f"\n  --> 그리디 실패! 그리디({g_count}개) > 최적({d_count}개)")
-            print(f"      그리디는 {g_count - d_count}개 더 사용")
+            print(f"\n  --> Greedy failed! Greedy({g_count}) > Optimal({d_count})")
+            print(f"      Greedy uses {g_count - d_count} more coins")
 
 
 if __name__ == "__main__":
     print("=" * 60)
-    print(" 동전 거스름돈: 그리디 vs DP (최적)")
+    print(" Coin Change: Greedy vs DP (Optimal)")
     print("=" * 60)
 
-    # --- 성공 케이스: 표준 동전 세트 ---
+    # --- Success cases: Standard coin sets ---
 
     test_coin_set(
         coins=[500, 100, 50, 10],
         amount=770,
-        label="성공 케이스 1: 한국 표준 동전",
+        label="Success Case 1: Korean standard coins",
     )
 
     test_coin_set(
         coins=[25, 10, 5, 1],
         amount=63,
-        label="성공 케이스 2: 미국 표준 동전 (쿼터/다임/니켈/페니)",
+        label="Success Case 2: US standard coins (quarter/dime/nickel/penny)",
     )
 
-    # --- 실패 케이스: 비표준 동전 세트 ---
+    # --- Failure cases: Non-standard coin sets ---
 
     test_coin_set(
         coins=[7, 5, 1],
         amount=10,
-        label="실패 케이스 1: {7, 5, 1}원으로 10원",
+        label="Failure Case 1: {7, 5, 1} coins for amount 10",
     )
-    # 그리디: 7+1+1+1 = 4개, 최적: 5+5 = 2개
+    # Greedy: 7+1+1+1 = 4 coins, Optimal: 5+5 = 2 coins
 
     test_coin_set(
         coins=[6, 4, 1],
         amount=8,
-        label="실패 케이스 2: {6, 4, 1}원으로 8원",
+        label="Failure Case 2: {6, 4, 1} coins for amount 8",
     )
-    # 그리디: 6+1+1 = 3개, 최적: 4+4 = 2개
+    # Greedy: 6+1+1 = 3 coins, Optimal: 4+4 = 2 coins
 
     test_coin_set(
         coins=[12, 9, 1],
         amount=18,
-        label="실패 케이스 3: {12, 9, 1}원으로 18원",
+        label="Failure Case 3: {12, 9, 1} coins for amount 18",
     )
-    # 그리디: 12+1*6 = 7개, 최적: 9+9 = 2개
+    # Greedy: 12+1*6 = 7 coins, Optimal: 9+9 = 2 coins
 
-    # --- 요약 ---
+    # --- Summary ---
     print("\n" + "=" * 60)
-    print(" 요약")
+    print(" Summary")
     print("=" * 60)
     print("""
-  그리디가 최적인 조건:
-  - 각 동전이 더 작은 동전의 배수일 때 (예: 500, 100, 50, 10)
-  - 이 경우 '탐욕 선택 속성'이 성립함
+  When greedy is optimal:
+  - When each coin is a multiple of smaller coins (e.g., 500, 100, 50, 10)
+  - In this case, the 'greedy choice property' holds
 
-  그리디가 실패하는 경우:
-  - 동전 간의 배수 관계가 성립하지 않을 때
-  - 이 경우 DP로 최적해를 구해야 함
-  - 시간 복잡도: 그리디 O(k), DP O(k * amount)  (k = 동전 종류 수)
+  When greedy fails:
+  - When the divisibility relationship between coins does not hold
+  - In this case, DP must be used to find the optimal solution
+  - Time complexity: Greedy O(k), DP O(k * amount)  (k = number of coin types)
 """)

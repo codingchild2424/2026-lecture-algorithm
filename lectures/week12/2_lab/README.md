@@ -9,10 +9,10 @@
 ## Algorithm Exercises (20 min)
 
 ### Ex 1: Dijkstra (10 min)
-`examples/dijkstra.py` — Dijkstra implementation using heapq.
+`examples/ex1_dijkstra.py` — Dijkstra implementation using heapq.
 
 ### Ex 2: Bellman-Ford (10 min)
-`examples/bellman_ford.py` — Shortest paths in graphs with negative edge weights.
+`examples/ex2_bellman_ford.py` — Shortest paths in graphs with negative edge weights.
 
 ---
 

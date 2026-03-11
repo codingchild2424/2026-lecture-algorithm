@@ -1,11 +1,11 @@
 """
-회의실 예약 스케줄러 -- Activity Selection 문제 적용
+Meeting Room Scheduler -- Activity Selection Problem
 
-그리디 전략: 종료 시간이 빠른 회의부터 선택하면 최대 개수의 회의를 배치할 수 있다.
-브루트포스: 모든 부분집합을 검사하여 최적해를 구한다 (소규모 N에서만 사용).
+Greedy strategy: Selecting meetings with the earliest end time maximizes the number of meetings.
+Brute force: Checks all subsets to find the optimal solution (only feasible for small N).
 
-실행: python app.py
-접속: http://localhost:5000
+Run: python app.py
+Access: http://localhost:5000
 """
 
 from flask import Flask, render_template, request, jsonify
@@ -16,20 +16,20 @@ app = Flask(__name__)
 
 
 def greedy_schedule(meetings):
-    """그리디로 최대 회의 수를 선택한다.
+    """Select the maximum number of meetings using greedy.
 
-    Activity Selection: 종료 시간 기준 오름차순 정렬 후,
-    이전에 선택한 회의와 겹치지 않는 회의를 순서대로 선택한다.
+    Activity Selection: Sort by end time in ascending order,
+    then select meetings that do not overlap with the previously selected one.
 
-    시간 복잡도: O(n log n) -- 정렬이 지배적
+    Time complexity: O(n log n) -- sorting dominates
 
     Args:
         meetings: [{"id": int, "name": str, "start": float, "end": float}, ...]
 
     Returns:
-        선택된 회의의 id 리스트
+        List of selected meeting ids
     """
-    # 종료 시간 기준 정렬
+    # Sort by end time
     sorted_meetings = sorted(meetings, key=lambda m: m["end"])
 
     selected = []
@@ -44,26 +44,26 @@ def greedy_schedule(meetings):
 
 
 def bruteforce_schedule(meetings):
-    """브루트포스로 최대 회의 수를 선택한다.
+    """Select the maximum number of meetings using brute force.
 
-    모든 부분집합을 검사하여 겹치지 않는 회의의 최대 개수를 구한다.
+    Checks all subsets to find the maximum number of non-overlapping meetings.
 
-    시간 복잡도: O(2^n * n) -- 모든 부분집합 검사
+    Time complexity: O(2^n * n) -- checks all subsets
 
     Args:
         meetings: [{"id": int, "name": str, "start": float, "end": float}, ...]
 
     Returns:
-        선택된 회의의 id 리스트
+        List of selected meeting ids
     """
     n = len(meetings)
 
-    # N이 너무 크면 시간 초과 방지
+    # Prevent timeout for large N
     if n > 20:
         return None
 
     def is_compatible(subset):
-        """부분집합의 회의들이 모두 겹치지 않는지 확인."""
+        """Check if all meetings in the subset are non-overlapping."""
         sorted_sub = sorted(subset, key=lambda m: m["start"])
         for i in range(1, len(sorted_sub)):
             if sorted_sub[i]["start"] < sorted_sub[i - 1]["end"]:
@@ -82,12 +82,12 @@ def bruteforce_schedule(meetings):
 
 
 def generate_sample_meetings(count=10):
-    """랜덤 회의 데이터를 생성한다."""
+    """Generate random meeting data."""
     random.seed(42)
     names = [
-        "팀 회의", "기획 미팅", "코드 리뷰", "디자인 논의", "스프린트 계획",
-        "고객 미팅", "1:1 미팅", "기술 세미나", "프로젝트 보고", "브레인스토밍",
-        "전략 회의", "예산 논의", "성과 리뷰", "워크샵", "교육 세션",
+        "Team Meeting", "Planning", "Code Review", "Design Discussion", "Sprint Planning",
+        "Client Meeting", "1:1 Meeting", "Tech Seminar", "Project Report", "Brainstorming",
+        "Strategy Meeting", "Budget Discussion", "Performance Review", "Workshop", "Training Session",
     ]
     meetings = []
     for i in range(count):
@@ -110,7 +110,7 @@ def index():
 
 @app.route("/api/schedule", methods=["POST"])
 def schedule_greedy():
-    """그리디로 최적 스케줄을 반환한다."""
+    """Return the optimal schedule using greedy."""
     data = request.get_json()
     meetings = data.get("meetings", [])
 
@@ -126,13 +126,13 @@ def schedule_greedy():
 
 @app.route("/api/schedule/bruteforce", methods=["POST"])
 def schedule_bruteforce():
-    """브루트포스로 최적 스케줄을 반환한다."""
+    """Return the optimal schedule using brute force."""
     data = request.get_json()
     meetings = data.get("meetings", [])
 
     if len(meetings) > 20:
         return jsonify({
-            "error": "브루트포스는 20개 이하의 회의에서만 실행 가능합니다.",
+            "error": "Brute force can only run with 20 or fewer meetings.",
         }), 400
 
     selected_ids = bruteforce_schedule(meetings)
@@ -147,7 +147,7 @@ def schedule_bruteforce():
 
 @app.route("/api/sample")
 def sample_data():
-    """샘플 회의 데이터를 반환한다."""
+    """Return sample meeting data."""
     count = request.args.get("count", 10, type=int)
     count = min(count, 20)
     meetings = generate_sample_meetings(count)
@@ -156,7 +156,7 @@ def sample_data():
 
 if __name__ == "__main__":
     print("=" * 50)
-    print(" 회의실 예약 스케줄러")
+    print(" Meeting Room Scheduler")
     print(" http://localhost:5000")
     print("=" * 50)
     app.run(debug=True, port=5000)

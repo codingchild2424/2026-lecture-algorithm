@@ -1,26 +1,26 @@
-# === Ex 3: 전반부 알고리즘 총정리 -- 5개 미니 문제 ===
-# Week 07 중간고사 리뷰 - Week 02~06 핵심 알고리즘 복습
-# 복잡도 분석, 정렬, 분할정복, 그리디, DP를 각 1문제씩 다룬다
+# === Ex 3: First-Half Algorithm Review -- 5 Mini Problems ===
+# Week 07 Midterm Review - Reviewing key algorithms from Weeks 02-06
+# Covers complexity analysis, sorting, divide & conquer, greedy, and DP with one problem each
 """
-전반부 알고리즘 총정리 -- 5개 미니 문제
+First-Half Algorithm Review -- 5 Mini Problems
 
-Week 02~06의 핵심 알고리즘을 각 1문제씩 복습한다.
-각 문제에 skeleton 함수와 solution 함수가 있다.
-먼저 skeleton을 직접 구현해 본 후, solution과 비교한다.
+Review key algorithms from Weeks 02-06, one problem per topic.
+Each problem has a skeleton function and a solution function.
+Try implementing the skeleton first, then compare with the solution.
 """
 
 
 # ============================================================
-#  문제 1: 복잡도 분석 (Week 02)
-#  중첩 루프의 시간 복잡도를 Big-O로 분석하는 문제
+#  Problem 1: Complexity Analysis (Week 02)
+#  Analyze the time complexity of nested loops in Big-O notation
 # ============================================================
 
 def problem1_description():
-    """문제 1: 다음 함수의 시간 복잡도를 분석하라."""
+    """Problem 1: Analyze the time complexity of the following function."""
     print("""
-  문제 1: 복잡도 분석 (Week 02)
+  Problem 1: Complexity Analysis (Week 02)
   ==============================
-  다음 함수의 시간 복잡도를 Big-O로 나타내라.
+  Express the time complexity of the following function in Big-O notation.
 
   def mystery(n):
       count = 0
@@ -33,121 +33,121 @@ def problem1_description():
           i *= 2
       return count
 
-  (a) mystery(n)의 시간 복잡도는?
-  (b) mystery(16)의 count 값은?
+  (a) What is the time complexity of mystery(n)?
+  (b) What is the value of count for mystery(16)?
 """)
 
 
 def problem1_solution():
-    """문제 1 풀이.
+    """Problem 1 solution.
 
-    분석:
-    - 바깥 루프: i가 1에서 시작하여 매번 2배 증가 -> O(log n)번 반복
-    - 안쪽 루프: j가 0에서 n-1까지 -> O(n)번 반복
-    - 전체 시간 복잡도: O(n log n)
+    Analysis:
+    - Outer loop: i starts at 1 and doubles each time -> O(log n) iterations
+    - Inner loop: j goes from 0 to n-1 -> O(n) iterations
+    - Overall time complexity: O(n log n)
     """
     print("""
-  풀이:
-  - 바깥 루프: i = 1, 2, 4, 8, ..., < n  -->  O(log n)번 반복
-  - 안쪽 루프: j = 0, 1, ..., n-1  -->  O(n)번 반복
-  - 전체: O(n log n)
+  Solution:
+  - Outer loop: i = 1, 2, 4, 8, ..., < n  -->  O(log n) iterations
+  - Inner loop: j = 0, 1, ..., n-1  -->  O(n) iterations
+  - Overall: O(n log n)
 
   (b) mystery(16):
-    i=1:  j는 0~15 -> 16번
-    i=2:  j는 0~15 -> 16번
-    i=4:  j는 0~15 -> 16번
-    i=8:  j는 0~15 -> 16번
-    i=16: 루프 종료
+    i=1:  j goes 0~15 -> 16 times
+    i=2:  j goes 0~15 -> 16 times
+    i=4:  j goes 0~15 -> 16 times
+    i=8:  j goes 0~15 -> 16 times
+    i=16: loop ends
     count = 16 * 4 = 64
 """)
-    # 검증용 mystery 함수 구현
+    # Verification mystery function implementation
     def mystery(n):
         count = 0
         i = 1
-        while i < n:  # 바깥 루프: i *= 2이므로 O(log n)
+        while i < n:  # Outer loop: i *= 2 so O(log n)
             j = 0
-            while j < n:  # 안쪽 루프: O(n)
+            while j < n:  # Inner loop: O(n)
                 count += 1
                 j += 1
             i *= 2
         return count
 
     result = mystery(16)
-    print(f"  검증: mystery(16) = {result}")
+    print(f"  Verification: mystery(16) = {result}")
 
 
 # ============================================================
-#  문제 2: 정렬 응용 (Week 03)
-#  Merge Sort 구현 및 merge 횟수 추적
+#  Problem 2: Sorting Application (Week 03)
+#  Implement Merge Sort and track the number of merges
 # ============================================================
 
 def problem2_description():
-    """문제 2: Merge Sort를 구현하라."""
+    """Problem 2: Implement Merge Sort."""
     print("""
-  문제 2: 정렬 (Week 03)
+  Problem 2: Sorting (Week 03)
   ==============================
-  Merge Sort를 구현하라.
-  정렬 과정에서 merge 횟수를 세어 반환하라.
+  Implement Merge Sort.
+  Count and return the number of merges during the sorting process.
 """)
 
 
 def problem2_skeleton(arr):
-    """Merge Sort skeleton -- 직접 구현해 보세요.
+    """Merge Sort skeleton -- try implementing it yourself.
 
     Args:
-        arr: 정렬할 리스트
+        arr: list to sort
 
     Returns:
-        (정렬된 리스트, merge 횟수)
+        (sorted list, number of merges)
     """
-    # TODO: 구현하세요
+    # TODO: implement this
     pass
 
 
 def problem2_solution(arr):
-    """Merge Sort 풀이.
+    """Merge Sort solution.
 
-    알고리즘: 배열을 반으로 분할하여 재귀적으로 정렬 후 병합
-    시간 복잡도: O(n log n) - 분할 O(log n) * 병합 O(n)
-    공간 복잡도: O(n) - 병합 시 임시 배열 필요
-    안정 정렬: 동일 값의 상대적 순서가 유지됨 (left[i] <= right[j])
+    Algorithm: recursively split the array in half, sort each half, then merge
+    Time complexity: O(n log n) - O(log n) splits * O(n) merge
+    Space complexity: O(n) - temporary array needed for merging
+    Stable sort: relative order of equal values is preserved (left[i] <= right[j])
     """
-    merge_count = [0]  # 리스트로 감싸서 내부 함수에서 수정 가능하게 (클로저)
+    merge_count = [0]  # Wrapped in a list to allow modification from inner function (closure)
 
     def merge_sort(a):
-        """재귀적으로 배열을 분할한다.
+        """Recursively split the array.
 
-        기저 조건: 길이가 1 이하면 이미 정렬된 상태
+        Base case: already sorted if length is 1 or less
         """
         if len(a) <= 1:
             return a
 
-        mid = len(a) // 2  # 중간 지점에서 분할
-        left = merge_sort(a[:mid])   # 왼쪽 절반 재귀 정렬
-        right = merge_sort(a[mid:])  # 오른쪽 절반 재귀 정렬
+        mid = len(a) // 2  # Split at midpoint
+        left = merge_sort(a[:mid])   # Recursively sort left half
+        right = merge_sort(a[mid:])  # Recursively sort right half
 
-        return merge(left, right)  # 정렬된 두 배열을 병합
+        return merge(left, right)  # Merge the two sorted arrays
 
     def merge(left, right):
-        """정렬된 두 배열을 하나의 정렬된 배열로 병합한다.
+        """Merge two sorted arrays into one sorted array.
 
-        투 포인터 기법으로 두 배열의 원소를 비교하며 작은 것부터 결과에 추가.
-        시간 복잡도: O(n) - n은 left + right의 전체 길이
+        Uses two-pointer technique to compare elements and append the smaller one.
+        Time complexity: O(n) - n is the total length of left + right
         """
         merge_count[0] += 1
         result = []
-        i = j = 0  # 왼쪽/오른쪽 배열의 포인터
+        i = j = 0  # Pointers for left/right arrays
 
-        # 두 배열 모두 원소가 남아 있는 동안 비교하며 병합
+        # Compare and merge while both arrays have remaining elements
         while i < len(left) and j < len(right):
-            if left[i] <= right[j]:  # <= 사용으로 안정 정렬 보장
+            if left[i] <= right[j]:  # Using <= ensures stable sort
                 result.append(left[i])
                 i += 1
             else:
                 result.append(right[j])
                 j += 1
 
-        # 남은 원소들을 결과에 추가
+        # Append remaining elements to the result
         result.extend(left[i:])
         result.extend(right[j:])
         return result
@@ -157,57 +157,57 @@ def problem2_solution(arr):
 
 
 # ============================================================
-#  문제 3: 분할정복 (Week 04)
-#  배열의 최대값을 분할정복으로 찾기
+#  Problem 3: Divide & Conquer (Week 04)
+#  Find the maximum value in an array using divide and conquer
 # ============================================================
 
 def problem3_description():
-    """문제 3: 배열의 최대값을 분할정복으로 구하라."""
+    """Problem 3: Find the maximum value in an array using divide and conquer."""
     print("""
-  문제 3: 분할정복 (Week 04)
+  Problem 3: Divide & Conquer (Week 04)
   ==============================
-  정수 배열에서 최대값을 분할정복으로 구하라.
-  배열을 반으로 나누어 각각의 최대값을 구한 후 합치는 방식을 사용하라.
-  비교 횟수도 함께 반환하라.
+  Find the maximum value in an integer array using divide and conquer.
+  Split the array in half, find the maximum in each half, then combine.
+  Also return the number of comparisons.
 """)
 
 
 def problem3_skeleton(arr):
-    """분할정복 최대값 skeleton -- 직접 구현해 보세요.
+    """Divide and conquer maximum skeleton -- try implementing it yourself.
 
     Args:
-        arr: 정수 리스트
+        arr: list of integers
 
     Returns:
-        (최대값, 비교 횟수)
+        (maximum value, number of comparisons)
     """
-    # TODO: 구현하세요
+    # TODO: implement this
     pass
 
 
 def problem3_solution(arr):
-    """분할정복 최대값 풀이.
+    """Divide and conquer maximum solution.
 
-    알고리즘: 배열을 반으로 나누어 각 부분의 최대값을 재귀적으로 구한 후,
-             두 최대값을 비교하여 전체 최대값을 결정
-    시간 복잡도: O(n) - T(n) = 2T(n/2) + 1, Master Theorem으로 O(n)
-    비교 횟수: n - 1 (이론적 최소치와 동일)
+    Algorithm: split the array in half, recursively find the maximum of each part,
+               then compare the two maximums to determine the overall maximum
+    Time complexity: O(n) - T(n) = 2T(n/2) + 1, by Master Theorem O(n)
+    Number of comparisons: n - 1 (matches the theoretical minimum)
     """
-    comparisons = [0]  # 비교 횟수 추적용 (클로저)
+    comparisons = [0]  # For tracking comparisons (closure)
 
     def find_max(a, lo, hi):
-        """구간 [lo, hi]에서 최대값을 분할정복으로 찾는다.
+        """Find the maximum in the range [lo, hi] using divide and conquer.
 
-        기저 조건: 원소가 하나뿐이면 그 원소가 최대값
+        Base case: if there is only one element, it is the maximum
         """
         if lo == hi:
             return a[lo]
 
-        mid = (lo + hi) // 2  # 중간 지점에서 분할
-        left_max = find_max(a, lo, mid)       # 왼쪽 절반의 최대값
-        right_max = find_max(a, mid + 1, hi)  # 오른쪽 절반의 최대값
+        mid = (lo + hi) // 2  # Split at midpoint
+        left_max = find_max(a, lo, mid)       # Maximum of left half
+        right_max = find_max(a, mid + 1, hi)  # Maximum of right half
 
-        comparisons[0] += 1  # 좌/우 최대값 비교 1회
+        comparisons[0] += 1  # One comparison of left/right maximums
         return left_max if left_max >= right_max else right_max
 
     if not arr:
@@ -218,106 +218,106 @@ def problem3_solution(arr):
 
 
 # ============================================================
-#  문제 4: 그리디 (Week 05)
-#  활동 선택 문제 (Activity Selection Problem)
+#  Problem 4: Greedy (Week 05)
+#  Activity Selection Problem
 # ============================================================
 
 def problem4_description():
-    """문제 4: 강의실 배정 (Activity Selection)."""
+    """Problem 4: Lecture Room Assignment (Activity Selection)."""
     print("""
-  문제 4: 그리디 (Week 05)
+  Problem 4: Greedy (Week 05)
   ==============================
-  n개의 강의가 (시작시간, 종료시간)으로 주어진다.
-  하나의 강의실에서 최대 몇 개의 강의를 배정할 수 있는지 구하라.
-  선택된 강의 목록도 반환하라.
+  Given n lectures as (start_time, end_time),
+  find the maximum number of lectures that can be assigned to one room.
+  Also return the list of selected lectures.
 """)
 
 
 def problem4_skeleton(lectures):
-    """Activity Selection skeleton -- 직접 구현해 보세요.
+    """Activity Selection skeleton -- try implementing it yourself.
 
     Args:
-        lectures: [(start, end), ...] 리스트
+        lectures: [(start, end), ...] list
 
     Returns:
-        (최대 강의 수, 선택된 강의 인덱스 리스트)
+        (maximum number of lectures, list of selected lecture indices)
     """
-    # TODO: 구현하세요
+    # TODO: implement this
     pass
 
 
 def problem4_solution(lectures):
-    """Activity Selection 풀이.
+    """Activity Selection solution.
 
-    알고리즘: 종료 시간이 빠른 순으로 정렬 후, 겹치지 않는 강의를 탐욕적으로 선택
-    그리디 선택 속성: "종료 시간이 가장 빠른 활동을 선택하면 항상 최적 해의 일부"
-    시간 복잡도: O(n log n) - 정렬이 지배적
-    공간 복잡도: O(n) - 선택된 강의 인덱스 저장
+    Algorithm: sort by end time, then greedily select non-overlapping lectures
+    Greedy choice property: "Selecting the activity with the earliest end time is always part of an optimal solution"
+    Time complexity: O(n log n) - dominated by sorting
+    Space complexity: O(n) - storing selected lecture indices
     """
-    # (종료시간, 시작시간, 원래 인덱스) 기준으로 정렬
-    # 종료 시간이 같으면 시작 시간이 빠른 순으로 정렬
+    # Sort by (end_time, start_time, original_index)
+    # If end times are equal, sort by earlier start time
     indexed = [(end, start, i) for i, (start, end) in enumerate(lectures)]
     indexed.sort()
 
     selected = []
-    last_end = -1  # 마지막으로 선택한 강의의 종료 시간
+    last_end = -1  # End time of the last selected lecture
 
     for end, start, idx in indexed:
-        # 현재 강의의 시작 시간이 마지막 선택된 강의의 종료 시간 이후이면 선택
+        # Select if the current lecture's start time is after the last selected lecture's end time
         if start >= last_end:
             selected.append(idx)
-            last_end = end  # 종료 시간 갱신
+            last_end = end  # Update end time
 
     return len(selected), selected
 
 
 # ============================================================
-#  문제 5: DP (Week 06)
-#  계단 오르기 (Climbing Stairs with Cost)
+#  Problem 5: DP (Week 06)
+#  Climbing Stairs with Cost
 # ============================================================
 
 def problem5_description():
-    """문제 5: 계단 오르기 (Climbing Stairs)."""
+    """Problem 5: Climbing Stairs."""
     print("""
-  문제 5: DP (Week 06)
+  Problem 5: DP (Week 06)
   ==============================
-  n개의 계단이 있고, 한 번에 1칸 또는 2칸을 오를 수 있다.
-  각 계단 i에는 비용 cost[i]가 있다.
-  계단 0 또는 계단 1에서 출발할 수 있다.
-  꼭대기(n번째 위치)에 도달하기 위한 최소 비용을 구하라.
+  There are n stairs, and you can climb 1 or 2 steps at a time.
+  Each stair i has a cost cost[i].
+  You can start from stair 0 or stair 1.
+  Find the minimum cost to reach the top (position n).
 
-  예: cost = [10, 15, 20]
-  -> 답: 15 (계단 1에서 출발하여 2칸 점프 -> 비용 15)
+  Example: cost = [10, 15, 20]
+  -> Answer: 15 (start from stair 1, jump 2 steps -> cost 15)
 
-  예: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
-  -> 답: 6
+  Example: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+  -> Answer: 6
 """)
 
 
 def problem5_skeleton(cost):
-    """계단 오르기 skeleton -- 직접 구현해 보세요.
+    """Climbing stairs skeleton -- try implementing it yourself.
 
     Args:
-        cost: 각 계단의 비용 리스트
+        cost: list of costs for each stair
 
     Returns:
-        꼭대기까지의 최소 비용
+        minimum cost to reach the top
     """
-    # TODO: 구현하세요
+    # TODO: implement this
     pass
 
 
 def problem5_solution(cost):
-    """계단 오르기 풀이.
+    """Climbing stairs solution.
 
-    알고리즘: 바텀업 DP로 각 계단까지의 최소 비용을 계산
-    점화식: dp[i] = cost[i] + min(dp[i-1], dp[i-2])
-      - i번째 계단에 도달하려면 i-1 또는 i-2번째에서 올 수 있음
-      - 두 경우 중 비용이 작은 쪽을 선택
-    최종 답: min(dp[n-1], dp[n-2]) - 마지막 또는 그 전 계단에서 꼭대기로 점프
+    Algorithm: bottom-up DP to compute the minimum cost to each stair
+    Recurrence: dp[i] = cost[i] + min(dp[i-1], dp[i-2])
+      - To reach stair i, you can come from stair i-1 or i-2
+      - Choose the one with lower cost
+    Final answer: min(dp[n-1], dp[n-2]) - jump to the top from the last or second-to-last stair
 
-    시간 복잡도: O(n) - 계단 수만큼 한 번 순회
-    공간 복잡도: O(1) - 이전 두 값만 유지 (공간 최적화)
+    Time complexity: O(n) - single pass through the stairs
+    Space complexity: O(1) - only keep the previous two values (space optimized)
     """
     n = len(cost)
     if n == 0:
@@ -325,92 +325,92 @@ def problem5_solution(cost):
     if n == 1:
         return cost[0]
 
-    # 공간 최적화: dp 배열 대신 이전 두 값만 유지
-    prev2 = cost[0]  # dp[i-2]에 해당
-    prev1 = cost[1]  # dp[i-1]에 해당
+    # Space optimization: keep only the previous two values instead of a dp array
+    prev2 = cost[0]  # corresponds to dp[i-2]
+    prev1 = cost[1]  # corresponds to dp[i-1]
 
     for i in range(2, n):
-        current = cost[i] + min(prev1, prev2)  # 점화식 적용
-        prev2, prev1 = prev1, current  # 슬라이딩 윈도우 방식으로 갱신
+        current = cost[i] + min(prev1, prev2)  # Apply recurrence
+        prev2, prev1 = prev1, current  # Update in sliding window fashion
 
-    # 꼭대기에 도달: 마지막 계단 또는 그 전 계단에서 점프
+    # Reach the top: jump from the last stair or the second-to-last stair
     return min(prev1, prev2)
 
 
 # ============================================================
-#  메인 실행
-#  5개 문제를 순서대로 출제하고 풀이를 확인한다
+#  Main Execution
+#  Present all 5 problems in order and reveal solutions
 # ============================================================
 
 if __name__ == "__main__":
     print("=" * 65)
-    print(" 전반부 알고리즘 총정리 -- 5개 미니 문제")
+    print(" First-Half Algorithm Review -- 5 Mini Problems")
     print("=" * 65)
 
-    # --- 문제 1: 복잡도 분석 ---
+    # --- Problem 1: Complexity Analysis ---
     print(f"\n{'='*65}")
     problem1_description()
-    input("  [Enter]를 누르면 풀이를 확인합니다...")
+    input("  Press [Enter] to see the solution...")
     problem1_solution()
 
-    # --- 문제 2: 정렬 ---
+    # --- Problem 2: Sorting ---
     print(f"\n{'='*65}")
     problem2_description()
-    input("  [Enter]를 누르면 풀이를 확인합니다...")
+    input("  Press [Enter] to see the solution...")
 
     test_arr = [38, 27, 43, 3, 9, 82, 10]
     sorted_arr, count = problem2_solution(test_arr[:])
-    print(f"  입력: {test_arr}")
-    print(f"  정렬: {sorted_arr}")
-    print(f"  merge 횟수: {count}")
+    print(f"  Input: {test_arr}")
+    print(f"  Sorted: {sorted_arr}")
+    print(f"  Merge count: {count}")
 
-    # --- 문제 3: 분할정복 ---
+    # --- Problem 3: Divide & Conquer ---
     print(f"\n{'='*65}")
     problem3_description()
-    input("  [Enter]를 누르면 풀이를 확인합니다...")
+    input("  Press [Enter] to see the solution...")
 
     test_arr = [3, 7, 2, 9, 1, 8, 4, 6, 5]
     max_val, comparisons = problem3_solution(test_arr)
-    print(f"  입력: {test_arr}")
-    print(f"  최대값: {max_val}")
-    print(f"  비교 횟수: {comparisons} (이론적 최소: {len(test_arr) - 1})")
+    print(f"  Input: {test_arr}")
+    print(f"  Maximum: {max_val}")
+    print(f"  Comparisons: {comparisons} (theoretical minimum: {len(test_arr) - 1})")
 
-    # --- 문제 4: 그리디 ---
+    # --- Problem 4: Greedy ---
     print(f"\n{'='*65}")
     problem4_description()
-    input("  [Enter]를 누르면 풀이를 확인합니다...")
+    input("  Press [Enter] to see the solution...")
 
     lectures = [(1, 3), (2, 5), (3, 6), (5, 7), (6, 8), (8, 10), (9, 11)]
     count, selected = problem4_solution(lectures)
-    print(f"  강의 목록: {lectures}")
-    print(f"  최대 강의 수: {count}")
-    print(f"  선택된 강의: {[lectures[i] for i in selected]}")
+    print(f"  Lecture list: {lectures}")
+    print(f"  Maximum lectures: {count}")
+    print(f"  Selected lectures: {[lectures[i] for i in selected]}")
 
-    # --- 문제 5: DP ---
+    # --- Problem 5: DP ---
     print(f"\n{'='*65}")
     problem5_description()
-    input("  [Enter]를 누르면 풀이를 확인합니다...")
+    input("  Press [Enter] to see the solution...")
 
     cost1 = [10, 15, 20]
     cost2 = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
-    print(f"  cost = {cost1} -> 최소 비용: {problem5_solution(cost1)}")
-    print(f"  cost = {cost2} -> 최소 비용: {problem5_solution(cost2)}")
+    print(f"  cost = {cost1} -> minimum cost: {problem5_solution(cost1)}")
+    print(f"  cost = {cost2} -> minimum cost: {problem5_solution(cost2)}")
 
-    # --- 요약 ---
+    # --- Summary ---
     print(f"\n{'='*65}")
-    print(" 요약")
+    print(" Summary")
     print("=" * 65)
     print("""
-  문제 1 (복잡도):  중첩 루프 분석, O(n log n)
-  문제 2 (정렬):    Merge Sort, O(n log n), 안정 정렬
-  문제 3 (분할정복): 배열 최대값, T(n) = 2T(n/2) + 1
-  문제 4 (그리디):  Activity Selection, 종료시간 기준 정렬
-  문제 5 (DP):     계단 오르기, dp[i] = cost[i] + min(dp[i-1], dp[i-2])
+  Problem 1 (Complexity):    Nested loop analysis, O(n log n)
+  Problem 2 (Sorting):       Merge Sort, O(n log n), stable sort
+  Problem 3 (Divide & Conquer): Array maximum, T(n) = 2T(n/2) + 1
+  Problem 4 (Greedy):        Activity Selection, sort by end time
+  Problem 5 (DP):            Climbing Stairs, dp[i] = cost[i] + min(dp[i-1], dp[i-2])
 
-  시험 팁:
-  - 복잡도 분석: 루프 구조를 정확히 파악 (특히 i *= 2 같은 패턴)
-  - 정렬: 각 정렬 알고리즘의 시간/공간 복잡도, 안정성 암기
-  - 분할정복: 재귀식 세우기 + Master Theorem 적용
-  - 그리디: 탐욕 선택 속성이 왜 성립하는지 설명 가능해야 함
-  - DP: 부분 문제 정의 -> 재귀식 -> 베이스 케이스 -> 순서
+  Exam tips:
+  - Complexity analysis: identify loop structure precisely (especially patterns like i *= 2)
+  - Sorting: memorize time/space complexity and stability of each sorting algorithm
+  - Divide & Conquer: formulate recurrence + apply Master Theorem
+  - Greedy: be able to explain why the greedy choice property holds
+  - DP: define subproblems -> recurrence -> base case -> order
 """)

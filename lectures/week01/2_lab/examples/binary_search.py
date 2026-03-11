@@ -1,74 +1,74 @@
-# === 이진 탐색 (Binary Search) ===
-# 정렬된 배열에서 특정 값을 효율적으로 찾는 알고리즘
-# 반복(iterative) 방식과 재귀(recursive) 방식 두 가지 구현을 비교합니다.
+# === Binary Search ===
+# An algorithm to efficiently find a specific value in a sorted array
+# Compares two implementations: iterative and recursive approaches.
 #
-# 시간 복잡도: O(log n) — 매 단계마다 탐색 범위가 절반으로 줄어듦
-# 공간 복잡도: 반복 방식 O(1), 재귀 방식 O(log n) (호출 스택)
+# Time complexity: O(log n) — the search range is halved at each step
+# Space complexity: Iterative O(1), Recursive O(log n) (call stack)
 """Binary Search - Iterative and Recursive implementations."""
 
 
 def binary_search_iterative(arr, target):
     """
-    반복적 이진 탐색: 정렬된 배열 arr에서 target의 인덱스를 반환합니다.
-    찾지 못하면 -1을 반환합니다.
+    Iterative binary search: returns the index of target in sorted array arr.
+    Returns -1 if not found.
 
-    알고리즘:
-      1. 탐색 범위의 왼쪽(left)과 오른쪽(right) 경계를 설정
-      2. 중간값(mid)과 target을 비교
-      3. target이 더 크면 오른쪽 절반, 더 작으면 왼쪽 절반으로 범위를 좁힘
-      4. 범위가 유효하지 않으면(left > right) 탐색 실패
+    Algorithm:
+      1. Set the left and right boundaries of the search range
+      2. Compare the middle value (mid) with target
+      3. If target is larger, narrow to the right half; if smaller, narrow to the left half
+      4. If the range becomes invalid (left > right), the search fails
 
-    시간 복잡도: O(log n)
-    공간 복잡도: O(1) — 추가 메모리 사용 없음
+    Time complexity: O(log n)
+    Space complexity: O(1) — no additional memory used
     """
-    left, right = 0, len(arr) - 1  # 탐색 범위 초기화: 배열 전체
-    while left <= right:  # 탐색 범위가 유효한 동안 반복
-        mid = (left + right) // 2  # 중간 인덱스 계산 (정수 나눗셈)
-        if arr[mid] == target:  # 중간값이 target과 일치하면 탐색 성공
+    left, right = 0, len(arr) - 1  # Initialize search range: entire array
+    while left <= right:  # Repeat while the search range is valid
+        mid = (left + right) // 2  # Calculate middle index (integer division)
+        if arr[mid] == target:  # If middle value matches target, search succeeds
             return mid
-        elif arr[mid] < target:  # 중간값이 target보다 작으면 오른쪽 절반 탐색
+        elif arr[mid] < target:  # If middle value is less than target, search right half
             left = mid + 1
-        else:  # 중간값이 target보다 크면 왼쪽 절반 탐색
+        else:  # If middle value is greater than target, search left half
             right = mid - 1
-    return -1  # 탐색 범위를 모두 소진 → target이 배열에 없음
+    return -1  # Search range exhausted -> target is not in the array
 
 
 def binary_search_recursive(arr, target, left, right):
     """
-    재귀적 이진 탐색: 정렬된 배열 arr[left..right]에서 target의 인덱스를 반환합니다.
-    찾지 못하면 -1을 반환합니다.
+    Recursive binary search: returns the index of target in sorted array arr[left..right].
+    Returns -1 if not found.
 
-    알고리즘:
-      - 기저 조건(base case): left > right이면 탐색 실패
-      - 재귀 단계: 중간값 비교 후 절반의 부분 배열에 대해 재귀 호출
+    Algorithm:
+      - Base case: if left > right, the search fails
+      - Recursive step: compare middle value and recursively call on the appropriate half
 
-    시간 복잡도: O(log n)
-    공간 복잡도: O(log n) — 재귀 호출 스택 깊이
+    Time complexity: O(log n)
+    Space complexity: O(log n) — recursive call stack depth
     """
-    if left > right:  # 기저 조건: 탐색 범위가 비어있으면 실패
+    if left > right:  # Base case: search range is empty, search fails
         return -1
-    mid = (left + right) // 2  # 중간 인덱스 계산
-    if arr[mid] == target:  # 중간값이 target이면 탐색 성공
+    mid = (left + right) // 2  # Calculate middle index
+    if arr[mid] == target:  # If middle value is target, search succeeds
         return mid
-    elif arr[mid] < target:  # target이 오른쪽 절반에 있음
+    elif arr[mid] < target:  # Target is in the right half
         return binary_search_recursive(arr, target, mid + 1, right)
-    else:  # target이 왼쪽 절반에 있음
+    else:  # Target is in the left half
         return binary_search_recursive(arr, target, left, mid - 1)
 
 
 if __name__ == "__main__":
-    data = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]  # 정렬된 테스트 배열
-    target = 7  # 찾고자 하는 값
+    data = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]  # Sorted test array
+    target = 7  # Value to search for
 
-    # 반복적 이진 탐색 실행
+    # Run iterative binary search
     idx = binary_search_iterative(data, target)
     print(f"Iterative: {target} found at index {idx}")
 
-    # 재귀적 이진 탐색 실행
+    # Run recursive binary search
     idx = binary_search_recursive(data, target, 0, len(data) - 1)
     print(f"Recursive: {target} found at index {idx}")
 
-    # 단계별 추적(trace): 이진 탐색이 범위를 좁혀가는 과정을 시각화
+    # Step-by-step trace: visualize how binary search narrows the range
     print(f"\n--- Binary Search Trace for target={target} ---")
     left, right = 0, len(data) - 1
     step = 1
@@ -80,8 +80,8 @@ if __name__ == "__main__":
             break
         elif data[mid] < target:
             print(f"  -> {data[mid]} < {target}, search right half")
-            left = mid + 1  # 오른쪽 절반으로 범위 축소
+            left = mid + 1  # Narrow range to right half
         else:
             print(f"  -> {data[mid]} > {target}, search left half")
-            right = mid - 1  # 왼쪽 절반으로 범위 축소
+            right = mid - 1  # Narrow range to left half
         step += 1

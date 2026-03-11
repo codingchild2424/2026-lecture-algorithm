@@ -1,81 +1,81 @@
-# === A-1: 피보나치 수열 (Fibonacci) ===
-# 동적 프로그래밍의 기본 예제: 세 가지 구현 방식 비교
+# === A-1: Fibonacci Sequence ===
+# Basic example of dynamic programming: comparing three implementation approaches
 #
-# 핵심 개념:
-# - 순수 재귀: 중복 부분 문제로 인해 지수적 시간 복잡도 O(2^n)
-# - 메모이제이션 (top-down DP): 이미 계산한 값을 캐싱하여 O(n)
-# - 타뷸레이션 (bottom-up DP): 작은 값부터 테이블을 채워 O(n)
-# - DP의 핵심 조건: 최적 부분 구조 + 중복 부분 문제
-"""피보나치 수열 -- 순수 재귀 vs 메모이제이션 vs 타뷸레이션 성능 비교."""
+# Key concepts:
+# - Pure recursion: exponential time complexity O(2^n) due to overlapping subproblems
+# - Memoization (top-down DP): caches previously computed values for O(n)
+# - Tabulation (bottom-up DP): fills table from small values upward for O(n)
+# - Core requirements for DP: optimal substructure + overlapping subproblems
+"""Fibonacci sequence -- performance comparison of pure recursion vs memoization vs tabulation."""
 import time
 import sys
-# 메모이제이션 재귀를 위해 재귀 깊이 제한 확장
+# Increase recursion depth limit for memoization recursion
 sys.setrecursionlimit(10000)
 
 
 def fib_naive(n):
-    """순수 재귀로 피보나치 수를 계산한다.
+    """Compute the Fibonacci number using pure recursion.
 
-    시간 복잡도: O(2^n) -- 중복 계산이 지수적으로 발생
-    공간 복잡도: O(n) -- 재귀 호출 스택 깊이
+    Time complexity: O(2^n) -- redundant computations grow exponentially
+    Space complexity: O(n) -- recursion call stack depth
 
-    fib(n) = fib(n-1) + fib(n-2)를 그대로 재귀 호출하면
-    동일한 부분 문제가 반복적으로 계산된다.
+    Directly calling fib(n) = fib(n-1) + fib(n-2) recursively
+    causes the same subproblems to be computed repeatedly.
     """
-    if n <= 1:  # 기저 조건: fib(0)=0, fib(1)=1
+    if n <= 1:  # Base case: fib(0)=0, fib(1)=1
         return n
     return fib_naive(n - 1) + fib_naive(n - 2)
 
 
 def fib_memo(n, memo=None):
-    """메모이제이션(top-down DP)으로 피보나치 수를 계산한다.
+    """Compute the Fibonacci number using memoization (top-down DP).
 
-    시간 복잡도: O(n) -- 각 값을 한 번만 계산
-    공간 복잡도: O(n) -- 메모 딕셔너리 + 재귀 호출 스택
+    Time complexity: O(n) -- each value is computed only once
+    Space complexity: O(n) -- memo dictionary + recursion call stack
 
-    이미 계산한 값을 memo 딕셔너리에 저장하여
-    중복 계산을 완전히 제거한다.
+    Previously computed values are stored in a memo dictionary,
+    completely eliminating redundant computations.
     """
     if memo is None:
         memo = {}
-    if n in memo:  # 이미 계산한 값이면 바로 반환
+    if n in memo:  # Return immediately if already computed
         return memo[n]
-    if n <= 1:  # 기저 조건
+    if n <= 1:  # Base case
         return n
-    # 계산 후 메모에 저장
+    # Compute and store in memo
     memo[n] = fib_memo(n - 1, memo) + fib_memo(n - 2, memo)
     return memo[n]
 
 
 def fib_tab(n):
-    """타뷸레이션(bottom-up DP)으로 피보나치 수를 계산한다.
+    """Compute the Fibonacci number using tabulation (bottom-up DP).
 
-    시간 복잡도: O(n) -- 배열을 한 번 순회
-    공간 복잡도: O(n) -- DP 테이블 (O(1)로 최적화 가능)
+    Time complexity: O(n) -- single pass through the array
+    Space complexity: O(n) -- DP table (can be optimized to O(1))
 
-    작은 값부터 순서대로 테이블을 채운다. 재귀 호출 없음.
+    Fills the table sequentially from small values. No recursive calls.
     """
-    if n <= 1:  # 기저 조건
+    if n <= 1:  # Base case
         return n
-    dp = [0] * (n + 1)  # DP 테이블 초기화
+    dp = [0] * (n + 1)  # Initialize DP table
     dp[1] = 1
-    # 점화식: dp[i] = dp[i-1] + dp[i-2]
+    # Recurrence: dp[i] = dp[i-1] + dp[i-2]
     for i in range(2, n + 1):
         dp[i] = dp[i - 1] + dp[i - 2]
     return dp[n]
 
 
 if __name__ == "__main__":
-    # 정확성 검증: 메모이제이션과 타뷸레이션 결과가 동일한지 확인
+    # Correctness verification: confirm memoization and tabulation produce the same results
     for i in range(20):
         assert fib_memo(i) == fib_tab(i)
 
-    # 성능 비교: n이 커질수록 순수 재귀와 DP의 차이가 극적으로 벌어짐
+    # Performance comparison: as n grows, the gap between pure recursion and DP becomes dramatic
     print(f"{'N':>5} | {'Naive':>12} | {'Memo':>12} | {'Tabulation':>12}")
     print("-" * 50)
 
     for n in [10, 20, 30, 35, 40]:
-        # 순수 재귀: n > 35이면 너무 느려서 생략
+        # Pure recursion: skip if n > 35 (too slow)
         if n <= 35:
             start = time.perf_counter()
             fib_naive(n)

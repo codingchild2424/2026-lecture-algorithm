@@ -1,6 +1,6 @@
 """
-자동완성 API — 선형 탐색 vs 이진 탐색 비교 데모
-Flask 서버: http://localhost:5004
+Autocomplete API -- Linear Search vs Binary Search Comparison Demo
+Flask server: http://localhost:5004
 """
 
 import time
@@ -14,8 +14,8 @@ app = Flask(__name__)
 
 def generate_words(n=100_000):
     """
-    n개의 랜덤 영단어를 생성합니다.
-    길이 3~8의 소문자 알파벳 조합으로 생성하며, 중복을 제거합니다.
+    Generates n random English words.
+    Creates combinations of lowercase letters with length 3-8, removing duplicates.
     """
     words = set()
     while len(words) < n:
@@ -25,7 +25,7 @@ def generate_words(n=100_000):
     return sorted(words)
 
 
-# 서버 시작 시 단어 사전 생성
+# Generate word dictionary at server startup
 print("Generating 100,000 words...")
 word_list = generate_words(100_000)
 print(f"Done. {len(word_list)} unique words generated.")
@@ -33,25 +33,25 @@ print(f"Done. {len(word_list)} unique words generated.")
 
 def linear_search_prefix(words, prefix):
     """
-    선형 탐색: 모든 단어를 순회하며 prefix로 시작하는 단어를 찾습니다.
-    시간복잡도: O(n * m) — n: 단어 수, m: prefix 길이
+    Linear search: iterates through all words to find those starting with the prefix.
+    Time complexity: O(n * m) -- n: number of words, m: prefix length
     """
     return [w for w in words if w.startswith(prefix)]
 
 
 def binary_search_prefix(words, prefix):
     """
-    이진 탐색: 정렬된 사전에서 bisect를 사용하여 prefix 범위를 찾습니다.
-    시간복잡도: O(log n + k) — k: 매칭되는 단어 수
+    Binary search: uses bisect on a sorted dictionary to find the prefix range.
+    Time complexity: O(log n + k) -- k: number of matching words
     """
     if not prefix:
         return words[:]
 
-    # prefix 이상인 첫 위치
+    # First position >= prefix
     lo = bisect.bisect_left(words, prefix)
 
-    # prefix의 다음 접두사 (예: "abc" -> "abd")
-    # prefix의 마지막 문자를 1 증가시킨 문자열
+    # Next prefix after the given one (e.g., "abc" -> "abd")
+    # Increment the last character of the prefix by 1
     next_prefix = prefix[:-1] + chr(ord(prefix[-1]) + 1)
     hi = bisect.bisect_left(words, next_prefix)
 

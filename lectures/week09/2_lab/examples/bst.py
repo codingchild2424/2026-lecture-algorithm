@@ -1,175 +1,175 @@
-# === 이진 탐색 트리 (Binary Search Tree) 구현 ===
-# Week 09 탐색 트리 - BST의 삽입, 검색, 삭제, 순회 연산 구현
-# 시간 복잡도: 평균 O(log n), 최악 O(n) (편향 트리)
-# 공간 복잡도: O(n) - n개의 노드 저장
+# === Binary Search Tree (BST) Implementation ===
+# Week 09 Search Trees - Insert, search, delete, and traversal operations for BST
+# Time complexity: Average O(log n), Worst O(n) (skewed tree)
+# Space complexity: O(n) - storing n nodes
 """Binary Search Tree implementation."""
 
 
 class BSTNode:
-    """BST의 개별 노드를 나타내는 클래스.
+    """Class representing an individual node of a BST.
 
-    각 노드는 키(key)와 왼쪽/오른쪽 자식 포인터를 가진다.
-    BST 속성: 왼쪽 서브트리의 모든 키 < 현재 키 < 오른쪽 서브트리의 모든 키
+    Each node has a key and left/right child pointers.
+    BST property: all keys in left subtree < current key < all keys in right subtree
     """
     def __init__(self, key):
         self.key = key
-        self.left = None   # 왼쪽 자식 (현재 키보다 작은 값)
-        self.right = None  # 오른쪽 자식 (현재 키보다 큰 값)
+        self.left = None   # Left child (values less than current key)
+        self.right = None  # Right child (values greater than current key)
 
 
 class BST:
-    """이진 탐색 트리 클래스.
+    """Binary Search Tree class.
 
-    주요 연산의 시간 복잡도:
-    - 삽입(insert): 평균 O(log n), 최악 O(n)
-    - 검색(search): 평균 O(log n), 최악 O(n)
-    - 삭제(delete): 평균 O(log n), 최악 O(n)
-    - 순회(inorder): O(n)
+    Time complexity of main operations:
+    - Insert: Average O(log n), Worst O(n)
+    - Search: Average O(log n), Worst O(n)
+    - Delete: Average O(log n), Worst O(n)
+    - Inorder traversal: O(n)
 
-    최악의 경우는 트리가 한쪽으로 편향될 때 발생 (정렬된 순서로 삽입 시)
+    Worst case occurs when the tree is skewed to one side (e.g., inserting in sorted order)
     """
     def __init__(self):
-        self.root = None  # 루트 노드
+        self.root = None  # Root node
 
     def insert(self, key):
-        """키를 BST에 삽입한다. 공개 인터페이스."""
+        """Insert a key into the BST. Public interface."""
         self.root = self._insert(self.root, key)
 
     def _insert(self, node, key):
-        """재귀적으로 올바른 위치를 찾아 새 노드를 삽입한다.
+        """Recursively find the correct position and insert a new node.
 
-        알고리즘:
-        1. 빈 위치를 찾으면 새 노드 생성
-        2. key가 현재 노드보다 작으면 왼쪽으로 이동
-        3. key가 현재 노드보다 크면 오른쪽으로 이동
-        4. 중복 키는 무시한다 (key == node.key일 때 아무 작업 안 함)
+        Algorithm:
+        1. If an empty position is found, create a new node
+        2. If key is less than the current node, move left
+        3. If key is greater than the current node, move right
+        4. Duplicate keys are ignored (no action when key == node.key)
 
-        시간 복잡도: O(h) - h는 트리 높이
+        Time complexity: O(h) - h is the tree height
         """
         if node is None:
-            return BSTNode(key)  # 빈 위치에 새 노드 삽입
+            return BSTNode(key)  # Insert new node at empty position
         if key < node.key:
-            node.left = self._insert(node.left, key)    # 왼쪽 서브트리로 재귀
+            node.left = self._insert(node.left, key)    # Recurse into left subtree
         elif key > node.key:
-            node.right = self._insert(node.right, key)  # 오른쪽 서브트리로 재귀
-        return node  # 중복 키는 무시하고 현재 노드 반환
+            node.right = self._insert(node.right, key)  # Recurse into right subtree
+        return node  # Ignore duplicate key and return current node
 
     def search(self, key):
-        """키를 BST에서 검색한다. 공개 인터페이스."""
+        """Search for a key in the BST. Public interface."""
         return self._search(self.root, key)
 
     def _search(self, node, key):
-        """재귀적으로 키를 검색한다.
+        """Recursively search for a key.
 
-        알고리즘: BST 속성을 이용하여 매 단계마다 탐색 범위를 절반으로 축소
-        반환: 키를 가진 노드 (없으면 None)
-        시간 복잡도: O(h) - h는 트리 높이
+        Algorithm: Uses BST property to halve the search space at each step
+        Returns: The node containing the key (or None if not found)
+        Time complexity: O(h) - h is the tree height
         """
         if node is None or node.key == key:
-            return node  # 키를 찾았거나 트리 끝에 도달
+            return node  # Key found or reached the end of the tree
         if key < node.key:
-            return self._search(node.left, key)   # 왼쪽 서브트리 탐색
-        return self._search(node.right, key)      # 오른쪽 서브트리 탐색
+            return self._search(node.left, key)   # Search left subtree
+        return self._search(node.right, key)      # Search right subtree
 
     def delete(self, key):
-        """키를 BST에서 삭제한다. 공개 인터페이스."""
+        """Delete a key from the BST. Public interface."""
         self.root = self._delete(self.root, key)
 
     def _delete(self, node, key):
-        """재귀적으로 키를 찾아 삭제한다.
+        """Recursively find and delete a key.
 
-        삭제 시 3가지 경우:
-        1. 리프 노드: 단순히 제거
-        2. 자식이 하나: 자식으로 교체
-        3. 자식이 둘: 오른쪽 서브트리의 최소값(후계자)으로 교체 후
-                     후계자를 오른쪽 서브트리에서 삭제
+        Three cases when deleting:
+        1. Leaf node: Simply remove it
+        2. One child: Replace with the child
+        3. Two children: Replace with the minimum value of the right subtree (successor),
+                        then delete the successor from the right subtree
 
-        시간 복잡도: O(h) - h는 트리 높이
+        Time complexity: O(h) - h is the tree height
         """
         if node is None:
-            return None  # 삭제할 키가 트리에 없음
+            return None  # Key to delete is not in the tree
         if key < node.key:
-            node.left = self._delete(node.left, key)    # 왼쪽에서 삭제
+            node.left = self._delete(node.left, key)    # Delete from left
         elif key > node.key:
-            node.right = self._delete(node.right, key)  # 오른쪽에서 삭제
+            node.right = self._delete(node.right, key)  # Delete from right
         else:
-            # 삭제할 노드를 찾음
+            # Found the node to delete
             if node.left is None:
-                return node.right  # 경우 1, 2: 왼쪽 자식 없음 -> 오른쪽 자식으로 교체
+                return node.right  # Case 1, 2: No left child -> replace with right child
             if node.right is None:
-                return node.left   # 경우 2: 오른쪽 자식 없음 -> 왼쪽 자식으로 교체
-            # 경우 3: 자식이 둘 -> 후계자(inorder successor) 사용
-            successor = self._min_node(node.right)  # 오른쪽 서브트리의 최소 노드
-            node.key = successor.key                 # 후계자의 키로 교체
-            node.right = self._delete(node.right, successor.key)  # 후계자 삭제
+                return node.left   # Case 2: No right child -> replace with left child
+            # Case 3: Two children -> use inorder successor
+            successor = self._min_node(node.right)  # Minimum node in right subtree
+            node.key = successor.key                 # Replace with successor's key
+            node.right = self._delete(node.right, successor.key)  # Delete successor
         return node
 
     def _min_node(self, node):
-        """서브트리에서 최소 키를 가진 노드를 찾는다.
+        """Find the node with the minimum key in a subtree.
 
-        BST에서 최소값은 항상 가장 왼쪽 노드에 위치한다.
-        시간 복잡도: O(h)
+        In a BST, the minimum value is always at the leftmost node.
+        Time complexity: O(h)
         """
         while node.left:
-            node = node.left  # 왼쪽으로 계속 이동
+            node = node.left  # Keep moving left
         return node
 
     def height(self):
-        """트리의 높이를 반환한다. 공개 인터페이스."""
+        """Return the height of the tree. Public interface."""
         return self._height(self.root)
 
     def _height(self, node):
-        """재귀적으로 트리 높이를 계산한다.
+        """Recursively compute the tree height.
 
-        높이 = 루트에서 가장 깊은 리프까지의 간선 수 + 1
-        빈 트리의 높이는 0
-        시간 복잡도: O(n) - 모든 노드를 방문
+        Height = number of edges from root to deepest leaf + 1
+        Height of an empty tree is 0
+        Time complexity: O(n) - visits all nodes
         """
         if node is None:
             return 0
         return 1 + max(self._height(node.left), self._height(node.right))
 
     def inorder(self):
-        """중위 순회 결과를 리스트로 반환한다. 공개 인터페이스."""
+        """Return inorder traversal result as a list. Public interface."""
         result = []
         self._inorder(self.root, result)
         return result
 
     def _inorder(self, node, result):
-        """중위 순회(Inorder Traversal): 왼쪽 -> 루트 -> 오른쪽 순서로 방문.
+        """Inorder Traversal: visit in left -> root -> right order.
 
-        BST를 중위 순회하면 키가 오름차순으로 정렬된 결과를 얻는다.
-        시간 복잡도: O(n) - 모든 노드를 한 번씩 방문
+        Inorder traversal of a BST yields keys in ascending sorted order.
+        Time complexity: O(n) - visits each node exactly once
         """
         if node:
-            self._inorder(node.left, result)   # 왼쪽 서브트리 방문
-            result.append(node.key)            # 현재 노드 처리
-            self._inorder(node.right, result)  # 오른쪽 서브트리 방문
+            self._inorder(node.left, result)   # Visit left subtree
+            result.append(node.key)            # Process current node
+            self._inorder(node.right, result)  # Visit right subtree
 
 
 if __name__ == "__main__":
     import random
 
-    # 기본 테스트: 균형 잡힌 삽입 순서
+    # Basic test: balanced insertion order
     bst = BST()
     for key in [50, 30, 70, 20, 40, 60, 80]:
         bst.insert(key)
-    print(f"Inorder: {bst.inorder()}")          # 오름차순 정렬 결과 확인
-    print(f"Height: {bst.height()}")            # 균형 트리: 높이 약 log(n)
-    print(f"Search 40: {bst.search(40) is not None}")  # 검색 테스트
-    bst.delete(30)                              # 자식이 둘인 노드 삭제
+    print(f"Inorder: {bst.inorder()}")          # Verify ascending sorted order
+    print(f"Height: {bst.height()}")            # Balanced tree: height ~ log(n)
+    print(f"Search 40: {bst.search(40) is not None}")  # Search test
+    bst.delete(30)                              # Delete a node with two children
     print(f"After delete 30: {bst.inorder()}")
 
-    # 편향 트리 테스트: 정렬된 순서로 삽입 -> 높이가 n이 됨
+    # Skewed tree test: inserting in sorted order -> height becomes n
     bst_sorted = BST()
     for i in range(1, 101):
         bst_sorted.insert(i)
-    print(f"\nSorted insertion (1-100): height = {bst_sorted.height()}")  # 높이 100 (최악)
+    print(f"\nSorted insertion (1-100): height = {bst_sorted.height()}")  # Height 100 (worst case)
 
-    # 랜덤 삽입: 평균적으로 높이가 O(log n)에 가까움
+    # Random insertion: on average, height is close to O(log n)
     bst_random = BST()
     data = list(range(1, 101))
     random.shuffle(data)
     for i in data:
         bst_random.insert(i)
-    print(f"Random insertion (1-100): height = {bst_random.height()}")  # 높이 약 12~20
+    print(f"Random insertion (1-100): height = {bst_random.height()}")  # Height ~ 12-20

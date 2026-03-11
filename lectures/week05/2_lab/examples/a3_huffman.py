@@ -1,25 +1,25 @@
-# === A-3: 허프만 코딩 (Huffman Coding) ===
-# 그리디 알고리즘을 이용한 최적 접두어 코드 생성
+# === A-3: Huffman Coding ===
+# Optimal prefix code generation using the greedy algorithm
 #
-# 핵심 개념:
-# - 그리디 전략: 매 단계에서 빈도가 가장 낮은 두 노드를 합침
-# - 최소 힙(우선순위 큐)을 사용하여 효율적으로 최솟값 추출
-# - 빈도가 높은 문자일수록 짧은 코드 할당 -> 전체 비트 수 최소화
-# - 접두어 코드 속성: 어떤 코드도 다른 코드의 접두어가 아님 -> 구분자 없이 디코딩 가능
-# - 시간 복잡도: O(n log n) (n = 서로 다른 문자 수, 힙 연산 n-1회)
-# - 공간 복잡도: O(n) (트리 노드 수)
+# Key concepts:
+# - Greedy strategy: Merge the two nodes with the lowest frequency at each step
+# - Uses a min-heap (priority queue) for efficient minimum extraction
+# - Higher frequency characters get shorter codes -> minimizes total bits
+# - Prefix code property: No code is a prefix of another -> decoding without delimiters
+# - Time complexity: O(n log n) (n = number of distinct characters, n-1 heap operations)
+# - Space complexity: O(n) (number of tree nodes)
 """
-허프만 코딩 (Huffman Coding) 구현
+Huffman Coding Implementation
 
-그리디 전략: 빈도가 가장 낮은 두 노드를 반복적으로 합쳐서
-최적의 접두어 코드(prefix code)를 생성한다.
+Greedy strategy: Repeatedly merge the two nodes with the lowest frequency
+to generate an optimal prefix code.
 
-구현 내용:
-1. 빈도 테이블 구성
-2. 최소 힙을 이용한 허프만 트리 구축
-3. 코드 생성 (트리 순회)
-4. 인코딩 / 디코딩
-5. 압축률 계산
+Implementation details:
+1. Build frequency table
+2. Build Huffman tree using a min-heap
+3. Generate codes (tree traversal)
+4. Encoding / Decoding
+5. Compression ratio calculation
 """
 
 import heapq
@@ -28,16 +28,16 @@ from collections import Counter
 
 
 class HuffmanNode:
-    """허프만 트리의 노드."""
+    """A node in the Huffman tree."""
 
     def __init__(self, char=None, freq=0, left=None, right=None):
-        self.char = char      # 리프 노드의 문자 (내부 노드는 None)
-        self.freq = freq      # 빈도
+        self.char = char      # Character of leaf node (None for internal nodes)
+        self.freq = freq      # Frequency
         self.left = left
         self.right = right
 
     def __lt__(self, other):
-        """최소 힙에서 빈도 기준으로 비교."""
+        """Compare by frequency for the min-heap."""
         return self.freq < other.freq
 
     def is_leaf(self):
@@ -45,46 +45,46 @@ class HuffmanNode:
 
 
 def build_frequency_table(text):
-    """텍스트의 문자별 빈도를 계산한다.
+    """Calculate the character frequency of the text.
 
     Args:
-        text: 입력 문자열
+        text: Input string
 
     Returns:
-        {문자: 빈도} 딕셔너리 (빈도 내림차순 정렬)
+        {character: frequency} dictionary (sorted by frequency descending)
     """
     return dict(Counter(text).most_common())
 
 
 def build_huffman_tree(freq_table):
-    """빈도 테이블로부터 허프만 트리를 구축한다.
+    """Build a Huffman tree from the frequency table.
 
-    그리디 선택: 매 단계에서 빈도가 가장 낮은 두 노드를 합친다.
+    Greedy choice: Merge the two nodes with the lowest frequency at each step.
 
     Args:
-        freq_table: {문자: 빈도} 딕셔너리
+        freq_table: {character: frequency} dictionary
 
     Returns:
-        허프만 트리의 루트 노드
+        Root node of the Huffman tree
     """
-    # 각 문자를 리프 노드로 만들어 최소 힙에 삽입
+    # Create a leaf node for each character and insert into the min-heap
     heap = []
     for char, freq in freq_table.items():
         heapq.heappush(heap, HuffmanNode(char=char, freq=freq))
 
-    # 문자가 1개뿐인 경우 처리
+    # Handle case with only one unique character
     if len(heap) == 1:
         node = heapq.heappop(heap)
         root = HuffmanNode(freq=node.freq, left=node)
         return root
 
-    # 노드가 하나가 될 때까지 가장 작은 두 노드를 합침
+    # Merge the two smallest nodes until only one remains
     step = 0
     while len(heap) > 1:
         left = heapq.heappop(heap)
         right = heapq.heappop(heap)
 
-        # 새 내부 노드 생성
+        # Create a new internal node
         merged = HuffmanNode(
             freq=left.freq + right.freq,
             left=left,
@@ -95,24 +95,24 @@ def build_huffman_tree(freq_table):
         step += 1
         left_label = repr(left.char) if left.is_leaf() else f"[{left.freq}]"
         right_label = repr(right.char) if right.is_leaf() else f"[{right.freq}]"
-        print(f"    Step {step}: 합침 {left_label}({left.freq}) + "
+        print(f"    Step {step}: merge {left_label}({left.freq}) + "
               f"{right_label}({right.freq}) = [{merged.freq}]")
 
     return heapq.heappop(heap)
 
 
 def generate_codes(root, prefix="", codes=None):
-    """허프만 트리를 순회하여 각 문자의 코드를 생성한다.
+    """Traverse the Huffman tree to generate the code for each character.
 
-    왼쪽 간선 = '0', 오른쪽 간선 = '1'
+    Left edge = '0', Right edge = '1'
 
     Args:
-        root: 허프만 트리의 루트 노드
-        prefix: 현재까지의 코드 접두어
-        codes: 코드 딕셔너리 (재귀 호출용)
+        root: Root node of the Huffman tree
+        prefix: Code prefix built so far
+        codes: Code dictionary (for recursive calls)
 
     Returns:
-        {문자: 이진 코드 문자열} 딕셔너리
+        {character: binary code string} dictionary
     """
     if codes is None:
         codes = {}
@@ -121,7 +121,7 @@ def generate_codes(root, prefix="", codes=None):
         return codes
 
     if root.is_leaf():
-        # 리프 노드 -- 코드 확정
+        # Leaf node -- code is finalized
         codes[root.char] = prefix if prefix else "0"
         return codes
 
@@ -132,27 +132,27 @@ def generate_codes(root, prefix="", codes=None):
 
 
 def encode(text, codes):
-    """텍스트를 허프만 코드로 인코딩한다.
+    """Encode the text using Huffman codes.
 
     Args:
-        text: 원본 문자열
-        codes: {문자: 이진 코드 문자열} 딕셔너리
+        text: Original string
+        codes: {character: binary code string} dictionary
 
     Returns:
-        인코딩된 비트 문자열
+        Encoded bit string
     """
     return "".join(codes[char] for char in text)
 
 
 def decode(encoded_text, root):
-    """인코딩된 비트 문자열을 허프만 트리로 디코딩한다.
+    """Decode an encoded bit string using the Huffman tree.
 
     Args:
-        encoded_text: 인코딩된 비트 문자열
-        root: 허프만 트리의 루트 노드
+        encoded_text: Encoded bit string
+        root: Root node of the Huffman tree
 
     Returns:
-        디코딩된 문자열
+        Decoded string
     """
     decoded = []
     current = root
@@ -171,7 +171,7 @@ def decode(encoded_text, root):
 
 
 def print_tree(node, prefix="", is_left=True, is_root=True):
-    """허프만 트리를 시각적으로 출력한다."""
+    """Visually print the Huffman tree."""
     if node is None:
         return
 
@@ -200,43 +200,43 @@ def print_tree(node, prefix="", is_left=True, is_root=True):
 
 
 def huffman_coding(text):
-    """허프만 코딩의 전체 과정을 수행한다.
+    """Perform the complete Huffman coding process.
 
     Args:
-        text: 인코딩할 문자열
+        text: String to encode
 
     Returns:
-        (인코딩된 비트열, 허프만 코드 테이블, 트리 루트)
+        (encoded bit string, Huffman code table, tree root)
     """
-    # 1. 빈도 테이블 구성
-    print("\n  [1단계] 빈도 테이블 구성")
+    # 1. Build frequency table
+    print("\n  [Step 1] Build frequency table")
     freq_table = build_frequency_table(text)
-    print(f"    {'문자':<8} {'빈도':>6} {'비율':>8}")
+    print(f"    {'Char':<8} {'Freq':>6} {'Ratio':>8}")
     print(f"    {'-'*24}")
     for char, freq in freq_table.items():
         ratio = freq / len(text) * 100
         print(f"    {repr(char):<8} {freq:>6} {ratio:>7.1f}%")
 
-    # 2. 허프만 트리 구축
-    print(f"\n  [2단계] 허프만 트리 구축 (그리디: 빈도 최소 2개씩 합침)")
+    # 2. Build Huffman tree
+    print(f"\n  [Step 2] Build Huffman tree (greedy: merge 2 lowest-frequency nodes)")
     root = build_huffman_tree(freq_table)
 
-    # 트리 시각화
-    print(f"\n  [2-1] 허프만 트리:")
+    # Tree visualization
+    print(f"\n  [Step 2-1] Huffman tree:")
     print_tree(root)
 
-    # 3. 코드 생성
-    print(f"\n  [3단계] 허프만 코드 생성")
+    # 3. Generate codes
+    print(f"\n  [Step 3] Generate Huffman codes")
     codes = generate_codes(root)
-    # 코드 길이 순 정렬
+    # Sort by code length
     sorted_codes = sorted(codes.items(), key=lambda x: (len(x[1]), x[1]))
-    print(f"    {'문자':<8} {'코드':<15} {'길이':>4} {'빈도':>6}")
+    print(f"    {'Char':<8} {'Code':<15} {'Len':>4} {'Freq':>6}")
     print(f"    {'-'*36}")
     for char, code in sorted_codes:
         print(f"    {repr(char):<8} {code:<15} {len(code):>4} {freq_table[char]:>6}")
 
-    # 접두어 코드 검증
-    print(f"\n  [3-1] 접두어 코드 검증:")
+    # Prefix code verification
+    print(f"\n  [Step 3-1] Prefix code verification:")
     is_prefix_free = True
     code_list = list(codes.values())
     for i in range(len(code_list)):
@@ -244,102 +244,102 @@ def huffman_coding(text):
             if i != j and code_list[j].startswith(code_list[i]):
                 is_prefix_free = False
                 break
-    print(f"    접두어 코드 속성: {'통과' if is_prefix_free else '실패'}")
+    print(f"    Prefix code property: {'PASS' if is_prefix_free else 'FAIL'}")
 
-    # 4. 인코딩
-    print(f"\n  [4단계] 인코딩")
+    # 4. Encoding
+    print(f"\n  [Step 4] Encoding")
     encoded = encode(text, codes)
     text_display = repr(text[:80]) + ("..." if len(text) > 80 else "")
-    print(f"    원본: {text_display}")
+    print(f"    Original: {text_display}")
     display_encoded = encoded[:80]
-    print(f"    인코딩: {display_encoded}{'...' if len(encoded) > 80 else ''}")
+    print(f"    Encoded: {display_encoded}{'...' if len(encoded) > 80 else ''}")
 
-    # 5. 디코딩 검증
-    print(f"\n  [5단계] 디코딩 검증")
+    # 5. Decoding verification
+    print(f"\n  [Step 5] Decoding verification")
     decoded = decode(encoded, root)
     is_correct = decoded == text
     decoded_display = repr(decoded[:80]) + ("..." if len(decoded) > 80 else "")
-    print(f"    디코딩 결과: {decoded_display}")
-    print(f"    원본 일치: {'통과' if is_correct else '실패'}")
+    print(f"    Decoded result: {decoded_display}")
+    print(f"    Matches original: {'PASS' if is_correct else 'FAIL'}")
 
-    # 6. 압축률 계산
-    print(f"\n  [6단계] 압축률 계산")
-    original_bits = len(text) * 8  # ASCII 기준 8비트
+    # 6. Compression ratio calculation
+    print(f"\n  [Step 6] Compression ratio calculation")
+    original_bits = len(text) * 8  # 8 bits per character (ASCII)
     encoded_bits = len(encoded)
     compression_ratio = (1 - encoded_bits / original_bits) * 100
 
-    # 고정 길이 코드와 비교
+    # Compare with fixed-length codes
     num_chars = len(freq_table)
     fixed_bits_per_char = math.ceil(math.log2(num_chars)) if num_chars > 1 else 1
     fixed_total_bits = len(text) * fixed_bits_per_char
 
-    # 허프만 평균 비트
+    # Huffman average bits
     avg_huffman_bits = encoded_bits / len(text)
 
-    # 엔트로피 (이론적 하한)
+    # Entropy (theoretical lower bound)
     entropy = 0
     for freq in freq_table.values():
         p = freq / len(text)
         if p > 0:
             entropy -= p * math.log2(p)
 
-    print(f"    원본 크기 (ASCII 8bit):     {original_bits:>8} bits ({original_bits // 8} bytes)")
-    print(f"    고정 길이 코드 ({fixed_bits_per_char}bit):    {fixed_total_bits:>8} bits")
-    print(f"    허프만 코딩:                {encoded_bits:>8} bits")
-    print(f"    이론적 하한 (엔트로피):      {len(text) * entropy:>8.0f} bits")
+    print(f"    Original size (ASCII 8bit):     {original_bits:>8} bits ({original_bits // 8} bytes)")
+    print(f"    Fixed-length code ({fixed_bits_per_char}bit):    {fixed_total_bits:>8} bits")
+    print(f"    Huffman coding:                 {encoded_bits:>8} bits")
+    print(f"    Theoretical lower bound (H):    {len(text) * entropy:>8.0f} bits")
     print(f"")
-    print(f"    허프만 평균 비트/문자:       {avg_huffman_bits:.3f}")
-    print(f"    엔트로피:                   {entropy:.3f}")
-    print(f"    ASCII 대비 압축률:          {compression_ratio:.1f}%")
-    print(f"    고정 길이 대비 압축률:       {(1 - encoded_bits / fixed_total_bits) * 100:.1f}%")
+    print(f"    Huffman avg bits/char:          {avg_huffman_bits:.3f}")
+    print(f"    Entropy:                        {entropy:.3f}")
+    print(f"    Compression vs ASCII:           {compression_ratio:.1f}%")
+    print(f"    Compression vs fixed-length:    {(1 - encoded_bits / fixed_total_bits) * 100:.1f}%")
 
     return encoded, codes, root
 
 
 if __name__ == "__main__":
     print("=" * 65)
-    print(" 허프만 코딩 (Huffman Coding)")
+    print(" Huffman Coding")
     print("=" * 65)
 
-    # 예제 1: 간단한 텍스트
+    # Example 1: Simple text
     print("\n" + "=" * 65)
-    print("[예제 1] 간단한 텍스트")
+    print("[Example 1] Simple text")
     print("=" * 65)
 
     text1 = "abracadabra"
     huffman_coding(text1)
 
-    # 예제 2: 영어 문장
+    # Example 2: English sentence
     print("\n" + "=" * 65)
-    print("[예제 2] 영어 문장")
+    print("[Example 2] English sentence")
     print("=" * 65)
 
     text2 = "the quick brown fox jumps over the lazy dog"
     huffman_coding(text2)
 
-    # 예제 3: 빈도 편향이 큰 텍스트
+    # Example 3: Highly skewed frequency text
     print("\n" + "=" * 65)
-    print("[예제 3] 빈도 편향이 큰 텍스트 (압축 효과가 큰 경우)")
+    print("[Example 3] Highly skewed frequency text (high compression effect)")
     print("=" * 65)
 
     text3 = "aaaaaaaabbbbccdd"
     huffman_coding(text3)
 
-    # 요약
+    # Summary
     print("\n" + "=" * 65)
-    print(" 요약")
+    print(" Summary")
     print("=" * 65)
     print("""
-  허프만 코딩의 그리디 전략:
-  - 매 단계에서 빈도가 가장 낮은 두 노드를 합친다
-  - 이 전략이 최적의 접두어 코드를 생성함이 증명되어 있다
+  Huffman coding greedy strategy:
+  - At each step, merge the two nodes with the lowest frequency
+  - This strategy is proven to generate optimal prefix codes
 
-  시간 복잡도: O(n log n)
-  - n = 서로 다른 문자의 수
-  - 최소 힙 연산 (삽입/삭제)이 O(log n)이고, n-1번 합침
+  Time complexity: O(n log n)
+  - n = number of distinct characters
+  - Heap operations (insert/delete) are O(log n), performed n-1 times
 
-  핵심 속성:
-  - 접두어 코드: 어떤 코드도 다른 코드의 접두어가 아님
-  - 이를 통해 구분자 없이 디코딩 가능
-  - 빈도가 높을수록 짧은 코드 할당 -> 전체 비트 수 최소화
+  Key properties:
+  - Prefix code: No code is a prefix of another code
+  - This enables decoding without delimiters
+  - Higher frequency -> shorter code -> minimizes total bits
 """)

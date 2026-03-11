@@ -1,11 +1,11 @@
 """
-텍스트 Diff 뷰어 -- LCS 기반 변경 감지
+Text Diff Viewer -- LCS-based change detection
 
-LCS(Longest Common Subsequence)를 이용하여 두 텍스트의 차이를 감지하고,
-추가/삭제/유지된 줄을 색상으로 구분하여 표시한다.
+Uses LCS (Longest Common Subsequence) to detect differences between two texts,
+and displays added/removed/kept lines distinguished by color.
 
-실행: python app.py
-접속: http://localhost:5001
+Run: python app.py
+Access: http://localhost:5001
 """
 
 from flask import Flask, render_template, request, jsonify
@@ -14,14 +14,14 @@ app = Flask(__name__)
 
 
 def compute_lcs_table(lines_a, lines_b):
-    """두 줄 목록 사이의 LCS DP 테이블을 구성한다.
+    """Build the LCS DP table between two line lists.
 
     Args:
-        lines_a: 원본 텍스트의 줄 리스트
-        lines_b: 수정된 텍스트의 줄 리스트
+        lines_a: list of lines from the original text
+        lines_b: list of lines from the modified text
 
     Returns:
-        2D DP 테이블
+        2D DP table
     """
     m, n = len(lines_a), len(lines_b)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
@@ -37,17 +37,17 @@ def compute_lcs_table(lines_a, lines_b):
 
 
 def compute_diff(lines_a, lines_b):
-    """LCS 역추적으로 diff를 생성한다.
+    """Generate a diff using LCS backtracking.
 
     Returns:
-        diff 항목 리스트: [{"type": "keep"|"add"|"remove", "text": str}, ...]
+        List of diff items: [{"type": "keep"|"add"|"remove", "text": str}, ...]
     """
     dp = compute_lcs_table(lines_a, lines_b)
     diff = []
 
     i, j = len(lines_a), len(lines_b)
 
-    # 역추적
+    # Backtrack
     while i > 0 or j > 0:
         if i > 0 and j > 0 and lines_a[i - 1] == lines_b[j - 1]:
             diff.append({
@@ -78,12 +78,12 @@ def compute_diff(lines_a, lines_b):
 
 
 def compute_similarity(lines_a, lines_b):
-    """두 텍스트의 유사도를 계산한다.
+    """Compute the similarity between two texts.
 
-    LCS 길이 / max(len(a), len(b)) * 100
+    LCS length / max(len(a), len(b)) * 100
 
     Returns:
-        (LCS 길이, 유사도 백분율)
+        (LCS length, similarity percentage)
     """
     dp = compute_lcs_table(lines_a, lines_b)
     lcs_length = dp[len(lines_a)][len(lines_b)]
@@ -99,7 +99,7 @@ def index():
 
 @app.route("/api/diff", methods=["POST"])
 def diff():
-    """두 텍스트의 diff를 계산하여 반환한다."""
+    """Compute and return the diff of two texts."""
     data = request.get_json()
     text_a = data.get("text_a", "")
     text_b = data.get("text_b", "")
@@ -168,7 +168,7 @@ if __name__ == "__main__":
 
 @app.route("/api/sample")
 def sample():
-    """샘플 텍스트를 반환한다."""
+    """Return sample texts."""
     return jsonify({
         "text_a": SAMPLE_ORIGINAL,
         "text_b": SAMPLE_MODIFIED,
@@ -177,7 +177,7 @@ def sample():
 
 if __name__ == "__main__":
     print("=" * 50)
-    print(" 텍스트 Diff 뷰어 (LCS 기반)")
+    print(" Text Diff Viewer (LCS-based)")
     print(" http://localhost:5001")
     print("=" * 50)
     app.run(debug=True, port=5001)

@@ -1,36 +1,36 @@
-# === A-2: 최장 공통 부분 수열 (LCS: Longest Common Subsequence) ===
-# DP를 이용한 LCS 계산, 테이블 시각화, 역추적
+# === A-2: Longest Common Subsequence (LCS) ===
+# LCS computation using DP, table visualization, and backtracking
 #
-# 핵심 개념:
-# - 두 문자열의 최장 공통 부분 수열을 DP로 구함
-# - 점화식:
-#     X[i] == Y[j]일 때: dp[i][j] = dp[i-1][j-1] + 1 (대각선에서 +1)
-#     X[i] != Y[j]일 때: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-# - 역추적: dp[m][n]에서 dp[0][0]까지 거슬러 올라가며 LCS 복원
-# - 시간 복잡도: O(m * n) (m, n = 두 문자열의 길이)
-# - 공간 복잡도: O(m * n) (DP 테이블)
-# - 응용: git diff, DNA 서열 비교, 편집 거리
+# Key concepts:
+# - Compute the LCS of two strings using DP
+# - Recurrence:
+#     When X[i] == Y[j]: dp[i][j] = dp[i-1][j-1] + 1 (diagonal +1)
+#     When X[i] != Y[j]: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+# - Backtracking: trace back from dp[m][n] to dp[0][0] to reconstruct the LCS
+# - Time complexity: O(m * n) (m, n = lengths of the two strings)
+# - Space complexity: O(m * n) (DP table)
+# - Applications: git diff, DNA sequence comparison, edit distance
 """
-LCS (Longest Common Subsequence) -- DP 테이블 시각화 + 역추적
+LCS (Longest Common Subsequence) -- DP table visualization + backtracking
 
-두 문자열 X, Y의 최장 공통 부분 수열을 구한다.
-DP 테이블을 시각적으로 출력하고, 역추적으로 실제 LCS를 복원한다.
+Find the longest common subsequence of two strings X and Y.
+Visually print the DP table and reconstruct the actual LCS via backtracking.
 
-재귀식:
-  X[i] == Y[j]일 때: dp[i][j] = dp[i-1][j-1] + 1
-  X[i] != Y[j]일 때: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+Recurrence:
+  When X[i] == Y[j]: dp[i][j] = dp[i-1][j-1] + 1
+  When X[i] != Y[j]: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 """
 
 
 def build_lcs_table(x, y):
-    """LCS DP 테이블을 구성한다.
+    """Build the LCS DP table.
 
     Args:
-        x: 첫 번째 문자열
-        y: 두 번째 문자열
+        x: first string
+        y: second string
 
     Returns:
-        2D DP 테이블 (크기: (len(x)+1) x (len(y)+1))
+        2D DP table (size: (len(x)+1) x (len(y)+1))
     """
     m, n = len(x), len(y)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
@@ -46,16 +46,16 @@ def build_lcs_table(x, y):
 
 
 def backtrack_lcs(dp, x, y):
-    """DP 테이블에서 역추적하여 실제 LCS를 복원한다.
+    """Backtrack through the DP table to reconstruct the actual LCS.
 
     Args:
-        dp: LCS DP 테이블
-        x: 첫 번째 문자열
-        y: 두 번째 문자열
+        dp: LCS DP table
+        x: first string
+        y: second string
 
     Returns:
-        (LCS 문자열, 역추적 경로 리스트)
-        경로: [(i, j, action), ...] action = 'match'|'up'|'left'
+        (LCS string, backtracking path list)
+        Path: [(i, j, action), ...] action = 'match'|'up'|'left'
     """
     lcs = []
     path = []
@@ -81,17 +81,17 @@ def backtrack_lcs(dp, x, y):
 
 
 def print_dp_table(dp, x, y, path=None):
-    """DP 테이블을 시각적으로 출력한다.
+    """Visually print the DP table.
 
     Args:
-        dp: LCS DP 테이블
-        x: 첫 번째 문자열
-        y: 두 번째 문자열
-        path: 역추적 경로 (하이라이트용)
+        dp: LCS DP table
+        x: first string
+        y: second string
+        path: backtracking path (for highlighting)
     """
     m, n = len(x), len(y)
 
-    # 역추적 경로를 set으로 변환
+    # Convert backtracking path to sets
     match_cells = set()
     path_cells = set()
     if path:
@@ -102,7 +102,7 @@ def print_dp_table(dp, x, y, path=None):
 
     cell_width = 4
 
-    # Y 문자 헤더
+    # Y character header
     print(f"    {'':>{cell_width}}    ", end="")
     for j in range(n + 1):
         if j == 0:
@@ -111,7 +111,7 @@ def print_dp_table(dp, x, y, path=None):
             print(f"{y[j-1]:>{cell_width}}", end=" ")
     print()
 
-    # 인덱스 헤더
+    # Index header
     print(f"    {'':>{cell_width}}    ", end="")
     for j in range(n + 1):
         print(f"{j:>{cell_width}}", end=" ")
@@ -119,7 +119,7 @@ def print_dp_table(dp, x, y, path=None):
 
     print(f"    {'':>{cell_width}}   {'---' * (n + 1) * 2}")
 
-    # 테이블 본체
+    # Table body
     for i in range(m + 1):
         if i == 0:
             row_label = " "
@@ -142,7 +142,7 @@ def print_dp_table(dp, x, y, path=None):
 
 
 def lcs_analysis(x, y, label=""):
-    """LCS 분석을 수행하고 결과를 출력한다."""
+    """Perform LCS analysis and print the results."""
     if label:
         print(f"\n{'='*60}")
         print(f"[{label}]")
@@ -151,34 +151,34 @@ def lcs_analysis(x, y, label=""):
     print(f"\n  X = \"{x}\"")
     print(f"  Y = \"{y}\"")
 
-    # DP 테이블 구성
+    # Build DP table
     dp = build_lcs_table(x, y)
 
-    # 역추적
+    # Backtrack
     lcs_str, path = backtrack_lcs(dp, x, y)
 
-    # DP 테이블 출력
-    print(f"\n  --- DP 테이블 ---")
-    print(f"  [n] = 매칭 (LCS에 포함), (n) = 역추적 경로")
+    # Print DP table
+    print(f"\n  --- DP Table ---")
+    print(f"  [n] = match (included in LCS), (n) = backtracking path")
     print_dp_table(dp, x, y, path)
 
-    # 결과 출력
+    # Print results
     lcs_length = dp[len(x)][len(y)]
-    print(f"  LCS 길이: {lcs_length}")
+    print(f"  LCS length: {lcs_length}")
     print(f"  LCS: \"{lcs_str}\"")
 
-    # 역추적 경로 시각화
-    print(f"\n  --- 역추적 경로 ---")
+    # Backtracking path visualization
+    print(f"\n  --- Backtracking Path ---")
     for i, j, action in path:
         if action == "match":
-            print(f"    ({i},{j}): X[{i}]=Y[{j}]='{x[i-1]}' -> 대각선 (매치!)")
+            print(f"    ({i},{j}): X[{i}]=Y[{j}]='{x[i-1]}' -> diagonal (match!)")
         elif action == "up":
-            print(f"    ({i},{j}): X[{i}]='{x[i-1]}' != Y[{j}]='{y[j-1]}' -> 위로 이동")
+            print(f"    ({i},{j}): X[{i}]='{x[i-1]}' != Y[{j}]='{y[j-1]}' -> move up")
         else:
-            print(f"    ({i},{j}): X[{i}]='{x[i-1]}' != Y[{j}]='{y[j-1]}' -> 왼쪽 이동")
+            print(f"    ({i},{j}): X[{i}]='{x[i-1]}' != Y[{j}]='{y[j-1]}' -> move left")
 
-    # LCS 위치 표시
-    print(f"\n  --- LCS 위치 표시 ---")
+    # LCS position display
+    print(f"\n  --- LCS Position Display ---")
     x_display = list(x)
     y_display = list(y)
     x_marks = [" "] * len(x)
@@ -199,41 +199,41 @@ def lcs_analysis(x, y, label=""):
 
 if __name__ == "__main__":
     print("=" * 60)
-    print(" LCS (Longest Common Subsequence) -- DP 테이블 시각화")
+    print(" LCS (Longest Common Subsequence) -- DP Table Visualization")
     print("=" * 60)
 
-    # 예제 1: 교과서 예제
-    lcs_analysis("ABCBDAB", "BDCAB", "예제 1: ABCBDAB vs BDCAB")
+    # Example 1: Textbook example
+    lcs_analysis("ABCBDAB", "BDCAB", "Example 1: ABCBDAB vs BDCAB")
 
-    # 예제 2: 간단한 예제
-    lcs_analysis("AGGTAB", "GXTXAYB", "예제 2: AGGTAB vs GXTXAYB")
+    # Example 2: Simple example
+    lcs_analysis("AGGTAB", "GXTXAYB", "Example 2: AGGTAB vs GXTXAYB")
 
-    # 예제 3: 완전히 같은 문자열
-    lcs_analysis("ABC", "ABC", "예제 3: 동일 문자열 ABC vs ABC")
+    # Example 3: Identical strings
+    lcs_analysis("ABC", "ABC", "Example 3: Identical strings ABC vs ABC")
 
-    # 예제 4: 공통 부분 없음
-    lcs_analysis("ABC", "XYZ", "예제 4: 공통 없음 ABC vs XYZ")
+    # Example 4: No common subsequence
+    lcs_analysis("ABC", "XYZ", "Example 4: No common subsequence ABC vs XYZ")
 
-    # 요약
+    # Summary
     print("\n" + "=" * 60)
-    print(" 요약")
+    print(" Summary")
     print("=" * 60)
     print("""
-  LCS 알고리즘:
-  - 시간 복잡도: O(m * n) (m, n = 두 문자열의 길이)
-  - 공간 복잡도: O(m * n) (DP 테이블)
+  LCS Algorithm:
+  - Time complexity: O(m * n) (m, n = lengths of the two strings)
+  - Space complexity: O(m * n) (DP table)
 
-  재귀식:
+  Recurrence:
   - X[i] == Y[j]: dp[i][j] = dp[i-1][j-1] + 1
   - X[i] != Y[j]: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-  역추적:
-  - dp[m][n]에서 시작하여 dp[0][0]까지 이동
-  - 문자가 같으면 대각선으로 이동 (LCS에 포함)
-  - 다르면 dp 값이 큰 쪽으로 이동
+  Backtracking:
+  - Start from dp[m][n] and move to dp[0][0]
+  - If characters match, move diagonally (included in LCS)
+  - If different, move toward the larger dp value
 
-  응용:
-  - 텍스트 diff (git diff)
-  - DNA 서열 비교
-  - 편집 거리 (Edit Distance)
+  Applications:
+  - Text diff (git diff)
+  - DNA sequence comparison
+  - Edit Distance
 """)

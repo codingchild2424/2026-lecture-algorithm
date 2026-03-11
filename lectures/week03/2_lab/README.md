@@ -10,25 +10,25 @@
 
 ### A-1: Basic Sorting Implementation (10 min)
 
-Fill in the TODOs in `examples/basic_sorts.py` to implement Selection Sort, Bubble Sort, and Insertion Sort.
+Fill in the TODOs in `examples/a1_basic_sorts.py` to implement Selection Sort, Bubble Sort, and Insertion Sort.
 
 Each function takes a list and returns a new sorted list.
 
 Test:
 ```bash
-python examples/basic_sorts.py
+python examples/a1_basic_sorts.py
 ```
 
 ### A-2: Advanced Sorting Implementation (15 min)
 
-Fill in the TODOs in `examples/advanced_sorts.py` to implement Merge Sort and Quick Sort.
+Fill in the TODOs in `examples/a2_advanced_sorts.py` to implement Merge Sort and Quick Sort.
 
 ### A-3: Benchmark (10 min)
 
-Run `examples/sort_benchmark.py` to compare the performance of all sorting algorithms.
+Run `examples/a3_sort_benchmark.py` to compare the performance of all sorting algorithms.
 
 ```bash
-python examples/sort_benchmark.py
+python examples/a3_sort_benchmark.py
 ```
 
 Measure the execution time of each algorithm at N=100, 1,000, 10,000, and 100,000, and examine the resulting graphs.
@@ -41,10 +41,10 @@ Measure the execution time of each algorithm at N=100, 1,000, 10,000, and 100,00
 
 ### B-1: Mini Shopping Mall Sort Comparison (15 min)
 
-Run the Flask app in `examples/web_sort_demo/`:
+Run the Flask app in `examples/b1_web_sort_demo/`:
 
 ```bash
-cd examples/web_sort_demo
+cd examples/b1_web_sort_demo
 pip install flask
 python app.py
 ```

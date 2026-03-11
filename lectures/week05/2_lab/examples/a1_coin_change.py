@@ -1,70 +1,70 @@
-# === A-1: 동전 교환 (Coin Change) ===
-# 그리디 알고리즘의 성공/실패 사례와 DP를 이용한 최적해 비교
+# === A-1: Coin Change ===
+# Success/failure cases of the greedy algorithm and comparison with DP optimal solution
 #
-# 핵심 개념:
-# - 그리디: 큰 동전부터 최대한 사용 (표준 동전에서만 최적)
-# - DP: 모든 경우를 고려하여 항상 최적해 보장
-# - 시간 복잡도: 그리디 O(k), DP O(k * amount) (k = 동전 종류 수)
-"""동전 교환 -- 그리디의 성공과 실패 사례."""
+# Key concepts:
+# - Greedy: Use the largest coin first (optimal only for standard coin sets)
+# - DP: Considers all cases to guarantee the optimal solution
+# - Time complexity: Greedy O(k), DP O(k * amount) (k = number of coin types)
+"""Coin change -- success and failure cases of the greedy approach."""
 
 
 def coin_change_greedy(amount, coins):
-    """그리디 방식으로 거스름돈을 계산한다.
+    """Calculate change using the greedy approach.
 
-    알고리즘: 가장 큰 동전부터 최대한 많이 사용
-    시간 복잡도: O(k * amount/min_coin) (k = 동전 종류 수)
-    공간 복잡도: O(amount/min_coin) (결과 리스트)
+    Algorithm: Use the largest coin as much as possible first
+    Time complexity: O(k * amount/min_coin) (k = number of coin types)
+    Space complexity: O(amount/min_coin) (result list)
 
     Args:
-        amount: 거슬러 줄 금액
-        coins: 동전 종류 리스트
+        amount: The amount of change to make
+        coins: List of coin denominations
 
     Returns:
-        사용한 동전 리스트 또는 None (불가능한 경우)
+        List of coins used, or None (if impossible)
     """
-    # 동전을 큰 순서로 정렬 (그리디 선택의 핵심)
+    # Sort coins in descending order (key to greedy selection)
     coins_sorted = sorted(coins, reverse=True)
     result = []
     remaining = amount
-    # 각 동전에 대해 가능한 만큼 최대로 사용
+    # For each coin, use it as many times as possible
     for coin in coins_sorted:
         while remaining >= coin:
-            result.append(coin)  # 현재 동전 사용
-            remaining -= coin     # 남은 금액 감소
-    # 남은 금액이 0이면 성공, 아니면 실패
+            result.append(coin)  # Use the current coin
+            remaining -= coin     # Decrease remaining amount
+    # Success if remaining is 0, failure otherwise
     return result if remaining == 0 else None
 
 
 def coin_change_dp(amount, coins):
-    """DP 방식으로 최소 동전 수를 계산한다 (항상 최적해 보장).
+    """Calculate minimum number of coins using DP (always guarantees optimal solution).
 
-    알고리즘: dp[i] = 금액 i를 만들기 위한 최소 동전 수
-    점화식: dp[i] = min(dp[i - c] + 1) (모든 동전 c에 대해)
-    시간 복잡도: O(k * amount)
-    공간 복잡도: O(amount)
+    Algorithm: dp[i] = minimum number of coins to make amount i
+    Recurrence: dp[i] = min(dp[i - c] + 1) (for all coins c)
+    Time complexity: O(k * amount)
+    Space complexity: O(amount)
 
     Args:
-        amount: 거슬러 줄 금액
-        coins: 동전 종류 리스트
+        amount: The amount of change to make
+        coins: List of coin denominations
 
     Returns:
-        최적의 동전 리스트 또는 None (불가능한 경우)
+        Optimal list of coins, or None (if impossible)
     """
-    # dp[i]: 금액 i를 만들기 위한 최소 동전 수 (초기값: 무한대)
+    # dp[i]: minimum number of coins to make amount i (initial value: infinity)
     dp = [float('inf')] * (amount + 1)
-    dp[0] = 0  # 기저 조건: 금액 0은 동전 0개
-    parent = [-1] * (amount + 1)  # 역추적용: 각 금액에서 마지막으로 사용한 동전
-    # 모든 금액에 대해 모든 동전을 시도
+    dp[0] = 0  # Base case: amount 0 requires 0 coins
+    parent = [-1] * (amount + 1)  # For backtracking: last coin used at each amount
+    # Try all coins for every amount
     for i in range(1, amount + 1):
         for c in coins:
-            # 동전 c를 사용할 수 있고, 더 적은 동전 수로 만들 수 있는 경우
+            # If coin c can be used and results in fewer coins
             if c <= i and dp[i - c] + 1 < dp[i]:
                 dp[i] = dp[i - c] + 1
-                parent[i] = c  # 역추적을 위해 사용한 동전 기록
-    # 금액을 만들 수 없는 경우
+                parent[i] = c  # Record the coin used for backtracking
+    # If the amount cannot be made
     if dp[amount] == float('inf'):
         return None
-    # 역추적: parent 배열을 따라 사용된 동전 복원
+    # Backtrack: recover the coins used by following the parent array
     result = []
     cur = amount
     while cur > 0:
@@ -74,15 +74,15 @@ def coin_change_dp(amount, coins):
 
 
 if __name__ == "__main__":
-    # 케이스 1: 그리디가 최적해를 찾는 경우 (표준 동전)
+    # Case 1: Greedy finds the optimal solution (standard coins)
     print("=== Case 1: Standard coins ===")
     coins1, amount1 = [500, 100, 50, 10], 1260
     g1 = coin_change_greedy(amount1, coins1)
     print(f"Coins: {coins1}, Amount: {amount1}")
     print(f"Greedy: {g1} ({len(g1)} coins)")
 
-    # 케이스 2: 그리디가 실패하는 경우 (비표준 동전)
-    # {1, 3, 4}로 6을 만들 때: 그리디는 4+1+1=3개, 최적은 3+3=2개
+    # Case 2: Greedy fails (non-standard coins)
+    # With {1, 3, 4} making 6: greedy gives 4+1+1=3 coins, optimal is 3+3=2 coins
     print("\n=== Case 2: Non-standard coins ===")
     coins2, amount2 = [1, 3, 4], 6
     g2 = coin_change_greedy(amount2, coins2)

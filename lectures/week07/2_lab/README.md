@@ -11,8 +11,8 @@
 | Order | Exercise | Time | File |
 |-------|----------|------|------|
 | Ex 1 | Solving past exam-style problems with an AI agent | 20 min | (using an agent) |
-| Ex 2 | Algorithm paradigm identification practice | 15 min | `examples/paradigm_practice.py` |
-| Ex 3 | First-half algorithm review & code review | 15 min | `examples/review_problems.py` |
+| Ex 2 | Algorithm paradigm identification practice | 15 min | `examples/ex2_paradigm_practice.py` |
+| Ex 3 | First-half algorithm review & code review | 15 min | `examples/ex3_review_problems.py` |
 
 ---
 
@@ -86,6 +86,6 @@ Review the key algorithms from Weeks 02-06 through 5 mini problems.
 ## How to Run
 
 ```bash
-python examples/paradigm_practice.py
-python examples/review_problems.py
+python examples/ex2_paradigm_practice.py
+python examples/ex3_review_problems.py
 ```

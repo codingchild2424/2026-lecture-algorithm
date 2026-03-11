@@ -1,6 +1,6 @@
 """
-상품 검색 API — 선형 탐색 vs 이진 탐색 비교 데모
-Flask 서버: http://localhost:5002
+Product Search API — Linear Search vs Binary Search comparison demo
+Flask server: http://localhost:5002
 """
 
 import time
@@ -9,21 +9,21 @@ from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 
-# 상품 데이터 (서버 시작 시 생성)
+# Product data (generated at server startup)
 products = []
-products_sorted = []  # 이름순 정렬된 리스트
+products_sorted = []  # list sorted by name
 MAX_PRODUCTS = 100_000
 
 
 def generate_products(n):
-    """상품 데이터를 생성합니다."""
+    """Generates product data."""
     global products, products_sorted
     products = [f"Product_{i:05d}" for i in range(n)]
     products_sorted = sorted(products)
 
 
 def linear_search(data, target):
-    """선형 탐색: O(n)"""
+    """Linear search: O(n)"""
     for i, item in enumerate(data):
         if item == target:
             return i
@@ -31,7 +31,7 @@ def linear_search(data, target):
 
 
 def binary_search(data, target):
-    """이진 탐색: O(log n) — data는 정렬되어 있어야 합니다."""
+    """Binary search: O(log n) — data must be sorted."""
     left, right = 0, len(data) - 1
     while left <= right:
         mid = (left + right) // 2

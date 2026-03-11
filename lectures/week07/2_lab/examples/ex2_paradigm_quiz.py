@@ -1,116 +1,116 @@
-# === Ex 2: 알고리즘 패러다임 판별 퀴즈 ===
-# Week 07 중간고사 리뷰 - 인터랙티브 퀴즈 형식으로 패러다임 판별 연습
-# 10개의 문제에 대해 4가지 패러다임(BF, D&C, Greedy, DP) 중 하나를 선택하는 퀴즈
+# === Ex 2: Algorithm Paradigm Identification Quiz ===
+# Week 07 Midterm Review - Interactive quiz format for paradigm identification practice
+# A quiz selecting one of 4 paradigms (BF, D&C, Greedy, DP) for each of 10 problems
 """Algorithm Paradigm Quiz - identify the best approach for each problem."""
 
-# PROBLEMS 리스트: 10개의 퀴즈 문제
-# 각 문제는 question(문제 설명), answer(정답 패러다임), explanation(해설)을 포함
+# PROBLEMS list: 10 quiz problems
+# Each problem contains question (problem description), answer (correct paradigm), and explanation
 PROBLEMS = [
     {
-        # 이진 탐색 - 정렬된 배열을 반으로 나누어 탐색하므로 분할정복
-        "question": "정렬된 배열에서 특정 값의 위치를 찾아라.",
+        # Binary search - divide and conquer since we split a sorted array in half to search
+        "question": "Find the position of a specific value in a sorted array.",
         "answer": "Divide & Conquer",
-        "explanation": "이진 탐색 — 배열을 반으로 나누어 탐색. O(log n)"
+        "explanation": "Binary search -- split the array in half to search. O(log n)"
     },
     {
-        # 거스름돈 - 한국/미국 화폐는 배수 관계이므로 그리디가 최적
-        "question": "동전의 종류가 [1, 5, 10, 50, 100, 500]일 때 거스름돈 최소 동전 수를 구하라.",
+        # Change making - greedy is optimal for Korean/US currency since denominations are multiples
+        "question": "Given coin denominations [1, 5, 10, 50, 100, 500], find the minimum number of coins for change.",
         "answer": "Greedy",
-        "explanation": "큰 동전부터 사용 — 한국/미국 화폐처럼 배수 관계일 때 그리디가 최적."
+        "explanation": "Use the largest coins first -- greedy is optimal when denominations are multiples (as in Korean/US currency)."
     },
     {
-        # LCS - 부분 문제 중복 + 최적 부분 구조 -> DP
-        "question": "두 문자열의 최장 공통 부분 수열(LCS) 길이를 구하라.",
+        # LCS - overlapping subproblems + optimal substructure -> DP
+        "question": "Find the length of the longest common subsequence (LCS) of two strings.",
         "answer": "Dynamic Programming",
-        "explanation": "부분 문제가 겹치고 최적 부분 구조 존재 — DP 테이블로 O(mn) 해결."
+        "explanation": "Subproblems overlap and optimal substructure exists -- solve with a DP table in O(mn)."
     },
     {
-        # 최근접 점 쌍 - x좌표 기준 분할 후 경계 처리 -> 분할정복
-        "question": "n개의 점 중 가장 가까운 두 점의 거리를 구하라.",
+        # Closest pair of points - divide by x-coordinate then handle boundary -> divide and conquer
+        "question": "Find the distance between the closest pair among n points.",
         "answer": "Divide & Conquer",
-        "explanation": "점을 x좌표 기준으로 분할, 각 절반에서 최근접 쌍을 구하고 경계를 확인. O(n log n)"
+        "explanation": "Divide points by x-coordinate, find closest pair in each half, and check the boundary. O(n log n)"
     },
     {
-        # Activity Selection - 종료 시간 기준 정렬 후 탐욕적 선택
-        "question": "n개의 활동 중 겹치지 않게 최대한 많은 활동을 선택하라.",
+        # Activity Selection - sort by end time then greedily select
+        "question": "Select the maximum number of non-overlapping activities from n activities.",
         "answer": "Greedy",
-        "explanation": "종료 시간 기준 정렬 후 탐욕적 선택 — Activity Selection Problem."
+        "explanation": "Sort by end time, then greedily select -- Activity Selection Problem."
     },
     {
-        # 0-1 Knapsack - 물건을 쪼갤 수 없으므로 DP (쪼갤 수 있으면 그리디)
-        "question": "n개의 물건(각각 무게와 가치)에서 배낭 용량 W 이내로 최대 가치를 담아라. (물건 쪼갤 수 없음)",
+        # 0-1 Knapsack - items cannot be split, so DP (fractional would be greedy)
+        "question": "Given n items (each with weight and value), maximize value within knapsack capacity W. (Items cannot be split.)",
         "answer": "Dynamic Programming",
-        "explanation": "0-1 Knapsack — 각 물건을 넣거나 안 넣거나의 선택이 겹치는 부분 문제를 형성."
+        "explanation": "0-1 Knapsack -- the choice to include or exclude each item creates overlapping subproblems."
     },
     {
-        # 부분 집합 열거 - 2^n개를 모두 생성해야 하므로 브루트포스
-        "question": "배열의 모든 부분 집합을 출력하라.",
+        # Subset enumeration - must generate all 2^n subsets, so brute force
+        "question": "Print all subsets of an array.",
         "answer": "Brute Force",
-        "explanation": "2^n개의 부분 집합을 모두 생성해야 함 — 최적화 여지 없음."
+        "explanation": "Must generate all 2^n subsets -- no room for optimization."
     },
     {
-        # 행렬 곱셈 - Strassen 알고리즘으로 4등분하여 분할정복
-        "question": "n×n 행렬 두 개를 곱하라. (n이 매우 큼)",
+        # Matrix multiplication - Strassen algorithm divides into quadrants for divide and conquer
+        "question": "Multiply two n*n matrices. (n is very large.)",
         "answer": "Divide & Conquer",
-        "explanation": "Strassen 알고리즘 — 행렬을 4등분하여 7번의 곱셈으로 해결. O(n^2.81)"
+        "explanation": "Strassen algorithm -- divide matrices into quadrants and solve with 7 multiplications. O(n^2.81)"
     },
     {
-        # Huffman 코딩 - 빈도수가 낮은 문자부터 합치는 그리디
-        "question": "문자열을 Huffman 코드로 압축하라.",
+        # Huffman coding - greedy by merging lowest-frequency characters first
+        "question": "Compress a string using Huffman codes.",
         "answer": "Greedy",
-        "explanation": "빈도수가 낮은 문자부터 합치는 탐욕적 선택이 최적."
+        "explanation": "The greedy choice of merging lowest-frequency characters first is optimal."
     },
     {
-        # 피보나치 - fib(n) = fib(n-1) + fib(n-2), 중복 부분 문제의 대표 예시
-        "question": "피보나치 수열의 n번째 항을 구하라.",
+        # Fibonacci - fib(n) = fib(n-1) + fib(n-2), a classic example of overlapping subproblems
+        "question": "Find the n-th term of the Fibonacci sequence.",
         "answer": "Dynamic Programming",
-        "explanation": "fib(n) = fib(n-1) + fib(n-2) — 겹치는 부분 문제의 대표적 예시."
+        "explanation": "fib(n) = fib(n-1) + fib(n-2) -- a classic example of overlapping subproblems."
     },
 ]
 
 
 def run_quiz():
-    """인터랙티브 퀴즈를 실행한다.
+    """Run the interactive quiz.
 
-    동작 방식:
-    1. 각 문제를 순서대로 출력하고 4가지 선택지를 보여준다
-    2. 사용자 입력(1~4)을 받아 정답과 비교한다
-    3. 정답이면 점수를 올리고, 오답이면 정답과 해설을 보여준다
-    4. 모든 문제를 마치면 최종 점수를 출력한다
+    How it works:
+    1. Display each problem in order and show 4 choices
+    2. Accept user input (1-4) and compare with the correct answer
+    3. If correct, increase the score; if wrong, show the correct answer and explanation
+    4. After all problems, display the final score
 
-    시간 복잡도: O(n) - n은 문제 수 (10개 고정)
+    Time complexity: O(n) - n is the number of problems (fixed at 10)
     """
     score = 0
     options = ["Brute Force", "Divide & Conquer", "Greedy", "Dynamic Programming"]
 
     for i, problem in enumerate(PROBLEMS, 1):
         print(f"\n{'='*60}")
-        print(f"문제 {i}: {problem['question']}")
+        print(f"Problem {i}: {problem['question']}")
         print()
-        # 4가지 패러다임 선택지를 번호와 함께 출력
+        # Display 4 paradigm choices with numbers
         for j, opt in enumerate(options, 1):
             print(f"  {j}. {opt}")
 
         try:
-            choice = int(input("\n답 (1-4): "))
-            chosen = options[choice - 1]  # 1-based 인덱스를 0-based로 변환
+            choice = int(input("\nAnswer (1-4): "))
+            chosen = options[choice - 1]  # Convert 1-based index to 0-based
         except (ValueError, IndexError):
-            chosen = ""  # 잘못된 입력 처리
+            chosen = ""  # Handle invalid input
 
-        # 정답 비교 및 결과 출력
+        # Compare answer and display result
         if chosen == problem["answer"]:
-            print(f"  ✓ 정답! — {problem['explanation']}")
+            print(f"  Correct! -- {problem['explanation']}")
             score += 1
         else:
-            print(f"  ✗ 오답. 정답: {problem['answer']}")
+            print(f"  Wrong. Answer: {problem['answer']}")
             print(f"    {problem['explanation']}")
 
-    # 최종 점수 출력
+    # Display final score
     print(f"\n{'='*60}")
-    print(f"결과: {score}/{len(PROBLEMS)}")
+    print(f"Result: {score}/{len(PROBLEMS)}")
 
 
 if __name__ == "__main__":
-    print("=== 알고리즘 패러다임 판별 퀴즈 ===")
-    print("각 문제에 가장 적합한 알고리즘 패러다임을 선택하세요.\n")
+    print("=== Algorithm Paradigm Identification Quiz ===")
+    print("Choose the most appropriate algorithm paradigm for each problem.\n")
     run_quiz()

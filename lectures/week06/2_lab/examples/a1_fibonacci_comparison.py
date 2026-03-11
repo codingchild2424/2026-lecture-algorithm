@@ -1,39 +1,39 @@
-# === A-1: 피보나치 수열 - 상세 성능 비교 ===
-# 세 가지 구현 방식의 성능을 벤치마크로 비교하고 호출 횟수를 분석
+# === A-1: Fibonacci Sequence - Detailed Performance Comparison ===
+# Benchmark comparison and call count analysis of three implementation approaches
 #
-# 핵심 개념:
-# - 순수 재귀의 호출 횟수가 2^n에 근접함을 실측으로 확인
-# - 메모이제이션/타뷸레이션은 n에 비례하는 시간만 소요
-# - 공간 최적화: 이전 두 값만 유지하면 O(1) 공간으로 해결 가능
-# - 시간 복잡도: naive O(2^n), memo/tab O(n)
-# - 공간 복잡도: naive O(n), memo O(n), tab O(n) 또는 최적화 시 O(1)
+# Key concepts:
+# - Empirically verify that pure recursion call count approaches 2^n
+# - Memoization/tabulation require only time proportional to n
+# - Space optimization: keeping only the previous two values achieves O(1) space
+# - Time complexity: naive O(2^n), memo/tab O(n)
+# - Space complexity: naive O(n), memo O(n), tab O(n) or O(1) when optimized
 """
-피보나치 수열 -- 세 가지 구현 방식 성능 비교
+Fibonacci sequence -- performance comparison of three implementation approaches
 
-1. fib_naive(n)  -- 순수 재귀: O(2^n)
-2. fib_memo(n)   -- 메모이제이션 (top-down DP): O(n)
-3. fib_tab(n)    -- 타뷸레이션 (bottom-up DP): O(n)
+1. fib_naive(n)  -- pure recursion: O(2^n)
+2. fib_memo(n)   -- memoization (top-down DP): O(n)
+3. fib_tab(n)    -- tabulation (bottom-up DP): O(n)
 """
 
 import time
 import sys
 
-# 재귀 깊이 제한 확장 (메모이제이션용)
+# Increase recursion depth limit (for memoization)
 sys.setrecursionlimit(10000)
 
 
-# ===== 구현 1: 순수 재귀 (Naive) =====
+# ===== Implementation 1: Pure Recursion (Naive) =====
 
 def fib_naive(n):
-    """순수 재귀로 피보나치 수를 계산한다.
+    """Compute the Fibonacci number using pure recursion.
 
-    시간 복잡도: O(2^n) -- 중복 계산이 지수적으로 발생
-    공간 복잡도: O(n) -- 재귀 호출 스택 깊이
+    Time complexity: O(2^n) -- redundant computations grow exponentially
+    Space complexity: O(n) -- recursion call stack depth
 
-    fib(5)를 구하려면:
+    To compute fib(5):
       fib(5) = fib(4) + fib(3)
-      fib(4) = fib(3) + fib(2)   <-- fib(3) 중복!
-      fib(3) = fib(2) + fib(1)   <-- fib(2) 중복!
+      fib(4) = fib(3) + fib(2)   <-- fib(3) duplicated!
+      fib(3) = fib(2) + fib(1)   <-- fib(2) duplicated!
       ...
     """
     if n <= 1:
@@ -41,15 +41,15 @@ def fib_naive(n):
     return fib_naive(n - 1) + fib_naive(n - 2)
 
 
-# ===== 구현 2: 메모이제이션 (Top-Down DP) =====
+# ===== Implementation 2: Memoization (Top-Down DP) =====
 
 def fib_memo(n, memo=None):
-    """메모이제이션으로 피보나치 수를 계산한다.
+    """Compute the Fibonacci number using memoization.
 
-    시간 복잡도: O(n) -- 각 값을 한 번만 계산
-    공간 복잡도: O(n) -- 메모 테이블 + 재귀 스택
+    Time complexity: O(n) -- each value is computed only once
+    Space complexity: O(n) -- memo table + recursion stack
 
-    이미 계산한 값은 memo 딕셔너리에 저장하여 재사용.
+    Previously computed values are stored in a memo dictionary for reuse.
     """
     if memo is None:
         memo = {}
@@ -64,15 +64,15 @@ def fib_memo(n, memo=None):
     return memo[n]
 
 
-# ===== 구현 3: 타뷸레이션 (Bottom-Up DP) =====
+# ===== Implementation 3: Tabulation (Bottom-Up DP) =====
 
 def fib_tab(n):
-    """타뷸레이션으로 피보나치 수를 계산한다.
+    """Compute the Fibonacci number using tabulation.
 
-    시간 복잡도: O(n) -- 배열을 한 번 순회
-    공간 복잡도: O(n) -- DP 테이블 (O(1)로 최적화 가능)
+    Time complexity: O(n) -- single pass through the array
+    Space complexity: O(n) -- DP table (can be optimized to O(1))
 
-    작은 값부터 순서대로 테이블을 채움. 재귀 호출 없음.
+    Fills the table sequentially from small values. No recursive calls.
     """
     if n <= 1:
         return n
@@ -87,13 +87,13 @@ def fib_tab(n):
     return dp[n]
 
 
-# ===== 공간 최적화 버전 (참고) =====
+# ===== Space-Optimized Version (Reference) =====
 
 def fib_optimized(n):
-    """공간 O(1)로 최적화된 타뷸레이션.
+    """Space O(1) optimized tabulation.
 
-    시간 복잡도: O(n)
-    공간 복잡도: O(1) -- 이전 두 값만 유지
+    Time complexity: O(n)
+    Space complexity: O(1) -- only keeps the previous two values
     """
     if n <= 1:
         return n
@@ -105,18 +105,18 @@ def fib_optimized(n):
     return prev1
 
 
-# ===== 벤치마크 =====
+# ===== Benchmark =====
 
 def benchmark(func, n, timeout=10.0):
-    """함수 실행 시간을 측정한다.
+    """Measure the execution time of a function.
 
     Args:
-        func: 실행할 함수
-        n: 인자
-        timeout: 최대 실행 시간(초). 초과 시 None 반환.
+        func: function to execute
+        n: argument
+        timeout: maximum execution time in seconds. Returns None if exceeded.
 
     Returns:
-        (결과값, 실행시간) 또는 (None, None) (타임아웃)
+        (result, elapsed_time) or (None, None) (timeout)
     """
     start = time.perf_counter()
     result = func(n)
@@ -125,7 +125,7 @@ def benchmark(func, n, timeout=10.0):
 
 
 def format_time(seconds):
-    """실행 시간을 읽기 좋은 형태로 포맷한다."""
+    """Format execution time into a human-readable string."""
     if seconds is None:
         return "TIMEOUT"
     if seconds < 0.001:
@@ -137,13 +137,13 @@ def format_time(seconds):
 
 if __name__ == "__main__":
     print("=" * 70)
-    print(" 피보나치 수열: naive vs memoization vs tabulation 성능 비교")
+    print(" Fibonacci sequence: naive vs memoization vs tabulation performance comparison")
     print("=" * 70)
 
     test_values = [10, 20, 30, 35]
 
-    # 결과 검증 -- 세 방식이 같은 값을 반환하는지 확인
-    print("\n[검증] 세 방식이 동일한 결과를 반환하는지 확인:")
+    # Result verification -- confirm all three approaches return the same values
+    print("\n[Verification] Checking that all three approaches return identical results:")
     for n in [0, 1, 2, 5, 10]:
         r1 = fib_naive(n)
         r2 = fib_memo(n)
@@ -151,13 +151,13 @@ if __name__ == "__main__":
         status = "OK" if r1 == r2 == r3 else "FAIL"
         print(f"  fib({n:>2}) = {r1:<10}  [{status}]")
 
-    # 벤치마크
+    # Benchmark
     print(f"\n{'='*70}")
     print(f"{'n':>4} | {'fib(n)':>15} | {'naive':>12} | {'memo':>12} | {'tabulation':>12}")
     print(f"{'-'*4}-+-{'-'*15}-+-{'-'*12}-+-{'-'*12}-+-{'-'*12}")
 
     for n in test_values:
-        # naive: n이 40 이상이면 스킵 (너무 오래 걸림)
+        # naive: skip if n >= 40 (takes too long)
         if n <= 35:
             r_naive, t_naive = benchmark(fib_naive, n)
         else:
@@ -166,14 +166,14 @@ if __name__ == "__main__":
         r_memo, t_memo = benchmark(fib_memo, n)
         r_tab, t_tab = benchmark(fib_tab, n)
 
-        fib_val = r_tab  # 확실한 값
+        fib_val = r_tab  # reliable value
         print(f"{n:>4} | {fib_val:>15} | {format_time(t_naive):>12} | "
               f"{format_time(t_memo):>12} | {format_time(t_tab):>12}")
 
-    # 추가: 큰 수에 대한 DP 성능
+    # Additional: DP performance for large n
     print(f"\n{'='*70}")
-    print("[추가] 큰 n에서 DP 방식의 성능 (naive는 불가능한 영역):")
-    print(f"{'n':>8} | {'tabulation':>12} | {'fib(n) (처음 20자리)':>25}")
+    print("[Additional] DP performance for large n (impossible range for naive):")
+    print(f"{'n':>8} | {'tabulation':>12} | {'fib(n) (first 20 digits)':>25}")
     print(f"{'-'*8}-+-{'-'*12}-+-{'-'*25}")
 
     for n in [100, 500, 1000, 5000]:
@@ -182,9 +182,9 @@ if __name__ == "__main__":
         display = fib_str[:20] + "..." if len(fib_str) > 20 else fib_str
         print(f"{n:>8} | {format_time(t):>12} | {display:>25}")
 
-    # 호출 횟수 비교
+    # Call count comparison
     print(f"\n{'='*70}")
-    print("[분석] naive 재귀의 함수 호출 횟수:")
+    print("[Analysis] Function call count of naive recursion:")
 
     call_count = 0
 
@@ -198,23 +198,23 @@ if __name__ == "__main__":
     for n in [5, 10, 15, 20, 25]:
         call_count = 0
         fib_naive_counted(n)
-        print(f"  fib({n:>2}): {call_count:>12,}번 호출  "
+        print(f"  fib({n:>2}): {call_count:>12,} calls  "
               f"(2^{n} = {2**n:>12,})")
 
-    # 요약
+    # Summary
     print(f"\n{'='*70}")
-    print(" 요약")
+    print(" Summary")
     print("=" * 70)
     print("""
-  방식          | 시간 복잡도 | 공간 복잡도 | 특징
+  Approach      | Time        | Space       | Characteristics
   --------------|-------------|-------------|---------------------------
-  naive 재귀    | O(2^n)      | O(n)        | 중복 계산이 지수적으로 발생
-  메모이제이션  | O(n)        | O(n)        | top-down, 재귀 스택 사용
-  타뷸레이션    | O(n)        | O(n) / O(1) | bottom-up, 반복문 사용
+  naive recurse | O(2^n)      | O(n)        | Redundant computations grow exponentially
+  memoization   | O(n)        | O(n)        | top-down, uses recursion stack
+  tabulation    | O(n)        | O(n) / O(1) | bottom-up, uses iteration
 
-  DP의 핵심:
-  - 중복 부분 문제(overlapping subproblems)가 있을 때
-  - "이미 풀어본 문제는 다시 풀지 않는다"
-  - 메모이제이션: 필요한 부분 문제만 푼다 (lazy)
-  - 타뷸레이션: 모든 부분 문제를 순서대로 푼다 (eager)
+  Key ideas of DP:
+  - When there are overlapping subproblems
+  - "Never solve a problem you have already solved"
+  - Memoization: solves only the needed subproblems (lazy)
+  - Tabulation: solves all subproblems in order (eager)
 """)

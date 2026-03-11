@@ -1,97 +1,97 @@
-# === Ex 2: DFS 깊이 우선 탐색 & 위상 정렬 ===
-# Week 11 그래프 알고리즘 1 - DFS 재귀 구현 및 DAG 위상 정렬
-# DFS 시간 복잡도: O(V + E), 공간 복잡도: O(V) (재귀 스택 포함)
-# 위상 정렬 시간 복잡도: O(V + E)
+# === Ex 2: DFS - Depth First Search & Topological Sort ===
+# Week 11 Graph Algorithms 1 - Recursive DFS implementation and DAG topological sort
+# DFS time complexity: O(V + E), Space complexity: O(V) (including recursion stack)
+# Topological sort time complexity: O(V + E)
 """DFS and Topological Sort."""
 
 
 def dfs(graph, start, visited=None):
-    """깊이 우선 탐색(DFS)을 재귀적으로 수행한다.
+    """Perform Depth First Search (DFS) recursively.
 
-    알고리즘:
-    1. 현재 노드를 방문 처리
-    2. 인접 노드 중 미방문 노드에 대해 재귀적으로 DFS 수행
-    3. 더 이상 방문할 노드가 없으면 되돌아감 (백트래킹)
+    Algorithm:
+    1. Mark the current node as visited
+    2. Recursively perform DFS on unvisited neighbors
+    3. Backtrack when there are no more nodes to visit
 
-    DFS의 특성:
-    - 한 경로를 끝까지 탐색한 후 다른 경로로 이동
-    - 스택(여기서는 재귀 호출 스택)을 사용
+    Properties of DFS:
+    - Explores one path to the end before moving to another path
+    - Uses a stack (here, the recursion call stack)
 
     Args:
-        graph: 인접 리스트로 표현된 그래프 (딕셔너리)
-        start: 탐색 시작 노드
-        visited: 방문한 노드 집합 (재귀 호출 간 공유)
+        graph: Graph represented as an adjacency list (dictionary)
+        start: Starting node for traversal
+        visited: Set of visited nodes (shared across recursive calls)
 
     Returns:
-        방문 순서 리스트
+        Visit order list
 
-    시간 복잡도: O(V + E) - 모든 정점과 간선을 한 번씩 처리
-    공간 복잡도: O(V) - 재귀 스택 깊이 최대 V, visited 집합
+    Time complexity: O(V + E) - each vertex and edge is processed once
+    Space complexity: O(V) - maximum recursion stack depth V, visited set
     """
     if visited is None:
-        visited = set()  # 최초 호출 시 빈 집합 생성
-    visited.add(start)      # 현재 노드 방문 처리
-    order = [start]         # 현재 노드를 방문 순서에 추가
+        visited = set()  # Create an empty set on the first call
+    visited.add(start)      # Mark current node as visited
+    order = [start]         # Add current node to visit order
 
-    # 인접 노드를 순회하며 미방문 노드에 대해 재귀 탐색
+    # Traverse neighbors and recursively explore unvisited ones
     for neighbor in graph.get(start, []):
         if neighbor not in visited:
-            order.extend(dfs(graph, neighbor, visited))  # 재귀 결과를 이어붙임
+            order.extend(dfs(graph, neighbor, visited))  # Append recursive results
     return order
 
 
 def topological_sort(graph):
-    """DAG(방향 비순환 그래프)의 위상 정렬을 수행한다.
+    """Perform topological sort on a DAG (Directed Acyclic Graph).
 
-    알고리즘 (DFS 기반):
-    1. 모든 노드에 대해 DFS를 수행
-    2. DFS에서 한 노드의 모든 후계 노드를 방문한 후 (즉, DFS 종료 시)
-       해당 노드를 스택에 추가
-    3. 스택을 뒤집으면 위상 순서가 됨
+    Algorithm (DFS-based):
+    1. Perform DFS on all nodes
+    2. After visiting all successors of a node in DFS (i.e., when DFS finishes),
+       push the node onto a stack
+    3. Reversing the stack yields the topological order
 
-    핵심 아이디어:
-    - DFS에서 노드 u의 탐색이 완전히 끝난 후 스택에 추가하면,
-      u에 의존하는 모든 노드들이 u 뒤에 위치하게 됨
-    - 스택을 뒤집으면 의존성 순서가 올바르게 됨
+    Key idea:
+    - By pushing node u onto the stack after its DFS exploration is complete,
+      all nodes that depend on u will be positioned after u
+    - Reversing the stack produces the correct dependency order
 
     Args:
-        graph: 방향 그래프의 인접 리스트 (딕셔너리)
+        graph: Adjacency list of a directed graph (dictionary)
 
     Returns:
-        위상 정렬된 노드 리스트
+        List of nodes in topological order
 
-    시간 복잡도: O(V + E)
-    공간 복잡도: O(V) - visited 집합 + 재귀 스택
+    Time complexity: O(V + E)
+    Space complexity: O(V) - visited set + recursion stack
     """
     visited = set()
-    stack = []  # DFS 완료 순서를 저장할 스택
+    stack = []  # Stack to store DFS completion order
 
     def _dfs(node):
-        """내부 DFS 함수: 노드 탐색 완료 후 스택에 추가한다."""
+        """Internal DFS function: pushes node onto stack after exploration is complete."""
         visited.add(node)
-        # 모든 후속 노드를 먼저 방문 (재귀)
+        # Visit all successor nodes first (recursion)
         for neighbor in graph.get(node, []):
             if neighbor not in visited:
                 _dfs(neighbor)
-        # 모든 후속 노드 방문 완료 후 스택에 추가 (후위 처리)
+        # Push onto stack after all successors have been visited (post-order processing)
         stack.append(node)
 
-    # 모든 노드에 대해 DFS 수행 (연결되지 않은 컴포넌트도 처리)
+    # Perform DFS for all nodes (handles disconnected components as well)
     for node in graph:
         if node not in visited:
             _dfs(node)
 
-    # 스택을 뒤집으면 위상 순서가 됨
+    # Reversing the stack yields the topological order
     return list(reversed(stack))
 
 
 if __name__ == "__main__":
-    # 무방향 그래프에서 DFS 테스트
+    # DFS test on an undirected graph
     graph = {'A': ['B', 'C'], 'B': ['A', 'D'], 'C': ['A', 'E'], 'D': ['B'], 'E': ['C']}
     print(f"DFS from A: {dfs(graph, 'A')}")
 
-    # DAG(방향 비순환 그래프)에서 위상 정렬 테스트
-    # 과목 선수과목 관계: CS101 -> CS201, CS202 -> CS301 -> CS401
+    # Topological sort test on a DAG (Directed Acyclic Graph)
+    # Course prerequisite relationships: CS101 -> CS201, CS202 -> CS301 -> CS401
     dag = {
         'CS101': ['CS201', 'CS202'],
         'CS201': ['CS301'],
@@ -104,4 +104,4 @@ if __name__ == "__main__":
     for course, prereqs_for in dag.items():
         if prereqs_for:
             print(f"  {course} -> {prereqs_for}")
-    print(f"Topological order: {topological_sort(dag)}")  # 선수과목이 먼저 나옴
+    print(f"Topological order: {topological_sort(dag)}")  # Prerequisites appear first

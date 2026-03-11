@@ -1,57 +1,57 @@
-# === Ex 2: 벨만-포드 최단 경로 알고리즘 ===
-# Week 12 그래프 알고리즘 2 - 음수 가중치를 허용하는 단일 출발점 최단 경로
-# 알고리즘: 모든 간선에 대해 V-1번 완화(relaxation)를 반복
-# 시간 복잡도: O(V * E) - 다익스트라보다 느리지만 음수 가중치 처리 가능
-# 공간 복잡도: O(V) - 거리 배열과 이전 노드 배열
+# === Ex 2: Bellman-Ford Shortest Path Algorithm ===
+# Week 12 Graph Algorithms 2 - Single-source shortest paths allowing negative weights
+# Algorithm: Repeat relaxation on all edges V-1 times
+# Time complexity: O(V * E) - slower than Dijkstra but handles negative weights
+# Space complexity: O(V) - distance array and previous node array
 """Bellman-Ford Algorithm - handles negative weights."""
 
 
 def bellman_ford(vertices, edges, start):
-    """벨만-포드 알고리즘으로 최단 거리를 구한다.
+    """Find shortest distances using the Bellman-Ford algorithm.
 
-    알고리즘:
-    1. 시작 노드의 거리를 0, 나머지를 무한대로 초기화
-    2. V-1번 반복하며 모든 간선에 대해 완화(relaxation) 수행:
-       dist[u] + w < dist[v]이면 dist[v] = dist[u] + w로 갱신
-    3. V번째 반복에서 추가 완화가 발생하면 음수 사이클이 존재
+    Algorithm:
+    1. Initialize the start node's distance to 0, all others to infinity
+    2. Repeat V-1 times, performing relaxation on all edges:
+       if dist[u] + w < dist[v], update dist[v] = dist[u] + w
+    3. If additional relaxation is possible on the V-th iteration, a negative cycle exists
 
-    다익스트라와의 차이:
-    - 벨만-포드는 음수 가중치 간선을 처리할 수 있음
-    - 음수 사이클을 감지할 수 있음
-    - O(VE)로 다익스트라의 O((V+E)log V)보다 느림
+    Differences from Dijkstra:
+    - Bellman-Ford can handle edges with negative weights
+    - It can detect negative cycles
+    - O(VE), which is slower than Dijkstra's O((V+E)log V)
 
-    왜 V-1번 반복인가?
-    - 최단 경로는 최대 V-1개의 간선을 포함 (사이클이 없을 때)
-    - i번째 반복 후, 최대 i개의 간선을 사용하는 최단 경로가 확정됨
+    Why V-1 iterations?
+    - A shortest path contains at most V-1 edges (when there are no cycles)
+    - After the i-th iteration, shortest paths using at most i edges are finalized
 
     Args:
-        vertices: 정점 리스트
-        edges: 간선 리스트 [(출발, 도착, 가중치), ...]
-        start: 시작 정점
+        vertices: List of vertices
+        edges: List of edges [(source, destination, weight), ...]
+        start: Starting vertex
 
     Returns:
-        (dist, prev) - dist: 최단 거리 딕셔너리, prev: 경로 추적용 딕셔너리
+        (dist, prev) - dist: shortest distance dictionary, prev: path reconstruction dictionary
 
     Raises:
-        ValueError: 음수 사이클이 존재할 경우
+        ValueError: If a negative cycle exists
 
-    시간 복잡도: O(V * E)
-    공간 복잡도: O(V)
+    Time complexity: O(V * E)
+    Space complexity: O(V)
     """
-    # 모든 정점의 거리를 무한대로 초기화
+    # Initialize all vertex distances to infinity
     dist = {v: float('inf') for v in vertices}
-    dist[start] = 0  # 시작 노드 거리 0
-    prev = {v: None for v in vertices}  # 경로 추적용
+    dist[start] = 0  # Start node distance 0
+    prev = {v: None for v in vertices}  # For path reconstruction
 
-    # V-1번 반복: 매 반복마다 모든 간선에 대해 완화 수행
+    # V-1 iterations: perform relaxation on all edges each iteration
     for _ in range(len(vertices) - 1):
         for u, v, w in edges:
-            # 완화(relaxation): 더 짧은 경로가 발견되면 갱신
+            # Relaxation: update if a shorter path is found
             if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
                 prev[v] = u
 
-    # 음수 사이클 검출: V번째 반복에서 추가 완화가 가능하면 음수 사이클 존재
+    # Negative cycle detection: if further relaxation is possible on V-th iteration, a negative cycle exists
     for u, v, w in edges:
         if dist[u] + w < dist[v]:
             raise ValueError("Graph contains a negative cycle")
@@ -61,10 +61,10 @@ def bellman_ford(vertices, edges, start):
 
 if __name__ == "__main__":
     vertices = ['A', 'B', 'C', 'D', 'E']
-    # 방향 가중 그래프 - B->C 간선에 음수 가중치(-1)가 포함됨
+    # Directed weighted graph - edge B->C includes a negative weight (-1)
     edges = [
         ('A', 'B', 4), ('A', 'C', 2),
-        ('B', 'C', -1), ('B', 'D', 5),   # B->C: 음수 가중치
+        ('B', 'C', -1), ('B', 'D', 5),   # B->C: negative weight
         ('C', 'D', 8), ('C', 'E', 10),
         ('D', 'E', 2)
     ]
