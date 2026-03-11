@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 02 — 검색 알고리즘 비교</title>
+    <title>Week 02 — Search Algorithm Comparison</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
@@ -55,60 +55,60 @@
 <body>
     <div class="container">
         <h1>Linear Search vs Binary Search</h1>
-        <p class="subtitle">상품 검색 API 응답시간 비교 실습</p>
+        <p class="subtitle">Product Search API Response Time Comparison</p>
 
         <div class="card">
-            <h2>검색</h2>
+            <h2>Search</h2>
             <div class="search-row">
-                <input type="text" id="searchInput" placeholder='상품명 입력 (예: Product_50000)' value="Product_50000">
+                <input type="text" id="searchInput" placeholder='Enter product name (e.g. Product_50000)' value="Product_50000">
             </div>
             <div style="display: flex; gap: 10px;">
                 <button class="btn btn-linear" onclick="doSearch('linear')">Linear Search</button>
                 <button class="btn btn-binary" onclick="doSearch('binary')">Binary Search</button>
-                <button class="btn btn-both" onclick="doBothSearch()">Both (비교)</button>
+                <button class="btn btn-both" onclick="doBothSearch()">Both (Compare)</button>
             </div>
 
             <div class="results">
                 <div class="result-box linear">
                     <h3>Linear Search (O(n))</h3>
                     <div class="time linear" id="linearTime">-</div>
-                    <div class="detail" id="linearDetail">검색 버튼을 눌러주세요</div>
+                    <div class="detail" id="linearDetail">Press the search button</div>
                 </div>
                 <div class="result-box binary">
                     <h3>Binary Search (O(log n))</h3>
                     <div class="time binary" id="binaryTime">-</div>
-                    <div class="detail" id="binaryDetail">검색 버튼을 눌러주세요</div>
+                    <div class="detail" id="binaryDetail">Press the search button</div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h2>데이터 크기 조절</h2>
+            <h2>Adjust Data Size</h2>
             <div class="slider-section">
                 <label>Dataset Size (N)</label>
                 <div class="slider-row">
                     <input type="range" id="sizeSlider" min="1000" max="100000" step="1000" value="100000">
                     <span class="slider-value" id="sizeValue">100,000</span>
-                    <button class="btn btn-resize" onclick="resizeDataset()">적용</button>
+                    <button class="btn btn-resize" onclick="resizeDataset()">Apply</button>
                 </div>
             </div>
             <div class="hint">
-                N을 변경한 후 검색해보세요. 선형 탐색은 N에 비례하여 느려지지만,
-                이진 탐색은 거의 변하지 않습니다.
+                Try searching after changing N. Linear search slows down proportionally to N,
+                while binary search remains nearly unchanged.
             </div>
         </div>
 
         <div class="card">
-            <h2>측정 기록</h2>
+            <h2>Measurement History</h2>
             <div class="history">
                 <table>
                     <thead>
                         <tr>
-                            <th>검색어</th>
+                            <th>Query</th>
                             <th>N</th>
                             <th>Linear (ms)</th>
                             <th>Binary (ms)</th>
-                            <th>배율</th>
+                            <th>Ratio</th>
                         </tr>
                     </thead>
                     <tbody id="historyBody"></tbody>

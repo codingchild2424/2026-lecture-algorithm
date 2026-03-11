@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>텍스트 Diff 뷰어 - LCS 기반</title>
+    <title>Text Diff Viewer - LCS Based</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -159,53 +159,53 @@
     </style>
 </head>
 <body>
-    <h1>텍스트 Diff 뷰어</h1>
-    <p class="subtitle">Longest Common Subsequence (LCS) 기반 텍스트 비교</p>
+    <h1>Text Diff Viewer</h1>
+    <p class="subtitle">LCS (Longest Common Subsequence) Based Text Comparison</p>
 
     <div class="input-area">
         <div>
-            <h3>원본 (Original)</h3>
-            <textarea id="textA" placeholder="원본 텍스트를 입력하세요..."></textarea>
+            <h3>Original</h3>
+            <textarea id="textA" placeholder="Enter the original text..."></textarea>
         </div>
         <div>
-            <h3>수정본 (Modified)</h3>
-            <textarea id="textB" placeholder="수정된 텍스트를 입력하세요..."></textarea>
+            <h3>Modified</h3>
+            <textarea id="textB" placeholder="Enter the modified text..."></textarea>
         </div>
     </div>
 
     <div class="controls">
-        <button class="btn-primary" onclick="compare()">비교 (Compare)</button>
-        <button class="btn-secondary" onclick="loadSample()">샘플 로드</button>
-        <button class="btn-secondary" onclick="clearAll()">초기화</button>
+        <button class="btn-primary" onclick="compare()">Compare</button>
+        <button class="btn-secondary" onclick="loadSample()">Load Sample</button>
+        <button class="btn-secondary" onclick="clearAll()">Reset</button>
     </div>
 
     <div class="stats" id="stats" style="display:none;">
         <div class="stat-item">
-            <div class="label">LCS 길이</div>
+            <div class="label">LCS Length</div>
             <div class="value blue" id="statLCS">-</div>
         </div>
         <div class="stat-item">
-            <div class="label">유사도</div>
+            <div class="label">Similarity</div>
             <div class="value blue" id="statSimilarity">-</div>
         </div>
         <div class="stat-item">
-            <div class="label">추가된 줄</div>
+            <div class="label">Lines Added</div>
             <div class="value green" id="statAdded">-</div>
         </div>
         <div class="stat-item">
-            <div class="label">삭제된 줄</div>
+            <div class="label">Lines Removed</div>
             <div class="value red" id="statRemoved">-</div>
         </div>
         <div class="stat-item">
-            <div class="label">유지된 줄</div>
+            <div class="label">Lines Kept</div>
             <div class="value" id="statKept">-</div>
         </div>
     </div>
 
     <div class="diff-container" id="diffContainer">
-        <div class="diff-header">Diff 결과</div>
+        <div class="diff-header">Diff Result</div>
         <div class="diff-body" id="diffBody">
-            <div class="placeholder">위에 텍스트를 입력하고 "비교" 버튼을 클릭하세요.</div>
+            <div class="placeholder">Enter text above and click the "Compare" button.</div>
         </div>
     </div>
 
@@ -238,7 +238,7 @@
     function renderDiff(diff) {
         const body = document.getElementById('diffBody');
         if (diff.length === 0) {
-            body.innerHTML = '<div class="placeholder">변경 사항이 없습니다.</div>';
+            body.innerHTML = '<div class="placeholder">No changes found.</div>';
             return;
         }
 
@@ -296,7 +296,7 @@
         document.getElementById('textB').value = '';
         document.getElementById('stats').style.display = 'none';
         document.getElementById('diffBody').innerHTML =
-            '<div class="placeholder">위에 텍스트를 입력하고 "비교" 버튼을 클릭하세요.</div>';
+            '<div class="placeholder">Enter text above and click the "Compare" button.</div>';
     }
     </script>
 </body>

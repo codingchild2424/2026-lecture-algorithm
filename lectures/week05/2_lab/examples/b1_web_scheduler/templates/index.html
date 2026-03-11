@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회의실 예약 스케줄러 - Activity Selection</title>
+    <title>Meeting Room Scheduler - Activity Selection</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -195,53 +195,53 @@
     </style>
 </head>
 <body>
-    <h1>회의실 예약 스케줄러</h1>
+    <h1>Meeting Room Scheduler</h1>
     <p class="subtitle">Activity Selection Problem -- Greedy vs Brute Force</p>
 
     <div class="controls">
-        <h2>회의 관리</h2>
+        <h2>Meeting Management</h2>
         <div class="btn-row">
-            <button class="btn-primary" onclick="loadSample(8)">샘플 8개</button>
-            <button class="btn-primary" onclick="loadSample(12)">샘플 12개</button>
-            <button class="btn-primary" onclick="loadSample(15)">샘플 15개</button>
-            <button class="btn-danger" onclick="clearMeetings()">초기화</button>
+            <button class="btn-primary" onclick="loadSample(8)">Sample 8</button>
+            <button class="btn-primary" onclick="loadSample(12)">Sample 12</button>
+            <button class="btn-primary" onclick="loadSample(15)">Sample 15</button>
+            <button class="btn-danger" onclick="clearMeetings()">Reset</button>
         </div>
         <div class="meeting-input" id="addForm">
-            <label>이름</label>
-            <input type="text" id="inputName" placeholder="회의명" value="새 회의">
-            <label>시작</label>
+            <label>Name</label>
+            <input type="text" id="inputName" placeholder="Meeting name" value="New Meeting">
+            <label>Start</label>
             <select id="inputStart"></select>
-            <label>종료</label>
+            <label>End</label>
             <select id="inputEnd"></select>
-            <button class="btn-success" onclick="addMeeting()">추가</button>
+            <button class="btn-success" onclick="addMeeting()">Add</button>
         </div>
         <div class="btn-row">
-            <button class="btn-success" onclick="runGreedy()">그리디 실행</button>
-            <button class="btn-warning" onclick="runBruteforce()">브루트포스 실행</button>
-            <button class="btn-secondary" onclick="runBoth()">둘 다 실행</button>
+            <button class="btn-success" onclick="runGreedy()">Run Greedy</button>
+            <button class="btn-warning" onclick="runBruteforce()">Run Brute Force</button>
+            <button class="btn-secondary" onclick="runBoth()">Run Both</button>
         </div>
     </div>
 
     <div class="results" id="results" style="display:none;">
         <div class="result-card greedy-card">
-            <h3>Greedy (탐욕)</h3>
+            <h3>Greedy</h3>
             <div class="count" id="greedyCount">-</div>
             <div class="detail" id="greedyDetail"></div>
         </div>
         <div class="result-card bf-card">
-            <h3>Brute Force (완전탐색)</h3>
+            <h3>Brute Force (Exhaustive Search)</h3>
             <div class="count" id="bfCount">-</div>
             <div class="detail" id="bfDetail"></div>
         </div>
     </div>
 
     <div class="timeline-container">
-        <h2>타임라인</h2>
+        <h2>Timeline</h2>
         <div id="timeline"></div>
     </div>
 
     <div class="timeline-container" style="margin-top:15px;">
-        <h2>회의 목록</h2>
+        <h2>Meeting List</h2>
         <div class="meeting-list" id="meetingList"></div>
     </div>
 
@@ -254,7 +254,7 @@
     const END_HOUR = 18;
     const HOURS = END_HOUR - START_HOUR;
 
-    // 시간 select 옵션 채우기
+    // Populate time select options
     function initTimeSelects() {
         const startSel = document.getElementById('inputStart');
         const endSel = document.getElementById('inputEnd');
@@ -293,10 +293,10 @@
     }
 
     function addMeeting() {
-        const name = document.getElementById('inputName').value || '회의';
+        const name = document.getElementById('inputName').value || 'Meeting';
         const start = parseFloat(document.getElementById('inputStart').value);
         const end = parseFloat(document.getElementById('inputEnd').value);
-        if (end <= start) { alert('종료 시간은 시작 시간보다 커야 합니다.'); return; }
+        if (end <= start) { alert('End time must be later than start time.'); return; }
         meetings.push({
             id: meetings.length,
             name: name,
@@ -322,7 +322,7 @@
             document.getElementById('greedyCount').textContent =
                 `${data.count} / ${data.total}`;
             document.getElementById('greedyDetail').textContent =
-                `${data.total}개 중 ${data.count}개 선택 (O(n log n))`;
+                `${data.count} of ${data.total} selected (O(n log n))`;
             renderTimeline();
             renderList();
             checkMatch();
@@ -343,7 +343,7 @@
             document.getElementById('bfCount').textContent =
                 `${data.count} / ${data.total}`;
             document.getElementById('bfDetail').textContent =
-                `${data.total}개 중 ${data.count}개 선택 (O(2^n))`;
+                `${data.count} of ${data.total} selected (O(2^n))`;
             renderTimeline();
             renderList();
             checkMatch();
@@ -361,9 +361,9 @@
             const bc = bfSelected.length;
             const comp = document.getElementById('greedyDetail');
             if (gc === bc) {
-                comp.innerHTML += ' <span class="match">= Brute Force 결과와 동일!</span>';
+                comp.innerHTML += ' <span class="match">= Same as Brute Force result!</span>';
             } else {
-                comp.innerHTML += ` <span class="mismatch">Brute Force(${bc})와 다름</span>`;
+                comp.innerHTML += ` <span class="mismatch">Differs from Brute Force (${bc})</span>`;
             }
         }
     }
@@ -371,7 +371,7 @@
     function renderTimeline() {
         const container = document.getElementById('timeline');
         if (meetings.length === 0) {
-            container.innerHTML = '<p style="color:#aaa;text-align:center;padding:30px;">회의를 추가하거나 샘플을 로드하세요.</p>';
+            container.innerHTML = '<p style="color:#aaa;text-align:center;padding:30px;">Add meetings or load a sample.</p>';
             return;
         }
         let html = '<div class="time-axis">';
@@ -404,7 +404,7 @@
             container.innerHTML = '';
             return;
         }
-        let html = '<table><tr><th>#</th><th>이름</th><th>시작</th><th>종료</th><th>Greedy</th><th>BF</th></tr>';
+        let html = '<table><tr><th>#</th><th>Name</th><th>Start</th><th>End</th><th>Greedy</th><th>BF</th></tr>';
         const sorted = [...meetings].sort((a, b) => a.end - b.end);
         for (const m of sorted) {
             const gMark = greedySelected.includes(m.id) ? '&#10003;' : '';
