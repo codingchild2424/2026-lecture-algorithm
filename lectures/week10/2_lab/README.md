@@ -9,10 +9,10 @@
 ## Algorithm Exercises (25 min)
 
 ### Ex 1: Chaining Hash Table (15 min)
-Refer to `examples/ex1_hash_chaining.py` and implement a hash table using the chaining method.
+Refer to `examples/skeletons/ex1_hash_chaining.py` and implement a hash table using the chaining method.
 
 ### Ex 2: Open Addressing (10 min)
-Refer to `examples/ex2_hash_probing.py` and implement the linear probing method.
+Refer to `examples/skeletons/ex2_hash_probing.py` and implement the linear probing method.
 
 ---
 

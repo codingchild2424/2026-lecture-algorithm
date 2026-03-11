@@ -10,18 +10,18 @@
 
 ### A-1: Fibonacci Comparison (10 min)
 
-Run `examples/fibonacci.py` to compare the performance of three approaches:
+Run `examples/skeletons/a1_fibonacci.py` to compare the performance of three approaches:
 - Naive recursion: O(2^n)
 - Memoization: O(n)
 - Tabulation: O(n)
 
 ### A-2: LCS + DP Table Visualization (15 min)
 
-Implement Longest Common Subsequence in `examples/lcs.py` and print the DP table.
+Implement Longest Common Subsequence in `examples/skeletons/a2_lcs.py` and print the DP table.
 
 ### A-3: 0-1 Knapsack + Backtracking (10 min)
 
-Solve the 0-1 knapsack problem in `examples/knapsack.py` and backtrack to determine which items were selected.
+Solve the 0-1 knapsack problem in `examples/skeletons/a3_knapsack.py` and backtrack to determine which items were selected.
 
 ---
 
@@ -29,10 +29,10 @@ Solve the 0-1 knapsack problem in `examples/knapsack.py` and backtrack to determ
 
 ### B-1: Text Diff Viewer (15 min)
 
-Run the Flask app in `examples/web_diff/`:
+Run the Flask app in `examples/b1_web_diff/`:
 
 ```bash
-cd examples/web_diff
+cd examples/b1_web_diff
 python app.py
 ```
 

@@ -80,7 +80,7 @@ merge_sort([38, 27, 43, 3, 9, 82, 10])
   -> merged: [3, 9, 10, 27, 38, 43, 82]
 ```
 
-Run: `python examples/a1_merge_sort_trace.py`
+Run: `python examples/skeletons/a1_merge_sort_trace.py`
 
 ---
 
@@ -207,7 +207,7 @@ def randomized_select(arr, left, right, k):
         return randomized_select(arr, pivot_idx + 1, right, k)
 ```
 
-File: `examples/a2_kth_smallest.py`
+File: `examples/solutions/a2_kth_smallest.py`
 
 ---
 
@@ -336,7 +336,7 @@ def _closest_dc(pts):
 
 # A-3: Performance Comparison
 
-Run `examples/a3_closest_pair.py`:
+Run `examples/solutions/a3_closest_pair.py`:
 
 ```
 N       Brute Force     D&C           Speedup

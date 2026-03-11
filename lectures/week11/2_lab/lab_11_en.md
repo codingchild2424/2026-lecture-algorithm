@@ -41,7 +41,7 @@ C    E -- F
 - Compute distance from start to each reachable node
 - Return traversal order and distance dictionary
 
-Refer to `examples/ex1_bfs.py` | **Time**: 15 min
+Refer to `examples/skeletons/ex1_bfs.py` | **Time**: 15 min
 
 ---
 
@@ -95,7 +95,7 @@ CS101  -> CS202 -> CS301
 
 **Question**: In what order should a student take these courses?
 
-Refer to `examples/ex2_dfs_topo.py` | **Time**: 10 min
+Refer to `examples/skeletons/ex2_dfs_topo.py` | **Time**: 10 min
 
 ---
 

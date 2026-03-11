@@ -177,7 +177,7 @@ def insertion_sort(arr):
 ### Run and test
 
 ```bash
-python examples/a1_basic_sorts.py
+python examples/solutions/a1_basic_sorts.py
 ```
 
 ---
@@ -282,7 +282,7 @@ def quick_sort(arr):
 ### Run and test
 
 ```bash
-python examples/a2_advanced_sorts.py
+python examples/solutions/a2_advanced_sorts.py
 ```
 
 ---
@@ -311,7 +311,7 @@ layout: section
 # A-3: Benchmark -- Run It
 
 ```bash
-python examples/a3_sort_benchmark.py
+python examples/skeletons/a3_sort_benchmark.py
 ```
 
 Measure execution time at N = 100, 1,000, 10,000, and 100,000:

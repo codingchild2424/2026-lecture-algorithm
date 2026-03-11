@@ -110,7 +110,7 @@ def fib_tab(n):
     return dp[n]
 ```
 
-Run: `python examples/a1_fibonacci.py`
+Run: `python examples/solutions/a1_fibonacci.py`
 
 ---
 
@@ -231,7 +231,7 @@ def backtrack_lcs(dp, x, y):
     return "".join(reversed(lcs))
 ```
 
-Run: `python examples/a2_lcs.py`
+Run: `python examples/solutions/a2_lcs.py`
 
 ---
 
@@ -350,7 +350,7 @@ def knapsack_01(capacity, items):
     return dp[n][capacity], list(reversed(selected))
 ```
 
-Run: `python examples/a3_knapsack.py`
+Run: `python examples/solutions/a3_knapsack.py`
 
 **Time**: O(n * W) &nbsp;&nbsp; **Space**: O(n * W) &nbsp;&nbsp; (W = capacity)
 

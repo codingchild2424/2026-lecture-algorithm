@@ -10,7 +10,7 @@
 
 ### A-1: Write a Timing Utility (10 min)
 
-Refer to `examples/a1_timer_util.py` and write a utility that measures execution time.
+Refer to `examples/skeletons/a1_timer_util.py` and write a utility that measures execution time.
 
 ### A-2: Finding Duplicates — O(n²) to O(n) Optimization (15 min)
 
@@ -19,13 +19,13 @@ Refer to `examples/a1_timer_util.py` and write a utility that measures execution
 1. **O(n²) solution**: Compare all pairs using nested for loops
 2. **O(n) solution**: Use a hash set (set)
 
-Refer to `examples/a2_find_duplicate.py`.
+Refer to `examples/skeletons/a2_find_duplicate.py`.
 
 Compare the execution times of both solutions at N=100, 1,000, 10,000, and 100,000.
 
 ### A-3: Execution Time Graphs (10 min)
 
-Run `examples/a3_complexity_plot.py` to plot execution time graphs for O(1), O(n), O(n log n), and O(n²).
+Run `examples/skeletons/a3_complexity_plot.py` to plot execution time graphs for O(1), O(n), O(n log n), and O(n²).
 
 ---
 

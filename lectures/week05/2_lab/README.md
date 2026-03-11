@@ -10,20 +10,20 @@
 
 ### A-1: Coin Change (10 min)
 
-Run `examples/coin_change.py` to observe cases where the greedy algorithm succeeds and fails.
+Run `examples/skeletons/a1_coin_change.py` to observe cases where the greedy algorithm succeeds and fails.
 
 - Success case: coins = [500, 100, 50, 10]
 - Failure case: coins = [1, 3, 4], amount = 6
 
 ### A-2: Fractional Knapsack (10 min)
 
-Solve the fractional knapsack problem using a greedy approach in `examples/fractional_knapsack.py`.
+Solve the fractional knapsack problem using a greedy approach in `examples/skeletons/a2_fractional_knapsack.py`.
 
 - Sort by unit value (value/weight) and make greedy selections
 
 ### A-3: Huffman Coding (15 min)
 
-Implement Huffman coding in `examples/huffman.py`.
+Implement Huffman coding in `examples/skeletons/a3_huffman.py`.
 
 - Build a tree based on character frequencies
 - Verify encoding and decoding
@@ -34,10 +34,10 @@ Implement Huffman coding in `examples/huffman.py`.
 
 ### B-1: Meeting Room Reservation System (15 min)
 
-Run the Flask app in `examples/web_scheduler/`:
+Run the Flask app in `examples/b1_web_scheduler/`:
 
 ```bash
-cd examples/web_scheduler
+cd examples/b1_web_scheduler
 python app.py
 ```
 

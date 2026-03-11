@@ -10,20 +10,20 @@
 
 ### A-1: Merge Sort Tracing (10 min)
 
-Run `examples/a1_merge_sort_trace.py` to observe the recursive call tree of Merge Sort.
+Run `examples/skeletons/a1_merge_sort_trace.py` to observe the recursive call tree of Merge Sort.
 
 Examine how the array is split and merged at each recursive call.
 
 ### A-2: Finding the k-th Smallest Element (15 min)
 
-Refer to `examples/a2_kth_smallest.py` and implement the Randomized Select algorithm.
+Refer to `examples/skeletons/a2_kth_smallest.py` and implement the Randomized Select algorithm.
 
 - An algorithm that finds the k-th smallest element in expected O(n) time
 - Utilizes the partition step from Quick Sort
 
 ### A-3: Closest Pair of Points (10 min)
 
-Refer to `examples/a3_closest_pair.py` and find the closest pair of points using divide and conquer.
+Refer to `examples/skeletons/a3_closest_pair.py` and find the closest pair of points using divide and conquer.
 
 - Brute force O(n²) vs. divide and conquer O(n log n) comparison
 

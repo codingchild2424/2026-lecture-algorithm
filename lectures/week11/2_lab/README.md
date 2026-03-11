@@ -9,10 +9,10 @@
 ## Algorithm Exercises (25 min)
 
 ### Ex 1: BFS (15 min)
-Refer to `examples/ex1_bfs.py` and implement BFS to compute shortest distances.
+Refer to `examples/skeletons/ex1_bfs.py` and implement BFS to compute shortest distances.
 
 ### Ex 2: DFS + Topological Sort (10 min)
-Refer to `examples/ex2_dfs_topo.py` and implement DFS-based topological sorting.
+Refer to `examples/skeletons/ex2_dfs_topo.py` and implement DFS-based topological sorting.
 
 ---
 

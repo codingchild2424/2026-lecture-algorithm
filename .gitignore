@@ -6,20 +6,14 @@ materials/
 # Dependencies
 node_modules/
 package-lock.json
-
-# Lecture scripts (private)
-**/script_en.md
-**/script_ko.md
-**/script.md
+.venv/
 
 # Assignment solutions & hidden tests (private)
 **/3_assignment/solution/
 **/3_assignment/tests/test_hidden.py
 
-# Quiz slides (private)
+# Quiz (private)
 quiz/
-**/0_quiz/quiz_*.md
-**/0_quiz/quiz_*.pdf
 
 
 # Slidev

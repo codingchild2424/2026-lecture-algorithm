@@ -39,7 +39,7 @@ put("apple", 3) -> bucket[hash("apple") % 7]
 put("banana", 5) -> same or different bucket?
 ```
 
-Refer to `examples/ex1_hash_chaining.py` | **Time**: 15 min
+Refer to `examples/skeletons/ex1_hash_chaining.py` | **Time**: 15 min
 
 ---
 
@@ -100,7 +100,7 @@ put("apple")  -> slot 3
 put("banana") -> slot 3 occupied, try slot 4
 ```
 
-Refer to `examples/ex2_hash_probing.py` | **Time**: 10 min
+Refer to `examples/skeletons/ex2_hash_probing.py` | **Time**: 10 min
 
 ---
 
