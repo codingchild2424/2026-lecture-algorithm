@@ -35,13 +35,10 @@ layout: section
 
 # Linked List
 
-- A sequence of **nodes**, each containing data and a pointer to the next node
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
 
-```
-┌──────┬───┐    ┌──────┬───┐    ┌──────┬───┐
-│ data │  ─┼───►│ data │  ─┼───►│ data │ / │
-└──────┴───┘    └──────┴───┘    └──────┴───┘
-```
+- A sequence of **nodes**, each containing data and a pointer to the next node
 
 ```c
 typedef int element;
@@ -55,42 +52,49 @@ typedef struct ListNode {
 - Operations: insert, delete, search — all O(n) in the worst case
 - Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
 
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/programiz/linkedlist/concept.png" alt="Linked List concept" width="420" />
+</div>
+</div>
+
 ---
 
 # Stack
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 - **LIFO** (Last In, First Out)
 - `push()`: add element to the top
 - `pop()`: remove element from the top
-
-```
-        ┌─────┐
- top →  │  C  │
-        ├─────┤
-        │  B  │
-        ├─────┤
-bottom →│  A  │
-        └─────┘
-```
-
 - Applications: function call stack, expression evaluation, backtracking
 - Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/programiz/stack/operations.png" alt="Stack push and pop operations" width="400" />
+</div>
+</div>
 
 ---
 
 # Queue
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 - **FIFO** (First In, First Out)
 - `enqueue()`: add element to the rear
 - `dequeue()`: remove element from the front
-
-```
-  dequeue ◄── [ A | B | C | D ] ◄── enqueue
-              front          rear
-```
-
 - Applications: BFS, scheduling, buffering
 - Visualization: [https://visualgo.net/en/list](https://visualgo.net/en/list)
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/programiz/queue/operations.png" alt="Queue enqueue and dequeue operations" width="400" style="max-height: 360px; object-fit: contain;" />
+</div>
+</div>
 
 ---
 
@@ -143,25 +147,36 @@ Selection Sort, Bubble Sort, Insertion Sort
 
 # Selection Sort — Idea
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 For each iteration:
-1. **Find** the maximum element in the unsorted portion
-2. **Swap** it with the rightmost element of the unsorted portion
+1. **Find** the minimum element in the unsorted portion
+2. **Swap** it with the leftmost element of the unsorted portion
 3. **Exclude** that element (it is now in its final position)
 4. Repeat until one element remains
 
-```text
-[15, 11, 29, 20, 65, 3, 73, 48, 31, 8]   Find max (73)
-[15, 11, 29, 20, 65, 3,  8, 48, 31|73]   Swap 73↔8, exclude 73
-[15, 11, 29, 20, 31, 3,  8, 48|65, 73]   Find max (65), swap 65↔31, exclude
-  ...
-[ 3,  8, 11, 15, 20, 29, 31, 48, 65, 73]  Sorted!
-```
+- Selects the **minimum** (or maximum) each round
 
-- Selects the **maximum** (or minimum) each round
+</div>
+</div>
 
 ---
 
-# Selection Sort — Pseudocode
+# Selection Sort — Step-by-Step
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 440px; overflow: hidden;">
+  <div><img src="./images/selection_sort_step0.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Step 0: initial unsorted array</p></div>
+  <div><img src="./images/selection_sort_step1.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Step 1: min at front, sorted portion grows</p></div>
+  <div><img src="./images/selection_sort_step2.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Step 2: continue scanning unsorted</p></div>
+  <div><img src="./images/selection_sort_step3.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Step 3: final — array sorted</p></div>
+</div>
+
+> Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
+
+---
+
+# Selection Sort — Pseudocode & Complexity
 
 ```
 selectionSort(A[], n)          ▷ Sort A[1...n]
@@ -184,26 +199,10 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 
 ---
 
-# Selection Sort — Step-by-Step Example
-
-| Step | Array State | Action |
-|------|------------|--------|
-| 0 | `[15, 11, 29, 20, 65, 3, 73, 48, 31, 8]` | Initial array |
-| 1 | `[15, 11, 29, 20, 65, 3, \|8\|, 48, 31 \| 73]` | Max=73, swap 73↔8 |
-| 2 | `[15, 11, 29, 20, \|31\|, 3, 8, 48 \| 65, 73]` | Max=65, swap 65↔31 |
-| 3 | `[15, 11, 29, 20, 31, 3, 8 \| 48, 65, 73]` | Max=48, no swap needed |
-| 4 | `[15, 11, 29, 20, \|8\|, 3 \| 31, 48, 65, 73]` | Max=31, swap 31↔8 |
-| 5 | `[15, 11, \|3\|, 20, 8 \| 29, 31, 48, 65, 73]` | Max=29, swap 29↔3 |
-| 6 | `[15, 11, 3, \|8\| \| 20, 29, 31, 48, 65, 73]` | Max=20, swap 20↔8 |
-| 7 | `[\|8\|, 11, 3 \| 15, 20, 29, 31, 48, 65, 73]` | Max=15, swap 15↔8 |
-| 8 | `[8, \|3\| \| 11, 15, 20, 29, 31, 48, 65, 73]` | Max=11, swap 11↔3 |
-| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | Sorted! |
-
-> Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
-
----
-
 # Bubble Sort — Idea
+
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
 
 For each iteration:
 1. Starting from the left, compare **adjacent pairs**
@@ -211,19 +210,27 @@ For each iteration:
 3. The largest element "**bubbles up**" to the rightmost position
 4. Exclude the rightmost element and repeat
 
-```text
-[15, 65, 29, 20, 11, 8, 73, 48, 31, 3]   Compare adjacent pairs
-[15, 29, 20, 11, 8, 65, 48, 31, 3, |73|]  73 bubbles to end, exclude
-[15, 20, 11, 8, 29, 48, 31, 3, |65, 73|]  65 bubbles, exclude
-  ...
-[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]    Sorted!
-```
-
 - Bubbles the **maximum** to the end each round
+
+</div>
+</div>
 
 ---
 
-# Bubble Sort — Pseudocode
+# Bubble Sort — Step-by-Step
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 440px; overflow: hidden;">
+  <div><img src="./images/bubble_sort_step0.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Pass 0: initial array, begin comparing adjacent pairs</p></div>
+  <div><img src="./images/bubble_sort_step1.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Pass 1: fewer comparisons needed</p></div>
+  <div><img src="./images/bubble_sort_step2.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Pass 2: sorted portion grows from right</p></div>
+  <div><img src="./images/bubble_sort_step3.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.65em; text-align:center; margin:2px 0;">Pass 3: array fully sorted</p></div>
+</div>
+
+> Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
+
+---
+
+# Bubble Sort — Pseudocode & Complexity
 
 ```
 bubbleSort(A[], n)             ▷ Sort A[1...n]
@@ -245,43 +252,38 @@ $$T(n) = (n-1) + (n-2) + \cdots + 2 + 1 = \frac{n(n-1)}{2} = \Theta(n^2)$$
 
 ---
 
-# Bubble Sort — Step-by-Step Example
-
-| Pass | Array After Pass | Bubbled Element |
-|------|-----------------|-----------------|
-| 0 | `[15, 65, 29, 20, 11, 8, 73, 48, 31, 3]` | (initial) |
-| 1 | `[15, 29, 20, 11, 8, 65, 48, 31, 3, \|73\|]` | 73 |
-| 2 | `[15, 20, 11, 8, 29, 48, 31, 3, \|65, 73\|]` | 65 |
-| 3 | `[15, 11, 8, 20, 29, 31, 3, \|48, 65, 73\|]` | 48 |
-| ... | ... | ... |
-| 9 | `[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]` | Done |
-
-> Within each pass, adjacent elements are compared left to right and swapped if out of order.
-
-> Animation: [https://visualgo.net/en/sorting](https://visualgo.net/en/sorting)
-
----
-
 # Insertion Sort — Idea
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 For each iteration:
-1. Take the next element from the unsorted portion
+1. Take the next element (**key**) from the unsorted portion
 2. **Shift** elements in the sorted portion that are larger
-3. **Insert** the element into its correct position
+3. **Insert** the key into its correct position
 
-```text
-[29]  10  14  37  13           29 is trivially sorted
-[10, 29]  14  37  13           Insert 10: shift 29, place 10
-[10, 14, 29]  37  13           Insert 14: shift 29, place 14
-[10, 14, 29, 37]  13           Insert 37: already in place
-[10, 13, 14, 29, 37]           Insert 13: shift 37,29,14, place 13
-```
+- Like sorting a hand of playing cards — pick one card at a time and insert it in order
 
-- Inserts each element into an already **sorted** subarray
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch02_extra/ch02_p002_001.png" alt="Card sorting analogy (CLRS)" width="220" />
+</div>
+</div>
 
 ---
 
-# Insertion Sort — Pseudocode
+# Insertion Sort — Step-by-Step
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+  <div><img src="./images/programiz/insertion/step0.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.7em; text-align:center;">Step 0: key=5, shift 9 right, insert 5</p></div>
+  <div><img src="./images/programiz/insertion/step1.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.7em; text-align:center;">Step 1: key=1, shift 9,5 right, insert 1</p></div>
+  <div><img src="./images/programiz/insertion/step2.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.7em; text-align:center;">Step 2: key=4, shift 9,5 right, insert 4</p></div>
+  <div><img src="./images/programiz/insertion/step3.png" style="width:100%; max-height:170px; object-fit:contain;" /><p style="font-size:0.7em; text-align:center;">Step 3: key=3, shift 9,5,4 right — sorted!</p></div>
+</div>
+
+---
+
+# Insertion Sort — Pseudocode & Complexity
 
 ```
 insertionSort(A[], n)          ▷ Sort A[1...n]
@@ -290,10 +292,6 @@ insertionSort(A[], n)          ▷ Sort A[1...n]
         Insert A[i] into its proper place in A[1...i];      ── ②
 }
 ```
-
-**Complexity Analysis:**
-- Loop ① runs **n - 1** times
-- Insertion ② requires at most i - 1 comparisons
 
 | Case | Comparisons | Complexity |
 |------|------------|------------|
@@ -353,20 +351,19 @@ Merge Sort, Quick Sort, Heap Sort
 
 # Merge Sort — Idea
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 **Divide and Conquer**:
 1. **Divide**: Split the array into two halves
 2. **Conquer**: Recursively sort each half
 3. **Combine**: Merge the two sorted halves
 
-```text
-[31, 3, 65, 73, 8, 11, 20, 29, 48, 15]    Original
-
-[31, 3, 65, 73, 8] | [11, 20, 29, 48, 15]  ① Divide
-
-[3, 8, 31, 65, 73] | [11, 15, 20, 29, 48]  ②③ Sort each half
-
-[3, 8, 11, 15, 20, 29, 31, 48, 65, 73]     ④ Merge
-```
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/programiz/merge/overview.png" alt="Merge Sort — divide and conquer tree" width="380" style="max-height: 360px; object-fit: contain;" />
+</div>
+</div>
 
 ---
 
@@ -763,6 +760,9 @@ Radix Sort and Counting Sort
 
 # Lower Bound for Comparison-Based Sorting
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 **Theorem**: Any comparison-based sorting algorithm requires **Omega(n log n)** comparisons in the worst case.
 
 > This means Selection, Bubble, Insertion, Merge, Quick, and Heap sort **cannot** do better than O(n log n) using only comparisons.
@@ -773,6 +773,12 @@ Radix Sort and Counting Sort
 |-----------|----------|------------|
 | **Radix Sort** | Elements have at most k digits (k = constant) | Theta(n) |
 | **Counting Sort** | Element values are in range [-O(n), O(n)] | Theta(n) |
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch08_extra/ch08_p002_001.png" alt="Decision tree for comparison sorting (CLRS)" width="300" />
+</div>
+</div>
 
 ---
 
@@ -792,24 +798,15 @@ radixSort(A[], n, k)           ▷ Elements have at most k digits
 
 ---
 
-# Radix Sort — Example
+# Radix Sort — Step-by-Step
 
-Sort: `[0123, 2154, 0222, 0004, 0283, 1560, 1061, 2150]`
+Sort each digit position from **least significant to most significant**:
 
-```
-Original     1st digit    2nd digit    3rd digit    4th digit
- 0123         1560         0004         0004         0004
- 2154         2150         0222         1061         0123
- 0222         1061         0123         0123         0222
- 0004         0222         2150         2150         0283
- 0283         0123         2154         2154         1061
- 1560         0283         1560         0222         1560
- 1061         2154         1061         0283         2150
- 2150         0004         0283         1560         2154
-```
-
-- Each column is sorted by the highlighted digit using a **stable** sort
-- After processing all k = 4 digits, the array is fully sorted
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+  <div><img src="./images/programiz/radix/ones.png" width="100%" style="max-height: 280px; object-fit: contain;" /><p style="font-size:0.7em; text-align:center;">1st pass: sort by ones digit</p></div>
+  <div><img src="./images/programiz/radix/tens.png" width="100%" style="max-height: 280px; object-fit: contain;" /><p style="font-size:0.7em; text-align:center;">2nd pass: sort by tens digit</p></div>
+  <div><img src="./images/programiz/radix/hundreds.png" width="100%" style="max-height: 280px; object-fit: contain;" /><p style="font-size:0.7em; text-align:center;">3rd pass: sort by hundreds — sorted!</p></div>
+</div>
 
 $$T(n) = k \cdot \Theta(n) = \Theta(n) \quad \text{(when } k \text{ is a constant)}$$
 
@@ -844,29 +841,17 @@ countingSort(A[], B[], n)      ▷ A[1...n]: input, B[1...n]: output
 
 ---
 
-# Counting Sort — Example
+# Counting Sort — Step-by-Step
 
-Sort `A = [3, 1, 2, 1, 1, 4, 2, 3, 1, 2]` with k = 4:
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+  <div><img src="./images/programiz/counting/step2.png" width="100%" style="max-height: 200px; object-fit: contain;" /><p style="font-size:0.7em; text-align:center;">Step 1: Count occurrences of each value</p></div>
+  <div><img src="./images/programiz/counting/step3.png" width="100%" style="max-height: 200px; object-fit: contain;" /><p style="font-size:0.7em; text-align:center;">Step 2: Cumulative counts (prefix sum)</p></div>
+</div>
 
-```
-Step 1: Count occurrences          Step 2: Cumulative counts
-C = [4, 3, 2, 1]                  C = [4, 7, 9, 10]
-     1  2  3  4                        1  2  3  4
-
-     ↑                                 ↑
-     4 ones, 3 twos,                   Elements ≤ 1: 4
-     2 threes, 1 four                  Elements ≤ 2: 7
-                                       Elements ≤ 3: 9
-                                       Elements ≤ 4: 10
-
-Step 3: Place elements (right to left for stability)
-j=10: A[10]=2, C[2]=7 → B[7]=2, C[2]=6
-j=9:  A[9]=1,  C[1]=4 → B[4]=1, C[1]=3
-j=8:  A[8]=3,  C[3]=9 → B[9]=3, C[3]=8
-  ...
-
-B = [1, 1, 1, 1, 2, 2, 2, 3, 3, 4]     ← Sorted!
-```
+<div style="margin-top: 12px;">
+  <img src="./images/programiz/counting/step4.png" width="60%" style="display:block; margin:0 auto; max-height: 200px; object-fit: contain;" />
+  <p style="font-size:0.7em; text-align:center;">Step 3: Place elements at correct positions using cumulative counts (right to left for stability)</p>
+</div>
 
 $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when } k = O(n)\text{)}$$
 
@@ -874,19 +859,22 @@ $$T(n) = \Theta(n + k) = \Theta(n) \quad \text{(when } k = O(n)\text{)}$$
 
 # Complexity Comparison — All Sorting Algorithms
 
-| Algorithm | Worst Case | Average Case | Best Case | Space | Stable? |
-|-----------|-----------|-------------|-----------|-------|---------|
-| **Selection Sort** | Theta(n^2) | Theta(n^2) | Theta(n^2) | O(1) | No |
-| **Bubble Sort** | Theta(n^2) | Theta(n^2) | Theta(n) | O(1) | Yes |
-| **Insertion Sort** | Theta(n^2) | Theta(n^2) | **Theta(n)** | O(1) | Yes |
-| **Merge Sort** | Theta(n log n) | Theta(n log n) | Theta(n log n) | **O(n)** | Yes |
-| **Quick Sort** | **Theta(n^2)** | Theta(n log n) | Theta(n log n) | O(log n) | No |
-| **Heap Sort** | Theta(n log n) | Theta(n log n) | Theta(n log n) | O(1) | No |
-| **Counting Sort** | Theta(n + k) | Theta(n + k) | Theta(n + k) | O(k) | Yes |
-| **Radix Sort** | Theta(nk) | Theta(nk) | Theta(nk) | O(n + k) | Yes |
+<div style="font-size: 0.85em;">
 
-> Comparison-based sorting lower bound: **Omega(n log n)**
-> Linear-time sorts bypass this by exploiting input structure, not comparisons.
+| Algorithm | Worst | Average | Best | Space | Stable? |
+|-----------|-------|---------|------|-------|---------|
+| **Selection** | Theta(n^2) | Theta(n^2) | Theta(n^2) | O(1) | No |
+| **Bubble** | Theta(n^2) | Theta(n^2) | Theta(n) | O(1) | Yes |
+| **Insertion** | Theta(n^2) | Theta(n^2) | **Theta(n)** | O(1) | Yes |
+| **Merge** | Theta(n log n) | Theta(n log n) | Theta(n log n) | **O(n)** | Yes |
+| **Quick** | **Theta(n^2)** | Theta(n log n) | Theta(n log n) | O(log n) | No |
+| **Heap** | Theta(n log n) | Theta(n log n) | Theta(n log n) | O(1) | No |
+| **Counting** | Theta(n+k) | Theta(n+k) | Theta(n+k) | O(k) | Yes |
+| **Radix** | Theta(nk) | Theta(nk) | Theta(nk) | O(n+k) | Yes |
+
+</div>
+
+> Comparison-based lower bound: **Omega(n log n)**. Linear-time sorts bypass this by exploiting input structure.
 
 ---
 
