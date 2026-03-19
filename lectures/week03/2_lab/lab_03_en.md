@@ -453,3 +453,18 @@ See `../3_assignment/README.md` for assignment details.
 ### Next week
 
 **Week 04**: Advanced Divide and Conquer -- Merge Sort tracing, k-th smallest, and closest pair of points.
+
+---
+
+# Practice Problems (Baekjoon)
+
+| Tier | # | Title | Concept |
+|------|---|-------|---------|
+| Bronze II | [2750](https://boj.kr/2750) | 수 정렬하기 | O(n^2) basic sort practice |
+| Bronze I | [23881](https://boj.kr/23881) | 알고리즘 수업 - 선택 정렬 1 | Selection Sort simulation |
+| Bronze I | [23968](https://boj.kr/23968) | 알고리즘 수업 - 버블 정렬 1 | Bubble Sort simulation |
+| Bronze I | [24051](https://boj.kr/24051) | 알고리즘 수업 - 삽입 정렬 1 | Insertion Sort simulation |
+| Silver V | [2751](https://boj.kr/2751) | 수 정렬하기 2 | O(n log n) required (N=1,000,000) |
+| Silver V | [24090](https://boj.kr/24090) | 알고리즘 수업 - 퀵 정렬 1 | Quick Sort simulation |
+| Silver IV | [11399](https://boj.kr/11399) | ATM | Sorting + greedy application |
+| Silver III | [24060](https://boj.kr/24060) | 알고리즘 수업 - 병합 정렬 1 | Merge Sort simulation |
