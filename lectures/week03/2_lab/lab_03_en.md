@@ -58,7 +58,7 @@ layout: section
 
 **Idea**: Find the minimum element, swap it to the front. Repeat.
 
-```
+```text
 [64, 34, 25, 12, 22, 11, 90]
 
 Pass 1: Find min=11    -> [11, 34, 25, 12, 22, 64, 90]
@@ -98,7 +98,7 @@ def selection_sort(arr):
 
 **Idea**: Repeatedly swap adjacent elements if out of order. Largest elements "bubble up" to the end.
 
-```
+```text
 [64, 34, 25, 12]
 
 Pass 1: [34, 64, 25, 12]  swap(64,34)
@@ -143,7 +143,7 @@ The `swapped` flag enables early termination -- best case becomes O(n) for alrea
 
 **Idea**: Take each element and insert it into its correct position in the already-sorted prefix.
 
-```
+```text
 [64, 34, 25, 12, 22]
 
 Step 1: [64 | 34, 25, 12, 22]  Insert 34 -> [34, 64 | 25, 12, 22]
@@ -193,7 +193,7 @@ layout: section
 
 **Idea**: Divide the array in half, sort each half recursively, then merge.
 
-```
+```text
          [38, 27, 43, 3, 9, 82, 10]
                     /     \
          [38, 27, 43, 3]   [9, 82, 10]
@@ -246,7 +246,7 @@ def _merge(left, right):
 
 **Idea**: Pick a pivot, partition into elements less than / equal to / greater than pivot, recurse.
 
-```
+```text
 Pivot = 43
 [38, 27, 43, 3, 9, 82, 10]
 
@@ -316,7 +316,7 @@ python examples/skeletons/a3_sort_benchmark.py
 
 Measure execution time at N = 100, 1,000, 10,000, and 100,000:
 
-```
+```text
 Algorithm        N=100     N=1,000    N=10,000   N=100,000
 ---------------------------------------------------------
 Selection Sort   0.001s    0.050s     5.0s        500s
@@ -334,7 +334,7 @@ Quick Sort       0.001s    0.003s     0.03s       0.3s
 
 # A-3: Benchmark -- Visualizing the Gap
 
-```
+```text
 Time (s)
   ^
   |
@@ -380,7 +380,7 @@ python app.py
 
 Open **http://localhost:5000** in your browser.
 
-```
+```text
 +--------------------------------------------------+
 |  Mini Shopping Mall - Product Sorting Demo        |
 |                                                   |
