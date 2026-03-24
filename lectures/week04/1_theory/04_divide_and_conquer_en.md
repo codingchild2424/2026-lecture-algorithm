@@ -187,6 +187,9 @@ DaC Example 1
 
 # Merge Sort — Overview
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 **Divide:** Split array of $n$ elements into two halves of $n/2$
 
 **Conquer:** Recursively sort each half
@@ -201,6 +204,13 @@ MERGE-SORT(A, p, r)
     MERGE-SORT(A, q+1, r)     // sort right half
     MERGE(A, p, q, r)         // merge both halves
 ```
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch02_fig2_4_1.png" alt="Merge sort operation tree (CLRS Figure 2.4)" width="320" />
+  <div style="font-size: 0.6em; color: #888; text-align: center;">CLRS Figure 2.4</div>
+</div>
+</div>
 
 ---
 
@@ -386,6 +396,9 @@ QUICKSORT(A, p, r)
 
 # Partition Procedure
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 Choose the **last element** as pivot. Rearrange so that:
 - Elements $\le$ pivot go to the left
 - Elements $>$ pivot go to the right
@@ -403,6 +416,14 @@ PARTITION(A, p, r)
 ```
 
 Returns the final index of the pivot.
+
+</div>
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 10px;">
+  <img src="./images/ch07_partition_1.png" alt="Partition regions (CLRS Figure 7.2)" width="280" />
+  <img src="./images/ch07_partition_2.png" alt="Partition iteration cases (CLRS Figure 7.3)" width="280" />
+  <div style="font-size: 0.6em; color: #888; text-align: center;">CLRS Figures 7.2 & 7.3</div>
+</div>
+</div>
 
 ---
 
@@ -635,23 +656,23 @@ $$M = 18$$
 
 # Why Does Median of Medians Guarantee Balance?
 
-```
-  Group 1    Group 2    Group 3    ...    Group with M
-    .          .          .                  ■ ← M
-    .          .          .                  .
-    o          o          ●                  ●
-    o          o          ●                  ●
-    o          o          ●                  ●
-
-  ● = definitely ≤ M     ■ = M (pivot)
-  o = could be either    . = definitely > M
-```
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
 
 - At least half of the $\lceil n/5 \rceil$ medians are $\le M$
 - For each such median, at least 3 elements in its group are $\le M$
 - So at least $3 \times \lceil n/10 \rceil \approx 3n/10$ elements are $\le M$
 - Similarly, at least $3n/10$ elements are $\ge M$
 - **Worst case:** recurse on at most $7n/10$ elements
+
+Each column = group of 5. White circles = medians. Shaded region = elements guaranteed $\ge x$.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch09_fig9_1_1.png" alt="Median of Medians analysis (CLRS Figure 9.1)" width="300" />
+  <div style="font-size: 0.6em; color: #888; text-align: center;">CLRS Figure 9.1</div>
+</div>
+</div>
 
 ---
 
