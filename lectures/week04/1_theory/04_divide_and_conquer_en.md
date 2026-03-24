@@ -225,21 +225,69 @@ $$T(n) = \Theta(n \log n)$$
 
 # Merge Sort — Step-by-Step Example
 
-```text
-[38, 27, 43, 3, 9, 82, 10]
-           Divide
-[38, 27, 43, 3]     [9, 82, 10]
-    Divide               Divide
-[38, 27] [43, 3]    [9, 82] [10]
- Div      Div        Div
-[38][27] [43][3]    [9][82] [10]
- Merge    Merge      Merge
-[27, 38] [3, 43]   [9, 82] [10]
-    Merge               Merge
-[3, 27, 38, 43]    [9, 10, 82]
-           Merge
-[3, 9, 10, 27, 38, 43, 82]
-```
+<div style="display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.7em;">
+  <!-- Level 0: Original -->
+  <div style="background: #4a90d9; color: white; padding: 4px 14px; border-radius: 6px; font-weight: bold;">38, 27, 43, 3, 9, 82, 10</div>
+  <div style="color: #e74c3c; font-weight: bold; font-size: 0.85em;">↙ Divide ↘</div>
+  <!-- Level 1 -->
+  <div style="display: flex; gap: 60px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+      <div style="background: #f0ad4e; padding: 4px 12px; border-radius: 6px; font-weight: bold;">38, 27, 43, 3</div>
+      <div style="color: #e74c3c; font-size: 0.85em;">↙ Div ↘</div>
+      <!-- Level 2 left -->
+      <div style="display: flex; gap: 12px;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+          <div style="background: #5bc0de; padding: 4px 8px; border-radius: 6px;">38, 27</div>
+          <div style="color: #e74c3c; font-size: 0.85em;">↙↘</div>
+          <div style="display: flex; gap: 4px;">
+            <div style="background: #ddd; padding: 2px 6px; border-radius: 4px;">38</div>
+            <div style="background: #ddd; padding: 2px 6px; border-radius: 4px;">27</div>
+          </div>
+          <div style="color: #27ae60; font-size: 0.85em;">↘↙</div>
+          <div style="background: #27ae60; color: white; padding: 2px 8px; border-radius: 4px;">27, 38</div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+          <div style="background: #5bc0de; padding: 4px 8px; border-radius: 6px;">43, 3</div>
+          <div style="color: #e74c3c; font-size: 0.85em;">↙↘</div>
+          <div style="display: flex; gap: 4px;">
+            <div style="background: #ddd; padding: 2px 6px; border-radius: 4px;">43</div>
+            <div style="background: #ddd; padding: 2px 6px; border-radius: 4px;">3</div>
+          </div>
+          <div style="color: #27ae60; font-size: 0.85em;">↘↙</div>
+          <div style="background: #27ae60; color: white; padding: 2px 8px; border-radius: 4px;">3, 43</div>
+        </div>
+      </div>
+      <div style="color: #27ae60; font-weight: bold; font-size: 0.85em;">↘ Merge ↙</div>
+      <div style="background: #27ae60; color: white; padding: 4px 12px; border-radius: 6px;">3, 27, 38, 43</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+      <div style="background: #f0ad4e; padding: 4px 12px; border-radius: 6px; font-weight: bold;">9, 82, 10</div>
+      <div style="color: #e74c3c; font-size: 0.85em;">↙ Div ↘</div>
+      <!-- Level 2 right -->
+      <div style="display: flex; gap: 12px;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+          <div style="background: #5bc0de; padding: 4px 8px; border-radius: 6px;">9, 82</div>
+          <div style="color: #e74c3c; font-size: 0.85em;">↙↘</div>
+          <div style="display: flex; gap: 4px;">
+            <div style="background: #ddd; padding: 2px 6px; border-radius: 4px;">9</div>
+            <div style="background: #ddd; padding: 2px 6px; border-radius: 4px;">82</div>
+          </div>
+          <div style="color: #27ae60; font-size: 0.85em;">↘↙</div>
+          <div style="background: #27ae60; color: white; padding: 2px 8px; border-radius: 4px;">9, 82</div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+          <div style="background: #5bc0de; padding: 4px 8px; border-radius: 6px;">10</div>
+          <div style="height: 52px;"></div>
+          <div style="background: #27ae60; color: white; padding: 2px 8px; border-radius: 4px;">10</div>
+        </div>
+      </div>
+      <div style="color: #27ae60; font-weight: bold; font-size: 0.85em;">↘ Merge ↙</div>
+      <div style="background: #27ae60; color: white; padding: 4px 12px; border-radius: 6px;">9, 10, 82</div>
+    </div>
+  </div>
+  <div style="color: #27ae60; font-weight: bold; font-size: 0.85em;">↘ Merge ↙</div>
+  <div style="background: #2c3e50; color: white; padding: 4px 14px; border-radius: 6px; font-weight: bold;">3, 9, 10, 27, 38, 43, 82</div>
+</div>
 
 ---
 layout: section
