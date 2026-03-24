@@ -40,25 +40,24 @@ An algorithm that **divides** the input of a given problem and **conquers** (sol
 
 # DaC Conceptual Diagram
 
-```
-           ┌──────────┐
-           │  Problem  │
-           └────┬─────┘
-         Divide │
-        ┌───────┴───────┐
-   ┌────┴────┐     ┌────┴────┐
-   │Subproblem│    │Subproblem│
-   └────┬────┘     └────┬────┘
- Conquer│               │Conquer
-   ┌────┴────┐     ┌────┴────┐
-   │Subsol.  │     │Subsol.  │
-   └────┬────┘     └────┬────┘
-        └───────┬───────┘
-        Combine │
-         ┌──────┴──────┐
-         │  Solution   │
-         └─────────────┘
-```
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 0.9em;">
+  <div style="background: #4a90d9; color: white; padding: 8px 24px; border-radius: 8px; font-weight: bold;">Problem</div>
+  <div style="color: #666;">↓ Divide</div>
+  <div style="display: flex; gap: 80px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+      <div style="background: #f0ad4e; padding: 8px 20px; border-radius: 8px; font-weight: bold;">Subproblem 1</div>
+      <div style="color: #666;">↓ Conquer</div>
+      <div style="background: #9b59b6; color: white; padding: 8px 20px; border-radius: 8px;">Subsolution 1</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+      <div style="background: #f0ad4e; padding: 8px 20px; border-radius: 8px; font-weight: bold;">Subproblem 2</div>
+      <div style="color: #666;">↓ Conquer</div>
+      <div style="background: #9b59b6; color: white; padding: 8px 20px; border-radius: 8px;">Subsolution 2</div>
+    </div>
+  </div>
+  <div style="color: #666;">↘ Combine ↙</div>
+  <div style="background: #27ae60; color: white; padding: 8px 24px; border-radius: 8px; font-weight: bold;">Solution</div>
+</div>
 
 ---
 
