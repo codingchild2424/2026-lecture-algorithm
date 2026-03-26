@@ -1,4 +1,4 @@
-# Week 04 Assignment — Large Number Multiplication (Karatsuba)
+# Week 04 Assignment — Closest Pair of Points Visualizer
 
 - **Topic:** Divide and Conquer
 - **Weight:** 1%

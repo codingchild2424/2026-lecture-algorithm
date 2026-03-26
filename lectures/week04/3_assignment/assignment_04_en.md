@@ -1,13 +1,13 @@
 ---
 theme: default
-title: "Week 04 Assignment — Large Number Multiplication"
+title: "Week 04 Assignment — Closest Pair of Points Visualizer"
 class: text-center
 transition: slide-left
 ---
 
 # Week 04 Assignment
 
-Large Number Multiplication — Karatsuba Algorithm
+Closest Pair of Points — Divide and Conquer Visualizer
 
 Korea University Sejong Campus, Dept. of Computer Science & Software
 
@@ -28,42 +28,37 @@ layoutClass: gap-8
 
 # Problem
 
-Build a **large number multiplication** web app that compares the **naive method** with the **Karatsuba algorithm** to demonstrate how divide and conquer reduces computational complexity.
+Build a **closest pair of points** web app that compares the **brute force** approach with the **divide and conquer** algorithm, and visualizes the result on a 2D canvas.
 
 **Backend:** Python (FastAPI or Flask)
-**Frontend:** HTML + CSS + JavaScript
+**Frontend:** HTML + CSS + JavaScript (Canvas)
 
 ::right::
 
-<img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80" alt="Mathematics" style="border-radius: 12px; margin-top: 40px;" />
+<img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80" alt="Points" style="border-radius: 12px; margin-top: 40px;" />
 
 ---
 
 # Required Features
 
-### 1. Multiplication Algorithms
+### 1. Closest Pair Algorithms
 
-Implement **two multiplication approaches** for arbitrarily large integers:
+Implement **two approaches** to find the closest pair among n points in a 2D plane:
 
 | Approach | Method | Complexity |
 |----------|--------|-----------|
-| Naive | Python's built-in `*` operator (grade-school multiplication) | O(n²) |
-| Karatsuba | Divide and conquer — split digits, 3 recursive multiplications | O(n^1.585) |
+| Brute Force | Check all n(n−1)/2 pairs | O(n²) |
+| Divide & Conquer | Split by x-coordinate, recurse, check strip | O(n log² n) |
 
-**Karatsuba key idea:**
+**D&C strategy:**
 
 ```
-x = high_x · 10^m + low_x
-y = high_y · 10^m + low_y
-
-z0 = low_x × low_y
-z2 = high_x × high_y
-z1 = (low_x + high_x) × (low_y + high_y) − z0 − z2
-
-result = z2 · 10^(2m) + z1 · 10^m + z0
+1. Sort points by x-coordinate
+2. Split into LEFT and RIGHT halves
+3. Recursively find closest pair in each half → d
+4. Check the "strip" (points within distance d of the dividing line)
+5. Return the overall closest pair
 ```
-
-Only **3 multiplications** instead of 4 → better asymptotic complexity.
 
 ---
 
@@ -71,19 +66,19 @@ Only **3 multiplications** instead of 4 → better asymptotic complexity.
 
 ### 2. Web Interface
 
-- User can **enter two large numbers** or click **"Generate Random"** to create numbers with a specified digit count
-- Clicking **"Multiply"** runs both algorithms
-- Display:
-  - The **result** of the multiplication
-  - **Execution time** for both naive and Karatsuba methods
-  - **Speedup ratio** (naive time / Karatsuba time)
+- **"Generate Random"** button to scatter n random points (user chooses n)
+- Clicking **"Find Closest Pair"** runs both algorithms
+- Display on a **2D canvas**:
+  - All points plotted as dots
+  - The **closest pair** highlighted and connected with a line
+- Show **execution time** for both brute force and D&C, plus the **speedup ratio**
 
 ### 3. API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/multiply` | Multiply two numbers using both methods, return results and timing |
-| `POST` | `/generate` | Generate two random numbers with a given digit count |
+| `POST` | `/closest-pair` | Find closest pair using both methods, return results and timing |
+| `POST` | `/generate` | Generate n random 2D points |
 | `GET` | `/` | Serve the frontend page |
 
 ---
@@ -104,9 +99,9 @@ week04_assignment/
 
 ### 2. Report (`.pdf` only, max 2 pages, font size 11pt+)
 
-- **Screenshot** of the web app multiplying two large numbers (1,000+ digits)
-- **Performance table** comparing naive vs Karatsuba at digit counts 100, 1,000, 10,000
-- **Analysis:** Explain the divide and conquer strategy behind Karatsuba. Why does reducing from 4 to 3 recursive multiplications improve the overall complexity?
+- **Screenshot** of the web app showing the closest pair highlighted on the canvas
+- **Performance table** comparing brute force vs D&C at point counts 100, 1,000, 5,000
+- **Analysis:** Explain how the divide and conquer approach reduces the problem from O(n²) to O(n log² n). Why is checking only the strip sufficient?
 
 ---
 
