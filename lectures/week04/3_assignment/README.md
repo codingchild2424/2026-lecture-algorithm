@@ -1,4 +1,4 @@
-# Week 04 Assignment — Divide & Conquer Search Web App
+# Week 04 Assignment — Large Number Multiplication (Karatsuba)
 
 - **Topic:** Divide and Conquer
 - **Weight:** 1%

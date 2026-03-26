@@ -1,13 +1,13 @@
 ---
 theme: default
-title: "Week 04 Assignment — English Dictionary Autocomplete"
+title: "Week 04 Assignment — Large Number Multiplication"
 class: text-center
 transition: slide-left
 ---
 
 # Week 04 Assignment
 
-English Dictionary — Autocomplete Search
+Large Number Multiplication — Karatsuba Algorithm
 
 Korea University Sejong Campus, Dept. of Computer Science & Software
 
@@ -28,29 +28,42 @@ layoutClass: gap-8
 
 # Problem
 
-Build an **English dictionary** web app with real-time autocomplete. Compare **linear search** vs **binary search** to demonstrate how divide and conquer improves search performance.
+Build a **large number multiplication** web app that compares the **naive method** with the **Karatsuba algorithm** to demonstrate how divide and conquer reduces computational complexity.
 
 **Backend:** Python (FastAPI or Flask)
 **Frontend:** HTML + CSS + JavaScript
 
 ::right::
 
-<img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=800&q=80" alt="Dictionary" style="border-radius: 12px; margin-top: 40px;" />
+<img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80" alt="Mathematics" style="border-radius: 12px; margin-top: 40px;" />
 
 ---
 
 # Required Features
 
-### 1. Search Algorithms
+### 1. Multiplication Algorithms
 
-Load a word list (10,000+ English words) and implement **two search approaches**:
+Implement **two multiplication approaches** for arbitrarily large integers:
 
 | Approach | Method | Complexity |
 |----------|--------|-----------|
-| Linear Search | Scan all words sequentially for prefix match | O(n) |
-| Binary Search | Sorted array + binary search for prefix range | O(log n) |
+| Naive | Python's built-in `*` operator (grade-school multiplication) | O(n²) |
+| Karatsuba | Divide and conquer — split digits, 3 recursive multiplications | O(n^1.585) |
 
-The backend loads the word list on startup and serves search results.
+**Karatsuba key idea:**
+
+```
+x = high_x · 10^m + low_x
+y = high_y · 10^m + low_y
+
+z0 = low_x × low_y
+z2 = high_x × high_y
+z1 = (low_x + high_x) × (low_y + high_y) − z0 − z2
+
+result = z2 · 10^(2m) + z1 · 10^m + z0
+```
+
+Only **3 multiplications** instead of 4 → better asymptotic complexity.
 
 ---
 
@@ -58,18 +71,19 @@ The backend loads the word list on startup and serves search results.
 
 ### 2. Web Interface
 
-- A **search bar** — as the user types, results update in **real time** (autocomplete)
-- Display **both** search results side by side:
-  - Linear search results + time taken
-  - Binary search results + time taken
-- Show the **speedup ratio** (linear time / binary time)
+- User can **enter two large numbers** or click **"Generate Random"** to create numbers with a specified digit count
+- Clicking **"Multiply"** runs both algorithms
+- Display:
+  - The **result** of the multiplication
+  - **Execution time** for both naive and Karatsuba methods
+  - **Speedup ratio** (naive time / Karatsuba time)
 
 ### 3. API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/search/linear?q=prefix` | Linear search autocomplete |
-| `GET` | `/search/binary?q=prefix` | Binary search autocomplete |
+| `POST` | `/multiply` | Multiply two numbers using both methods, return results and timing |
+| `POST` | `/generate` | Generate two random numbers with a given digit count |
 | `GET` | `/` | Serve the frontend page |
 
 ---
@@ -81,7 +95,6 @@ The backend loads the word list on startup and serves search results.
 ```
 week04_assignment/
 ├── app.py              # Backend
-├── words.txt           # Word list (10,000+ words)
 ├── static/
 │   ├── index.html
 │   ├── style.css
@@ -91,9 +104,9 @@ week04_assignment/
 
 ### 2. Report (`.pdf` only, max 2 pages, font size 11pt+)
 
-- **Screenshot** of the autocomplete dictionary in action
-- **Performance table** comparing linear vs binary search at word list sizes 1K, 10K, 100K
-- **Analysis:** Explain why binary search is faster and connect to the divide and conquer strategy
+- **Screenshot** of the web app multiplying two large numbers (1,000+ digits)
+- **Performance table** comparing naive vs Karatsuba at digit counts 100, 1,000, 10,000
+- **Analysis:** Explain the divide and conquer strategy behind Karatsuba. Why does reducing from 4 to 3 recursive multiplications improve the overall complexity?
 
 ---
 
