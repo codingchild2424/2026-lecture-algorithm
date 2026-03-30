@@ -1,4 +1,4 @@
-"""Homework 4: Reference Solution — Classroom Reservation (Activity Selection)"""
+"""Homework 5: Reference Solution — Classroom Reservation (Activity Selection)"""
 import random
 
 

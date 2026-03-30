@@ -1,5 +1,5 @@
 import pytest, sys, os, random, math
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'skeleton'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'solution'))
 import solution
 
 

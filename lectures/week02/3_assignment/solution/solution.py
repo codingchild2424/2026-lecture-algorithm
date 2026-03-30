@@ -1,4 +1,4 @@
-"""Homework 1: Reference Solution — Mini Shopping Mall Search"""
+"""Homework 2: Reference Solution — Mini Shopping Mall Search"""
 import time
 import random
 import string

@@ -1,4 +1,4 @@
-"""Homework 5: Reference Solution — Plagiarism Checker (LCS)"""
+"""Homework 6: Reference Solution — Plagiarism Checker (LCS)"""
 
 
 def lcs(text_a, text_b):

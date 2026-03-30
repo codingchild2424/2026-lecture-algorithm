@@ -1,4 +1,4 @@
-# Week 03 Assignment — Sorting Visualizer Web App
+# Week 03 Assignment — Music Playlist Manager
 
 - **Topic:** Sorting Algorithms
 - **Weight:** 1%

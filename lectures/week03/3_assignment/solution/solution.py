@@ -1,4 +1,4 @@
-"""Homework 2: Reference Solution — Music Playlist Sorting"""
+"""Homework 3: Reference Solution — Music Playlist Sorting"""
 import time
 import random
 

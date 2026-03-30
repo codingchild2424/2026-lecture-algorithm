@@ -1,4 +1,4 @@
-# Week 06 Assignment — DP Text Diff Web App
+# Week 06 Assignment — Plagiarism Checker
 
 - **Topic:** Dynamic Programming
 - **Weight:** 1%

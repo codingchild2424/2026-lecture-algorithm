@@ -1,4 +1,4 @@
-# Week 05 Assignment — Greedy Scheduler Web App
+# Week 05 Assignment — Classroom Reservation System
 
 - **Topic:** Greedy Algorithms
 - **Weight:** 1%

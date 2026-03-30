@@ -1,4 +1,4 @@
-# Week 02 Assignment — Complexity Comparison Web App
+# Week 02 Assignment — Mini Shopping Mall Search
 
 - **Topic:** Algorithm Complexity Analysis
 - **Weight:** 1%
