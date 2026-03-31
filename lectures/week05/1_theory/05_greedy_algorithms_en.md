@@ -205,6 +205,50 @@ FractionalKnapsack(items, C):
 </div>
 
 ---
+
+# 0-1 vs Fractional Knapsack — Why Greedy Fails for 0-1
+
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
+**Same items, same knapsack (50 lbs) — different results:**
+
+| | 0-1 Knapsack | Fractional Knapsack |
+|---|---|---|
+| **Constraint** | Take it or leave it | Can take fractions |
+| **Greedy choice** | Item 1 (best $/lb) | Item 1 (best $/lb) |
+| **Greedy result** | $60+$100 = **$160** | $60+$100+$80 = **$240** |
+| **Optimal** | Item 2+3 = **$220** | Same as greedy = **$240** |
+
+- **(b) 0-1**: Greedy picks item 1 first (6 $/lb), but this wastes 20 lbs of capacity → suboptimal
+- **(c) Fractional**: Greedy fills remaining space with 2/3 of item 3 → **optimal**
+
+> **Key insight**: In 0-1, greedy can waste capacity. The "empty space cost" makes greedy suboptimal. Use **DP** for 0-1 knapsack.
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch16_p014_003.png" alt="0-1 vs Fractional Knapsack (CLRS Figure 16.2)" width="280" />
+</div>
+</div>
+
+---
+
+# Where Do We See Greedy in the Real World?
+
+| Algorithm | Real-World Application |
+|-----------|----------------------|
+| **Coin Change** | ATM cash dispensers, vending machine change |
+| **Fractional Knapsack** | Investment portfolio allocation, cargo loading (oil, grain) |
+| **Activity Selection** | Conference room booking, TV broadcast scheduling, CPU task scheduling |
+| **Huffman Coding** | ZIP/GZIP compression, JPEG image encoding, MP3 audio |
+| **Kruskal's / Prim's MST** | Fiber optic network design, road construction planning, circuit wiring |
+| **Dijkstra's** | GPS navigation (Google Maps, Naver Map), network routing (OSPF protocol) |
+
+<br>
+
+> Every time your phone finds a route, your file gets compressed, or a network cable is laid — a greedy algorithm is likely at work.
+
+---
 layout: section
 ---
 
@@ -396,6 +440,9 @@ Using the codes: A = `0`, C = `10`, T = `110`, G = `111`
 
 # Minimum Spanning Tree (MST)
 
+<div style="display: flex; align-items: flex-start; gap: 20px;">
+<div style="flex: 1;">
+
 **Problem**: Given a weighted, connected graph G = (V, E), find a tree T that:
 - Connects **all** vertices (spanning)
 - Has **minimum** total edge weight
@@ -413,6 +460,13 @@ Using the codes: A = `0`, C = `10`, T = `110`, G = `111`
 | **Data structure** | Union-Find (disjoint sets) | Priority queue / array D |
 | **Complexity** | O(m log m) | O(n^2) or O(m log n) with heap |
 | **Best for** | Sparse graphs | Dense graphs |
+
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch23_p002_011.jpg" alt="MST example (CLRS Figure 23.1)" width="300" />
+  <p style="font-size: 0.7em; color: #666; text-align: center;">CLRS Figure 23.1 — MST edges shaded<br>Total weight = 37</p>
+</div>
+</div>
 
 ---
 
@@ -441,6 +495,10 @@ KruskalMST(G):
 
 **Time complexity**: O(m log m) -- dominated by sorting edges
 
+<img src="./images/ch23_p009_105.jpg" alt="Kruskal execution (CLRS Figure 23.4)" width="620" style="margin-top: 8px;" />
+
+<p style="font-size: 0.7em; color: #666;">CLRS Figure 23.4 — Kruskal processes edges in weight order; shaded edges belong to the growing forest</p>
+
 ---
 
 # Prim's MST Algorithm
@@ -467,6 +525,10 @@ PrimMST(G):
 **Key difference from Kruskal**: Prim grows **one tree** from a starting vertex; Kruskal merges **multiple trees** (forest).
 
 **Time complexity**: O(n^2) with array, O(m log n) with binary heap
+
+<img src="./images/ch23_p012_128.jpg" alt="Prim execution (CLRS Figure 23.5)" width="500" style="margin-top: 8px;" />
+
+<p style="font-size: 0.7em; color: #666;">CLRS Figure 23.5 — Prim grows one tree from vertex <i>a</i>; black vertices are in the tree, shaded edges are MST edges</p>
 
 ---
 
@@ -518,6 +580,9 @@ Dijkstra(G, s):
 
 # Dijkstra's Algorithm — Edge Relaxation
 
+<div style="display: flex; align-items: flex-start; gap: 24px;">
+<div style="flex: 1;">
+
 **Edge relaxation** is the core operation (lines 6-8):
 
 ```
@@ -537,23 +602,22 @@ Dijkstra(G, s):
 
 > **Note**: Dijkstra's does NOT work with **negative** edge weights. For that, use **Bellman-Ford** (O(VE)).
 
+</div>
+<div style="flex-shrink: 0;">
+  <img src="./images/ch24_p007_068.jpg" alt="Edge relaxation (CLRS Figure 24.3)" width="260" />
+  <p style="font-size: 0.7em; color: #666; text-align: center;">CLRS Figure 24.3<br>(a) d decreases (b) no change</p>
+</div>
+</div>
+
 ---
 
-# Dijkstra's — Worked Example
+# Dijkstra's — Execution Trace (CLRS Figure 24.6)
 
-**Graph**: Cities with distances (Seoul as source)
+<img src="./images/ch24_p017_197.jpg" alt="Dijkstra execution (CLRS Figure 24.6)" width="680" style="margin-top: 4px;" />
 
-| Step | Finalized | Action | Key Updates |
-|------|-----------|--------|-------------|
-| 0 | Seoul (0) | Initialize | Neighbors get direct distances |
-| 1 | Cheonan (12) | Relax from Cheonan | Update Daejeon, Wonju, etc. |
-| 2 | Wonju (15) | Relax from Wonju | Update Gangneung |
-| 3 | Nonsan (via Cheonan) | Relax from Nonsan | Update Gwangju, Daegu |
-| 4 | Daejeon | Relax from Daejeon | No improvements |
-| 5 | Daegu | Relax from Daegu | Update Busan, Pohang |
-| ... | Continue until all finalized | | |
-
-Each vertex is finalized **exactly once**, and D[v] is the true shortest distance.
+- Source *s* is the leftmost vertex. **Black** = finalized (in S), **white** = in priority queue Q.
+- **(a)** Initial state → **(b)** s finalized → **(c)** y finalized → ... → **(f)** all finalized.
+- At each step, the vertex with minimum d value is extracted and its neighbors are relaxed.
 
 **Observation**: Dijkstra's is structurally very similar to Prim's MST — both grow a set by selecting the minimum-cost vertex at each step.
 
