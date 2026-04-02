@@ -58,7 +58,7 @@ layout: section
 
 ### Case 1: Greedy succeeds
 
-```
+```text
 Coins: [500, 100, 50, 10]    Amount: 1260
 
 Greedy strategy: always pick the largest coin possible
@@ -68,7 +68,7 @@ Greedy strategy: always pick the largest coin possible
 
 ### Case 2: Greedy fails
 
-```
+```text
 Coins: [1, 3, 4]    Amount: 6
 
 Greedy: pick largest first
@@ -144,7 +144,7 @@ layout: section
 
 **Problem**: Given items with weights and values, maximize total value in a knapsack of limited capacity. Items **can be split**.
 
-```
+```text
 Knapsack capacity: 50 kg
 
 Item      Weight    Value    Value/kg
@@ -156,7 +156,7 @@ C         30 kg     120      4.0
 
 **Greedy strategy**: Sort by value-per-weight ratio (descending), then fill greedily.
 
-```
+```text
 Step 1: Take all of A  (10 kg, value 60)   remaining: 40 kg
 Step 2: Take all of B  (20 kg, value 100)  remaining: 20 kg
 Step 3: Take 2/3 of C  (20 kg, value 80)   remaining: 0 kg
@@ -196,7 +196,7 @@ Run: `python examples/solutions/a2_fractional_knapsack.py`
 
 # A-2: Fractional vs 0-1 Knapsack
 
-```
+```text
                  Fractional              0-1 Knapsack
                  (can split)             (all or nothing)
               +-----------------+     +-----------------+
@@ -229,7 +229,7 @@ layout: section
 
 **Problem**: Given character frequencies, build an optimal prefix-free binary code.
 
-```
+```text
 Text: "abracadabra"
 
 Character frequencies:
@@ -238,7 +238,7 @@ Character frequencies:
 
 **Greedy strategy**: Repeatedly merge the two lowest-frequency nodes.
 
-```
+```text
 Step 1: Merge 'c'(1) + 'd'(1) = [2]
 Step 2: Merge 'b'(2) + 'r'(2) = [4]
 Step 3: Merge [2]   + [4]     = [6]
@@ -253,7 +253,7 @@ No codeword is a prefix of another, so decoding is unambiguous without delimiter
 
 # A-3: Huffman Tree
 
-```
+```text
               [11]
              /    \
           (0)      (1)
@@ -323,7 +323,7 @@ Run: `python examples/solutions/a3_huffman.py`
 
 # A-3: Huffman -- Compression Results
 
-```
+```text
 Text: "abracadabra" (11 chars)
 
                     Bits     Bits/char
@@ -371,7 +371,7 @@ python app.py
 
 **Problem**: Given a list of meeting requests with start/end times, find the **maximum number of non-overlapping meetings** that can be scheduled.
 
-```
+```text
 Meeting requests:
   A: [1, 4)    B: [3, 5)    C: [0, 6)
   D: [5, 7)    E: [3, 9)    F: [5, 9)
@@ -397,7 +397,7 @@ Which meetings should we select to maximize the count?
 
 **Greedy strategy**: Sort by **end time**, then greedily pick non-overlapping activities.
 
-```
+```text
 Sorted by end time:
   A: [1,4)  B: [3,5)  C: [0,6)  D: [5,7)  G: [6,8)
   E: [3,9)  F: [5,9)  H: [8,11)  I: [8,12)
@@ -466,7 +466,7 @@ layout: section
 
 ### When does greedy work?
 
-```
+```text
 Greedy works when:
   1. Greedy Choice Property -- a locally optimal choice
      is part of a globally optimal solution
