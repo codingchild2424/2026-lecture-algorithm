@@ -4,13 +4,15 @@
 
 ```
 examples/
-  a1_fibonacci.py              # Skeleton - implement memoization & tabulation
-  a1_fibonacci_comparison.py   # Complete demo - benchmark & call count analysis
-  a2_lcs.py                    # Skeleton - implement LCS DP table & backtracking
-  a3_knapsack.py               # Skeleton - implement 0-1 knapsack DP
-  a3_knapsack_01.py            # Complete demo - DP table visualization & greedy comparison
-  b1_web_diff/                 # Web demo (run separately)
+  skeletons/                   # Skeleton files (implement these)
+    a1_fibonacci.py            # Skeleton - implement memoization & tabulation
+    a1_fibonacci_comparison.py # Complete demo - benchmark & call count analysis
+    a2_lcs.py                  # Skeleton - implement LCS DP table & backtracking
+    a3_knapsack.py             # Skeleton - implement 0-1 knapsack DP
+    a3_knapsack_01.py          # Complete demo - DP table visualization & greedy comparison
   solutions/                   # Complete solutions for all skeleton files
+    b1_web_diff/               # Web demo (run separately)
+  HOW_TO_RUN.md
 ```
 
 ## Running the Examples
@@ -19,19 +21,19 @@ All examples run as standalone Python scripts with no external dependencies.
 
 ```bash
 # Fibonacci - skeleton (implement TODO sections first)
-python a1_fibonacci.py
+python skeletons/a1_fibonacci.py
 
 # Fibonacci - detailed benchmark demo (complete, runs as-is)
-python a1_fibonacci_comparison.py
+python skeletons/a1_fibonacci_comparison.py
 
 # LCS - skeleton (implement TODO sections first)
-python a2_lcs.py
+python skeletons/a2_lcs.py
 
 # Knapsack - skeleton (implement TODO sections first)
-python a3_knapsack.py
+python skeletons/a3_knapsack.py
 
 # Knapsack - detailed visualization demo (complete, runs as-is)
-python a3_knapsack_01.py
+python skeletons/a3_knapsack_01.py
 ```
 
 ## Workflow
