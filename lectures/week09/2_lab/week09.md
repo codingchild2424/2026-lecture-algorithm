@@ -41,6 +41,9 @@ Starting this week's lab session, you will begin the team project. This document
 4. The code **must be pushed to GitHub**.
    - Use a public repository.
    - The README must include setup instructions, how to run the app, and demo screenshots/links.
+5. The project **must apply algorithm concepts learned in this course** somewhere in the implementation.
+   - Examples: sorting/searching, divide & conquer, greedy, dynamic programming, graph algorithms, hashing, trees (BST/RBT/B-Tree), etc.
+   - **The more course concepts you apply, the better.** Document where and how each concept is used (in the README and the technical report).
 
 ### LLM — Solar
 - The project must use **Upstage Solar** as its LLM.
